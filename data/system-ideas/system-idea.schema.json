@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://youtuber-game.local/schemas/system-idea.schema.json",
+  "title": "System idea collection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "channelTypeCode",
+    "ideas"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "channelTypeCode": {
+      "type": "string",
+      "enum": [
+        "mainstream",
+        "controversial",
+        "idol",
+        "specialized"
+      ]
+    },
+    "ideas": {
+      "type": "array",
+      "minItems": 50,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "title",
+          "description",
+          "enabled"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^(mainstream|controversial|idol|specialized)_[0-9]{3}$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "minLength": 35,
+            "maxLength": 80
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

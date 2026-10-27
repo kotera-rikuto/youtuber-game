@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "mainstream",
+  "ideas": [
+    {
+      "code": "mainstream_001",
+      "title": "【予算1万円】一日でどこまで楽しめる？",
+      "description": "限られた予算だけで食事・移動・遊びを組み立て、一日を最大限楽しめるか本気で挑戦する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_002",
+      "title": "初めての陶芸で理想のマグカップ作り",
+      "description": "先生に基本を教わりながら、デザインから色付けまで自分だけのマグカップ作りに挑む。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_003",
+      "title": "視聴者が選んだ材料だけで絶品料理を作る",
+      "description": "事前投票で決まった意外な材料をすべて使い、見た目も味も満足できる一皿を目指す。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_004",
+      "title": "部屋の不要品だけで驚きの大改造",
+      "description": "捨てる予定だった家具や小物を工夫して再利用し、殺風景な部屋を居心地よく生まれ変わらせる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_005",
+      "title": "24時間、決めた色の物だけで生活してみた",
+      "description": "食事や服、持ち物まで抽選で決めた一色にそろえ、普段どおりの一日を過ごせるか検証する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_006",
+      "title": "格安と高級、目隠しで食べ比べたら分かる？",
+      "description": "価格帯の違う料理を情報なしで食べ比べ、味だけで高級な一品を当てられるか挑戦する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_007",
+      "title": "部屋いっぱいに巨大ドミノを作ってみた",
+      "description": "家具の間を縫う長大なコースを一から組み、最後まで止まらず倒し切れるか挑戦する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_008",
+      "title": "視聴者投票だけで一日の予定を決めます",
+      "description": "食事や服装、移動先まで複数の投票結果に従い、予想できない一日を最後まで過ごす。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_009",
+      "title": "身近な食材だけで本格コース料理に挑戦",
+      "description": "手に入りやすい食材へひと手間を加え、前菜からデザートまで満足できる献立を作る。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_010",
+      "title": "100個のプレゼントで友達を驚かせたい",
+      "description": "小さな贈り物から本命まで百個を部屋に隠し、友達が順番に見つけるサプライズを仕掛ける。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_011",
+      "title": "行き先をルーレットで決める一泊二日の旅",
+      "description": "交通手段や食事、観光地をその場の抽選で選び、計画なしの旅行を最後まで楽しむ。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_012",
+      "title": "初心者が一日で使える家具を作れるのか",
+      "description": "安全な工具の使い方を教わり、設計から組み立てまで自分の手で小さな家具を完成させる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_013",
+      "title": "友達と謎の箱を交換したら中身が予想外すぎた",
+      "description": "決めた予算内で相手が喜びそうな品を詰め、互いに開封して選んだ理由まで紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_014",
+      "title": "一週間早寝を続けたら生活はどう変わる？",
+      "description": "毎晩決まった時刻に就寝し、朝の目覚めや集中力、自由時間の使い方の変化を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_015",
+      "title": "子どもの遊びを大人が本気で対決してみた",
+      "description": "昔ながらの遊びを正式なルールとトーナメント方式で競い、意外な特技と勝者を決める。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_016",
+      "title": "全国のご当地お菓子10種類を食べ比べ",
+      "description": "地域ごとに特徴の違うお菓子を順番に味わい、食感や驚きで独自ランキングを作る。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_017",
+      "title": "スマホなしで一日過ごしたら何が起きる？",
+      "description": "連絡や検索をスマートフォンに頼らず、紙の地図やメモだけで普段の予定をこなしてみる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_018",
+      "title": "家で作れる限界サイズのサンドイッチ",
+      "description": "さまざまな具材を崩れない順番で積み重ね、見た目も味も成立する巨大な一品を完成させる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_019",
+      "title": "古着だけで最高のコーデを作る対決",
+      "description": "同じ予算と制限時間で古着を選び、それぞれの個性が伝わる全身コーディネートを完成させる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_020",
+      "title": "いつも驚かす友達へ逆サプライズを仕掛ける",
+      "description": "協力者と一緒に自然な一日を演出し、最後に感謝を込めた予想外の贈り物を届ける。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_021",
+      "title": "答えにくい質問100個へ本音で回答します",
+      "description": "視聴者から集めた素朴な疑問や意外な質問へ、時間の許す限り率直に答えていく。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_022",
+      "title": "子どもの頃の写真を同じ場所で再現してみた",
+      "description": "昔と同じ構図や服装、小道具をそろえて撮影し、時間がたって変わった部分を見比べる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_023",
+      "title": "紙飛行機1000機で部屋を埋め尽くしたい",
+      "description": "形や大きさの違う紙飛行機を大量に折り、部屋いっぱいに飛ばす壮大な光景を作り上げる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_024",
+      "title": "視聴者100人と街ぐるみ宝探し",
+      "description": "許可された会場に手がかりを隠し、参加者が協力しながら制限時間内の発見を目指す。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_025",
+      "title": "3分で選んだ食材だけで晩ごはん作り",
+      "description": "決められた売り場と短い制限時間で食材を選び、組み合わせを工夫して一食を完成させる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_026",
+      "title": "自宅に本気の脱出ゲームを作ってみた",
+      "description": "複数の謎と仕掛けを部屋に配置し、何も知らない友達が制限時間内に脱出できるか見守る。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_027",
+      "title": "家族のお願いを一日全部かなえてみた",
+      "description": "掃除や買い物など普段後回しにしているお願いを聞き、一日かけてできる限り応えていく。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_028",
+      "title": "一つの食材だけでフルコースは作れる？",
+      "description": "同じ主役食材の調理法と味付けを変え、前菜からデザートまで飽きない献立を考える。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_029",
+      "title": "最安と最高級の宿、同じ一泊で何が違う？",
+      "description": "価格帯の大きく異なる二つの宿泊体験を比べ、部屋や食事、サービスの違いを紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_030",
+      "title": "手作りだけで誕生日を全力プロデュース",
+      "description": "飾り付け、料理、贈り物をすべて手作りし、相手の好みに合わせた一日を準備する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_031",
+      "title": "記憶だけで有名な動物を描く対決",
+      "description": "見本を見ずに特徴を思い出して描き、完成後に本物の姿と比べて一番近い作品を決める。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_032",
+      "title": "小さなバッグだけで三日分の荷造り",
+      "description": "必要な服や日用品を厳選し、限られた容量へ無駄なく収めて本当に困らず過ごせるか試す。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_033",
+      "title": "一畳の空間だけで24時間快適に暮らせる？",
+      "description": "食事、仕事、休憩に必要な物を狭い範囲へ配置し、外へ出ず一日を快適に過ごせるか挑む。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_034",
+      "title": "視聴者の思い出レシピを本気で再現",
+      "description": "寄せられた作り方とエピソードを頼りに料理を再現し、完成した味と背景を丁寧に紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_035",
+      "title": "家で一番古い物を新品みたいに復活させる",
+      "description": "長く使われて傷んだ身近な品を手入れし、思い出を残したまま再び使える状態へ整える。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_036",
+      "title": "予算5000円でカプセルトイ何個当たる？",
+      "description": "決めた予算を使い切るまで挑戦し、狙った品や珍しい景品をいくつ集められるか数える。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_037",
+      "title": "家にある物だけでトレーニング器具を作る",
+      "description": "安全に使える日用品を組み合わせ、運動の負荷や使いやすさを確かめながら体を動かす。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_038",
+      "title": "言葉を使わず一日コミュニケーション",
+      "description": "会話や文字入力を封印し、表情や身振りだけで買い物や共同作業を乗り切れるか挑戦する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_039",
+      "title": "30日間の節約生活でいくら残せる？",
+      "description": "毎日の支出に小さなルールを設け、無理なく続けた結果と効果の高かった工夫を振り返る。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_040",
+      "title": "各駅停車で行けるところまで気まま旅",
+      "description": "降りる駅を車内で決めながら進み、知らない街の景色や食事との偶然の出会いを楽しむ。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_041",
+      "title": "初心者だけで撮影部屋を防音DIY",
+      "description": "音の漏れやすい場所を調べ、安全な材料を使って収録しやすい空間へ少しずつ改良する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_042",
+      "title": "夢の巨大プリンを家で作ってみた",
+      "description": "型作りから冷やし方まで工夫し、大人数で分けられるほど大きなプリンを崩さず完成させる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_043",
+      "title": "達人に一日弟子入りしたらどこまで上達する？",
+      "description": "一つの技を基礎から教わり、練習前後の成果を比べながら短時間での成長を目指す。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_044",
+      "title": "友達が選んだ服と髪型で一日過ごす",
+      "description": "普段なら選ばない組み合わせを友達に任せ、新しい雰囲気で外出した感想を本音で語る。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_045",
+      "title": "散らかった部屋を制限時間で完全リセット",
+      "description": "片付け、掃除、収納の順番を決め、限られた時間で部屋がどこまで変わるか記録する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_046",
+      "title": "朝市で選んだ食材だけの豪華朝ごはん",
+      "description": "その場で見つけた旬の食材を組み合わせ、生産者のおすすめを聞きながら一食を作る。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_047",
+      "title": "一日で小さな親切を50回できるのか",
+      "description": "身近な手伝いや感謝を伝える行動を積み重ね、無理なく五十回達成できるか挑戦する。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_048",
+      "title": "定番の食べ物をあえて逆からランキング",
+      "description": "人気だけでは決めず、食感や食べやすさなど独自の基準で順位を付けて理由を語る。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_049",
+      "title": "10分と10時間で同じ絵を描き比べる",
+      "description": "同じ題材を制限時間だけ変えて二度描き、細部や完成度にどれほど差が出るか見比べる。",
+      "enabled": true
+    },
+    {
+      "code": "mainstream_050",
+      "title": "家の中に一日限定のお祭り会場を作る",
+      "description": "屋台風の料理や遊び、飾り付けを手作りし、家族や友達と楽しめる空間を完成させる。",
+      "enabled": true
+    }
+  ]
+}
