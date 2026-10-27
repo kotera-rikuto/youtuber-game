@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">『YouTuberになろう！（仮）』アーキテクチャ</title>
+  <desc id="desc">登録不要の匿名認証、Next.jsのゲーム計算、PostgreSQL関数による原子的保存、Supabase、OpenAIの関係を示す図。</desc>
+
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/>
+    </marker>
+    <marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif; fill: #172033; }
+      .title { font-size: 34px; font-weight: 700; }
+      .subtitle { font-size: 17px; fill: #64748b; }
+      .group-title { font-size: 20px; font-weight: 700; }
+      .node-title { font-size: 18px; font-weight: 700; }
+      .node-sub { font-size: 14px; fill: #526078; }
+      .edge-label { font-size: 13px; font-weight: 600; }
+      .note { font-size: 15px; fill: #475569; }
+      .read { fill: none; stroke: #2563eb; stroke-width: 3; marker-end: url(#arrow-blue); }
+      .write { fill: none; stroke: #ea580c; stroke-width: 3; marker-end: url(#arrow-orange); }
+      .support { fill: none; stroke: #64748b; stroke-width: 2.5; marker-end: url(#arrow-slate); }
+      .dashed { stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1100" fill="#f8fafc"/>
+  <text x="64" y="62" class="title">『YouTuberになろう！（仮）』アーキテクチャ</text>
+  <text x="64" y="94" class="subtitle">Next.js + Cloudflare Workers + Supabase　｜　2026-10-27</text>
+
+  <!-- Legend -->
+  <line x1="1110" y1="58" x2="1170" y2="58" class="read"/>
+  <text x="1182" y="63" class="edge-label" fill="#2563eb">読み取り</text>
+  <line x1="1295" y1="58" x2="1355" y2="58" class="write"/>
+  <text x="1367" y="63" class="edge-label" fill="#ea580c">更新・処理</text>
+
+  <!-- Browser -->
+  <rect x="55" y="150" width="285" height="650" rx="26" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="84" y="190" class="group-title">ブラウザ</text>
+
+  <rect x="92" y="245" width="210" height="115" rx="18" fill="#ffffff" stroke="#bfdbfe" stroke-width="2" filter="url(#shadow)"/>
+  <text x="197" y="286" text-anchor="middle" class="node-title">プレイヤー</text>
+  <text x="197" y="316" text-anchor="middle" class="node-sub">登録不要で開始</text>
+
+  <rect x="82" y="455" width="230" height="155" rx="18" fill="#dbeafe" stroke="#60a5fa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="197" y="502" text-anchor="middle" class="node-title">Client Components</text>
+  <text x="197" y="535" text-anchor="middle" class="node-sub">インタラクション</text>
+  <text x="197" y="560" text-anchor="middle" class="node-sub">Cookie: 匿名セッションのみ</text>
+  <text x="197" y="585" text-anchor="middle" class="node-sub">DBにゲーム本体を保存</text>
+
+  <path d="M197 360 L197 455" class="write"/>
+
+  <!-- Cloudflare / Next.js -->
+  <rect x="385" y="120" width="790" height="790" rx="28" fill="#ffffff" stroke="#cbd5e1" stroke-width="2.5"/>
+  <text x="420" y="162" class="group-title">Cloudflare Workers / Next.js</text>
+
+  <!-- Presentation -->
+  <rect x="420" y="200" width="300" height="270" rx="22" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="444" y="235" class="group-title">Presentation</text>
+
+  <rect x="450" y="260" width="240" height="82" rx="15" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="2"/>
+  <text x="570" y="294" text-anchor="middle" class="node-title">Server Components</text>
+  <text x="570" y="320" text-anchor="middle" class="node-sub">画面を組み立てる</text>
+
+  <rect x="450" y="365" width="240" height="82" rx="15" fill="#ffedd5" stroke="#fb923c" stroke-width="2"/>
+  <text x="570" y="399" text-anchor="middle" class="node-title">Server Actions</text>
+  <text x="570" y="425" text-anchor="middle" class="node-sub">匿名セッション・入力検証</text>
+
+  <!-- Application -->
+  <rect x="755" y="200" width="370" height="270" rx="22" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="779" y="235" class="group-title">Application</text>
+
+  <rect x="790" y="260" width="300" height="82" rx="15" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+  <text x="940" y="294" text-anchor="middle" class="node-title">Query / DAL</text>
+  <text x="940" y="320" text-anchor="middle" class="node-sub">表示用DTOを読み取る</text>
+
+  <rect x="790" y="365" width="300" height="82" rx="15" fill="#ffedd5" stroke="#fb923c" stroke-width="2"/>
+  <text x="940" y="399" text-anchor="middle" class="node-title">Use Cases</text>
+  <text x="940" y="425" text-anchor="middle" class="node-sub">1つの操作を最後まで進行</text>
+
+  <!-- Domain -->
+  <rect x="420" y="510" width="705" height="205" rx="22" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+  <text x="444" y="546" class="group-title">Game Domain</text>
+
+  <rect x="450" y="575" width="300" height="105" rx="16" fill="#dcfce7" stroke="#4ade80" stroke-width="2"/>
+  <text x="600" y="613" text-anchor="middle" class="node-title">Game Engine</text>
+  <text x="600" y="640" text-anchor="middle" class="node-sub">週進行・動画・体力・炎上</text>
+  <text x="600" y="663" text-anchor="middle" class="node-sub">目標・ゲームオーバー判定</text>
+
+  <rect x="785" y="575" width="145" height="105" rx="16" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/>
+  <text x="857" y="613" text-anchor="middle" class="node-title">Rules</text>
+  <text x="857" y="640" text-anchor="middle" class="node-sub">型付きルール</text>
+  <text x="857" y="663" text-anchor="middle" class="node-sub">バージョン固定</text>
+
+  <rect x="950" y="575" width="145" height="105" rx="16" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/>
+  <text x="1022" y="613" text-anchor="middle" class="node-title">Server RNG</text>
+  <text x="1022" y="640" text-anchor="middle" class="node-sub">サーバー生成</text>
+  <text x="1022" y="663" text-anchor="middle" class="node-sub">確定結果だけ保存</text>
+
+  <!-- Infrastructure -->
+  <rect x="420" y="755" width="705" height="120" rx="22" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"/>
+  <text x="444" y="790" class="group-title">Infrastructure</text>
+
+  <rect x="595" y="785" width="235" height="66" rx="14" fill="#f3e8ff" stroke="#c084fc" stroke-width="2"/>
+  <text x="712" y="814" text-anchor="middle" class="node-title">Repository + RPC</text>
+  <text x="712" y="838" text-anchor="middle" class="node-sub">取得・原子的保存</text>
+
+  <rect x="855" y="785" width="235" height="66" rx="14" fill="#f3e8ff" stroke="#c084fc" stroke-width="2"/>
+  <text x="972" y="814" text-anchor="middle" class="node-title">OpenAI Adapter</text>
+  <text x="972" y="838" text-anchor="middle" class="node-sub">企画評価・特徴抽出</text>
+
+  <!-- Supabase -->
+  <rect x="1220" y="150" width="325" height="565" rx="26" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="2.5"/>
+  <text x="1252" y="190" class="group-title">Supabase</text>
+
+  <rect x="1255" y="245" width="255" height="90" rx="16" fill="#d1fae5" stroke="#34d399" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1382" y="281" text-anchor="middle" class="node-title">Auth</text>
+  <text x="1382" y="308" text-anchor="middle" class="node-sub">自動匿名認証・auth.users</text>
+
+  <rect x="1255" y="390" width="255" height="135" rx="16" fill="#d1fae5" stroke="#34d399" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1382" y="430" text-anchor="middle" class="node-title">PostgreSQL</text>
+  <text x="1382" y="460" text-anchor="middle" class="node-sub">正規化した現在値・入力</text>
+  <text x="1382" y="486" text-anchor="middle" class="node-sub">確定履歴・commit_advance_week</text>
+
+  <rect x="1255" y="575" width="255" height="90" rx="16" fill="#d1fae5" stroke="#34d399" stroke-width="2"/>
+  <text x="1382" y="611" text-anchor="middle" class="node-title">RLS</text>
+  <text x="1382" y="638" text-anchor="middle" class="node-sub">DB側の認可</text>
+
+  <!-- OpenAI -->
+  <rect x="1245" y="790" width="275" height="105" rx="20" fill="#fff7ed" stroke="#fdba74" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1382" y="832" text-anchor="middle" class="node-title">OpenAI API</text>
+  <text x="1382" y="862" text-anchor="middle" class="node-sub">ゲーム結果ではなく企画評価を返す</text>
+
+  <!-- Read path -->
+  <path d="M450 300 C390 300 365 390 312 500" class="read"/>
+  <text x="338" y="350" class="edge-label" fill="#2563eb">props / RSC</text>
+  <path d="M690 300 L790 300" class="read"/>
+  <path d="M940 342 L940 735 L712 735 L712 785" class="read"/>
+  <path d="M830 818 C1070 818 1125 457 1255 457" class="read"/>
+
+  <!-- Write path -->
+  <path d="M312 535 C375 535 392 406 450 406" class="write"/>
+  <text x="331" y="505" class="edge-label" fill="#ea580c">ユーザー操作</text>
+  <path d="M690 406 L790 406" class="write"/>
+  <path d="M940 447 C940 500 750 500 690 575" class="write"/>
+  <path d="M1010 447 C1130 535 1070 735 830 818" class="write"/>
+  <path d="M1080 430 C1160 520 1150 720 1030 785" class="write"/>
+  <path d="M600 628 L785 628" class="support"/>
+  <path d="M930 628 L950 628" class="support"/>
+  <path d="M1090 818 L1245 842" class="write"/>
+  <path d="M712 851 C920 935 1170 620 1255 486" class="write"/>
+  <path d="M690 406 C915 120 1120 285 1255 285" class="write"/>
+  <text x="1113" y="247" class="edge-label" fill="#ea580c">匿名セッション</text>
+  <path d="M570 365 L570 342" class="support dashed"/>
+  <path d="M1382 525 L1382 575" class="support dashed"/>
+
+  <!-- Footer -->
+  <rect x="55" y="945" width="1490" height="125" rx="20" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="86" y="978" class="note">開始：Cookie確認 → セッションがなければ匿名認証 → game_runs作成。登録画面・localStorageは使わない。</text>
+  <text x="86" y="1010" class="note">特化系：10専門分野から1つを必須選択 → 人生に固定 → 選択分野の50企画だけを使用。</text>
+  <text x="86" y="1042" class="note">週進行：TypeScriptで計算 → Server専用DB関数で一括保存 → Server Componentを再検証。Edge Functionsは初期版で使わない。</text>
+</svg>

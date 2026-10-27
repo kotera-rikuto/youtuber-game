@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1600" viewBox="0 0 2200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">バージョン付きゲームルールER図</title>
+  <desc id="desc">巨大なJSONBを使わず、静的カタログと型付きルールテーブルをルールセット配下に分離した図。</desc>
+  <defs>
+    <filter id="s" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.09"/></filter>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;fill:#172033}.title{font-size:36px;font-weight:700}.subtitle{font-size:17px;fill:#64748b}.group{font-size:21px;font-weight:700}.tt{font-size:19px;font-weight:700}.f{font-size:14px;fill:#334155}.k{font-size:14px;font-weight:700}.h{font-size:13px;fill:#64748b}.card{fill:#fff;stroke-width:2;filter:url(#s)}.d{stroke:#e2e8f0;stroke-width:1.5}.r{fill:none;stroke:#64748b;stroke-width:2.2}.strong{fill:none;stroke:#334155;stroke-width:3}.runtime{fill:none;stroke:#64748b;stroke-width:2;stroke-dasharray:8 7}
+    </style>
+  </defs>
+  <rect width="2200" height="1600" fill="#f8fafc"/>
+  <text x="48" y="58" class="title">バージョン付きゲームルールER図</text>
+  <text x="48" y="90" class="subtitle">識別コードは静的カタログ ｜ 数値はrule_sets配下の型付き行 ｜ 公開後は変更せず新バージョンを作成</text>
+  <rect x="25" y="120" width="410" height="1390" rx="25" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/><text x="50" y="158" class="group">静的カタログ</text>
+  <rect x="465" y="120" width="1260" height="1390" rx="25" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"/><text x="490" y="158" class="group">公開後変更不能な型付きルール</text>
+  <rect x="1755" y="120" width="420" height="1390" rx="25" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="2"/><text x="1780" y="158" class="group">実行時の参照先</text>
+
+  <!-- relations behind -->
+  <path d="M1090 340 L1090 400" class="strong"/><path d="M1090 340 C700 370 700 400 700 400" class="r"/><path d="M1090 340 C1480 370 1480 400 1480 400" class="r"/>
+  <path d="M1090 340 C1090 760 700 760 700 820" class="r"/><path d="M1090 340 C1090 760 1090 760 1090 820" class="r"/><path d="M1090 340 C1090 760 1480 760 1480 820" class="r"/>
+  <path d="M1090 340 C1090 1120 700 1120 700 1190" class="r"/><path d="M1090 340 C1090 1120 1090 1120 1090 1190" class="r"/><path d="M1090 340 C1090 1120 1480 1120 1480 1190" class="r"/>
+  <path d="M410 260 C520 260 510 485 530 485" class="r"/><path d="M410 430 C500 430 500 570 530 570" class="r"/>
+  <path d="M410 600 C900 600 900 690 910 690" class="r"/><path d="M410 770 C1250 770 1250 485 1300 485" class="r"/>
+  <path d="M410 940 C900 940 900 905 910 905" class="r"/><path d="M410 1110 C1250 1110 1250 905 1300 905" class="r"/>
+  <path d="M1690 485 C1750 485 1750 300 1790 300" class="runtime"/><path d="M870 570 C1740 570 1740 480 1790 480" class="runtime"/>
+  <path d="M870 905 C1740 905 1740 670 1790 670" class="runtime"/><path d="M1690 905 C1740 905 1740 860 1790 860" class="runtime"/>
+  <path d="M1690 1265 C1740 1265 1740 1050 1790 1050" class="runtime"/>
+
+  <!-- catalogs -->
+  <g>
+    <rect x="55" y="200" width="350" height="120" rx="15" class="card" stroke="#60a5fa"/><rect x="55" y="200" width="350" height="40" rx="15" fill="#dbeafe"/><text x="75" y="227" class="tt">channel / specialty catalogs</text><text x="75" y="266" class="k">PK code / name / display_order</text><text x="75" y="292" class="f">specialty_categories: 初期10分野</text>
+    <rect x="55" y="370" width="350" height="120" rx="15" class="card" stroke="#60a5fa"/><rect x="55" y="370" width="350" height="40" rx="15" fill="#dbeafe"/><text x="75" y="397" class="tt">ability_definitions</text><text x="75" y="436" class="k">PK code</text><text x="75" y="462" class="f">name / display_order</text>
+    <rect x="55" y="540" width="350" height="120" rx="15" class="card" stroke="#60a5fa"/><rect x="55" y="540" width="350" height="40" rx="15" fill="#dbeafe"/><text x="75" y="567" class="tt">equipment_types</text><text x="75" y="606" class="k">PK code</text><text x="75" y="632" class="f">name / display_order</text>
+    <rect x="55" y="710" width="350" height="120" rx="15" class="card" stroke="#60a5fa"/><rect x="55" y="710" width="350" height="40" rx="15" fill="#dbeafe"/><text x="75" y="737" class="tt">action_definitions</text><text x="75" y="776" class="k">PK code</text><text x="75" y="802" class="f">name / description</text>
+    <rect x="55" y="880" width="350" height="120" rx="15" class="card" stroke="#60a5fa"/><rect x="55" y="880" width="350" height="40" rx="15" fill="#dbeafe"/><text x="75" y="907" class="tt">feature_definitions</text><text x="75" y="946" class="k">PK code</text><text x="75" y="972" class="f">name</text>
+    <rect x="55" y="1050" width="350" height="120" rx="15" class="card" stroke="#60a5fa"/><rect x="55" y="1050" width="350" height="40" rx="15" fill="#dbeafe"/><text x="75" y="1077" class="tt">event_definitions</text><text x="75" y="1116" class="k">PK code</text><text x="75" y="1142" class="f">category / name</text>
+    <rect x="55" y="1220" width="350" height="120" rx="15" class="card" stroke="#60a5fa"/><rect x="55" y="1220" width="350" height="40" rx="15" fill="#dbeafe"/><text x="75" y="1247" class="tt">event_categories</text><text x="75" y="1286" class="k">PK code</text><text x="75" y="1312" class="f">good / bad</text>
+    <text x="55" y="1400" class="h">種類はEnumへ固定せずFKで保証。</text><text x="55" y="1426" class="h">名称変更とバランス変更を分離する。</text>
+  </g>
+
+  <!-- rule set -->
+  <rect x="870" y="190" width="440" height="150" rx="16" class="card" stroke="#fb923c"/><rect x="870" y="190" width="440" height="42" rx="16" fill="#ffedd5"/><text x="892" y="218" class="tt">rule_sets</text><line x1="870" y1="232" x2="1310" y2="232" class="d"/><text x="892" y="260" class="k">PK id　UQ version</text><text x="892" y="286" class="f">status : draft / active / retired</text><text x="892" y="312" class="f">published_at / created_at</text>
+
+  <!-- typed rules row 1 -->
+  <rect x="500" y="400" width="370" height="260" rx="15" class="card" stroke="#fb923c"/><rect x="500" y="400" width="370" height="42" rx="15" fill="#ffedd5"/><text x="520" y="428" class="tt">channel_rules</text><text x="520" y="470" class="k">PK id　FK rule_set / channel_type</text><text x="520" y="498" class="f">view_multiplier / weekly_flame_probability</text><text x="520" y="530" class="h">UQ rule_set + channel_type</text><line x1="520" y1="555" x2="850" y2="555" class="d"/><text x="520" y="582" class="tt">ability weights / specialties</text><text x="520" y="610" class="f">weights: channel_rule + ability + weight</text><text x="520" y="638" class="f">specialties: rule_set + specialty</text>
+  <rect x="910" y="400" width="370" height="260" rx="15" class="card" stroke="#fb923c"/><rect x="910" y="400" width="370" height="42" rx="15" fill="#ffedd5"/><text x="930" y="428" class="tt">global_rules</text><text x="930" y="470" class="k">PK/FK rule_set_id</text><text x="930" y="498" class="f">base_views_min / max / energy_max</text><text x="930" y="524" class="f">ideas_per_week / idea_stock_max</text><text x="930" y="550" class="f">flame subscriber / energy / ban count</text><text x="930" y="576" class="f">ad_rate / unavailable_energy_recovery</text><text x="930" y="602" class="f">system_idea_multiplier / conversion_rate</text>
+  <rect x="1320" y="400" width="370" height="260" rx="15" class="card" stroke="#fb923c"/><rect x="1320" y="400" width="370" height="42" rx="15" fill="#ffedd5"/><text x="1340" y="428" class="tt">posting_frequency_rules</text><text x="1340" y="470" class="k">PK id　FK rule_set_id</text><text x="1340" y="498" class="f">videos_per_week</text><text x="1340" y="524" class="f">view_multiplier / energy_cost</text><text x="1340" y="550" class="f">ability_points_awarded</text><text x="1340" y="586" class="h">UQ rule_set + videos_per_week</text><line x1="1340" y1="610" x2="1670" y2="610" class="d"/><text x="1340" y="638" class="tt">idea_score_band_rules</text>
+
+  <!-- row 2 -->
+  <rect x="500" y="820" width="370" height="240" rx="15" class="card" stroke="#fb923c"/><rect x="500" y="820" width="370" height="42" rx="15" fill="#ffedd5"/><text x="520" y="848" class="tt">equipment_tier_rules</text><text x="520" y="890" class="k">PK id　FK rule_set / equipment_type</text><text x="520" y="918" class="f">tier / price / view_bonus</text><text x="520" y="954" class="h">UQ rule_set + type + tier</text><text x="520" y="1000" class="h">現在装備・購入履歴から直接参照。</text>
+  <rect x="910" y="820" width="370" height="240" rx="15" class="card" stroke="#fb923c"/><rect x="910" y="820" width="370" height="42" rx="15" fill="#ffedd5"/><text x="930" y="848" class="tt">action_rules + sponsorship rewards</text><text x="930" y="890" class="k">action: rule_set / action / feature?</text><text x="930" y="918" class="f">cooldown / cash / energy / video multiplier</text><text x="930" y="952" class="k">reward: subscriber range</text><text x="930" y="980" class="f">reward_amount</text><text x="930" y="1016" class="h">企業案件の段階報酬を別行で正規化。</text>
+  <rect x="1320" y="820" width="370" height="240" rx="15" class="card" stroke="#fb923c"/><rect x="1320" y="820" width="370" height="42" rx="15" fill="#ffedd5"/><text x="1340" y="848" class="tt">feature_rules</text><text x="1340" y="890" class="k">PK id　FK rule_set / feature</text><text x="1340" y="918" class="f">unlock_subscribers</text><text x="1340" y="944" class="f">activation_delay_weeks</text><text x="1340" y="970" class="f">persistent</text><text x="1340" y="1006" class="h">広告・コラボ・企業案件。</text>
+
+  <!-- row 3 -->
+  <rect x="500" y="1190" width="370" height="240" rx="15" class="card" stroke="#fb923c"/><rect x="500" y="1190" width="370" height="42" rx="15" fill="#ffedd5"/><text x="520" y="1218" class="tt">goal_rules</text><text x="520" y="1260" class="k">PK id　FK rule_set_id</text><text x="520" y="1288" class="f">stage / target_subscribers</text><text x="520" y="1314" class="f">duration_weeks / is_final</text><text x="520" y="1350" class="h">UQ rule_set + stage</text>
+  <rect x="910" y="1190" width="370" height="240" rx="15" class="card" stroke="#fb923c"/><rect x="910" y="1190" width="370" height="42" rx="15" fill="#ffedd5"/><text x="930" y="1218" class="tt">event / health rules</text><text x="930" y="1260" class="k">event_category: weekly probability</text><text x="930" y="1288" class="f">event: weight / view / cash / subscriber</text><text x="930" y="1314" class="f">health: energy range / probability</text><text x="930" y="1340" class="f">duration_min / duration_max</text><text x="930" y="1370" class="h">good/bad各5%、カテゴリ内は均等。</text>
+  <rect x="1320" y="1190" width="370" height="240" rx="15" class="card" stroke="#fb923c"/><rect x="1320" y="1190" width="370" height="42" rx="15" fill="#ffedd5"/><text x="1340" y="1218" class="tt">system ideas</text><text x="1340" y="1260" class="k">template: code / channel / specialty?</text><text x="1340" y="1288" class="f">title / description / enabled</text><text x="1340" y="1314" class="f">rule_set_system_ideas : 版との対応</text><text x="1340" y="1350" class="h">特化系は各専門分野50件。全体650件。</text>
+
+  <!-- runtime references -->
+  <rect x="1790" y="220" width="350" height="150" rx="15" class="card" stroke="#4ade80"/><rect x="1790" y="220" width="350" height="42" rx="15" fill="#dcfce7"/><text x="1812" y="248" class="tt">game_runs</text><text x="1812" y="292" class="f">rule_set / channel_rule / specialty?</text><text x="1812" y="326" class="h">特化系は専門分野必須。開始後は固定。</text>
+  <rect x="1790" y="420" width="350" height="150" rx="15" class="card" stroke="#4ade80"/><rect x="1790" y="420" width="350" height="42" rx="15" fill="#dcfce7"/><text x="1812" y="448" class="tt">run_state / run_equipment</text><text x="1812" y="492" class="f">posting_frequency_rule_id</text><text x="1812" y="518" class="f">equipment_tier_rule_id</text>
+  <rect x="1790" y="610" width="350" height="150" rx="15" class="card" stroke="#4ade80"/><rect x="1790" y="610" width="350" height="42" rx="15" fill="#dcfce7"/><text x="1812" y="638" class="tt">weekly_actions / unlocks</text><text x="1812" y="682" class="f">action_rule_id / feature_rule_id</text><text x="1812" y="716" class="h">選択時点のルール行を参照。</text>
+  <rect x="1790" y="800" width="350" height="150" rx="15" class="card" stroke="#4ade80"/><rect x="1790" y="800" width="350" height="42" rx="15" fill="#dcfce7"/><text x="1812" y="828" class="tt">run_goals / conditions</text><text x="1812" y="872" class="f">goal_rule_id / health_risk_rule_id</text><text x="1812" y="906" class="h">発生時のルールを固定。</text>
+  <rect x="1790" y="990" width="350" height="170" rx="15" class="card" stroke="#4ade80"/><rect x="1790" y="990" width="350" height="42" rx="15" fill="#dcfce7"/><text x="1812" y="1018" class="tt">week / video history</text><text x="1812" y="1062" class="f">posting rule / event rule参照</text><text x="1812" y="1088" class="f">使用倍率は別途スナップショット</text><text x="1812" y="1126" class="h">参照＋確定値で監査可能。</text>
+  <rect x="1790" y="1210" width="350" height="220" rx="15" fill="#fff" stroke="#4ade80" stroke-width="2"/><text x="1812" y="1250" class="tt">保守ルール</text><text x="1812" y="1290" class="f">• draftだけ更新可能</text><text x="1812" y="1320" class="f">• active/retiredは変更禁止</text><text x="1812" y="1350" class="f">• 数値変更は新rule_set</text><text x="1812" y="1380" class="f">• 実行時FKとrunの版を一致</text>
+
+  <rect x="45" y="1530" width="2110" height="46" rx="14" fill="#fff" stroke="#e2e8f0" stroke-width="2"/><text x="68" y="1559" class="f">JSONBはルールの正本に使わない。型付き列・FK・CHECKにより、変更箇所と影響範囲をレビュー可能にする。</text>
+</svg>
