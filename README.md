@@ -10,6 +10,7 @@ YouTuberとしてチャンネルを成長させるブラウザシミュレーシ
 - **Supabase** (`@supabase/supabase-js`, `@supabase/ssr`): 将来のデータ保存と認証
 - **OpenAI JavaScript SDK**: 将来の動画企画評価（サーバー側だけで利用）
 - **Cloudflare Workers + vinext**: サーバー処理を含むCloudflareデプロイ
+- **Vitest**: Node.js環境でのバックエンド単体・Applicationテスト
 - **ESLint**: コード品質チェック
 - **npm / Git**: パッケージ管理、バージョン管理
 
@@ -69,10 +70,20 @@ npm run cf:dev
 ## 品質チェックとビルド
 
 ```bash
+npm run system-ideas:validate
 npm run lint
+npm test
 npm run typecheck
 npm run build
 ```
+
+開発中にバックエンドテストをwatchする場合:
+
+```bash
+npm run test:watch
+```
+
+テスト種別ごとのコマンド、バックエンド各層の責務、依存方向、Server専用境界は [`docs/BACKEND_STRUCTURE.md`](docs/BACKEND_STRUCTURE.md) を参照してください。
 
 通常ビルドは、制限された実行環境でも安定して検証できるようNext.jsのWebpackビルドを使用します。ローカル開発はNext.js標準のTurbopackです。
 
@@ -129,8 +140,12 @@ npm run cf-typegen
 
 ```text
 app/                    App Routerの画面・レイアウト
+backend/                Domain / Application / Infrastructure / Queries / Actions（実装時に追加）
 lib/supabase/           Supabaseのクライアント生成処理
 lib/openai/             OpenAIのサーバー用クライアント生成処理
+tests/                  単体・Application・DB・結合テスト
+docs/BACKEND_STRUCTURE.md
+                        バックエンド配置・依存・Server専用境界の規約
 public/                 将来の静的素材（必要になった時点で追加）
 cloudflare.config.ts    Cloudflare Worker設定
 vite.config.ts          vinext / Cloudflare向けVite設定

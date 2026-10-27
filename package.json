@@ -31,7 +31,8 @@
 		"eslint-config-next": "^16.4.3",
 		"tailwindcss": "latest",
 		"typescript": "latest",
-		"vite": "^8.3.5"
+		"vite": "^8.3.5",
+		"vitest": "5.0.5"
 	},
 	"type": "module",
 	"scripts": {
@@ -39,6 +40,12 @@
 		"build": "next build --webpack",
 		"start": "next start",
 		"lint": "eslint .",
+		"test": "vitest run tests/unit tests/application",
+		"test:watch": "vitest tests/unit tests/application",
+		"test:unit": "vitest run tests/unit",
+		"test:application": "vitest run tests/application --passWithNoTests",
+		"test:db": "vitest run tests/db --passWithNoTests",
+		"test:integration": "vitest run tests/integration --passWithNoTests",
 		"typecheck": "next typegen --webpack && tsc --noEmit",
 		"system-ideas:docs": "node scripts/generate-system-ideas-doc.mjs",
 		"system-ideas:validate": "node scripts/validate-system-ideas.mjs",
