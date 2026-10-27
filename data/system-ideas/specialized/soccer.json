@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "soccer",
+  "ideas": [
+    {
+      "code": "specialized_soccer_001",
+      "title": "初心者が最初に覚えたいサッカーの基本ルール",
+      "description": "反則、再開方法、得点の条件を実際の配置で示し、観戦にもプレーにも必要な基礎を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_002",
+      "title": "ボールを失わないトラップの向きとは？",
+      "description": "同じパスを止める方向だけ変え、次のプレーまでの時間と相手からの奪われにくさを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_003",
+      "title": "利き足だけの選手が逆足を一週間練習",
+      "description": "短い基礎練習を毎日続け、パスの正確さと判断の選択肢がどう変わるかを記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_004",
+      "title": "速いドリブルと抜けるドリブルの違い",
+      "description": "ボールを運ぶ距離、重心移動、緩急を分解し、相手をかわすために速度以外で必要な要素を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_005",
+      "title": "シュートはコースと強さのどちらが重要？",
+      "description": "ゴール内の狙いを変えて成功率を測り、距離や守備状況に応じた優先順位を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_006",
+      "title": "4-4-2と4-3-3、同じ選手で何が変わる？",
+      "description": "二つの配置をボードと実演で比べ、攻撃時の幅と守備時の受け渡しの違いを可視化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_007",
+      "title": "オフサイドを10の場面で完全理解",
+      "description": "判定が迷いやすい戻りオフサイドや関与の有無を、静止画と動きの両方で解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_008",
+      "title": "ゴールキーパーの構えは距離でどう変わる？",
+      "description": "近距離と遠距離のシュートに対する立ち位置を比べ、反応時間と守れる範囲の関係を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_009",
+      "title": "ワンタッチパスだけで前進できるのか",
+      "description": "人数とコート幅を変えた練習で、速い判断が生む利点と無理な制限で起こるミスを検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_010",
+      "title": "守備の一歩目はボールと相手どちらを見る？",
+      "description": "一対一の映像を視線ごとに比較し、抜かれにくい距離と体の向きを段階的に解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_011",
+      "title": "コーナーキックの狙いを3パターン比較",
+      "description": "近い位置、遠い位置、短い再開を使い分け、守備配置によって有効な攻め方を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_012",
+      "title": "スローインからボールを失う原因5選",
+      "description": "受け手の動きと投げ手の選択を振り返り、反則を避けながら安全に再開する方法を実演する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_013",
+      "title": "中央突破とサイド攻撃はどちらが効く？",
+      "description": "同じ守備配置へ二つの攻め方を試し、前進率とシュートまでの手数を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_014",
+      "title": "パス精度を上げる軸足の置き場所",
+      "description": "軸足の距離と向きを少しずつ変え、ボールの方向や強さがどう変化するかを計測する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_015",
+      "title": "サッカーボールの号数と用途を比べる",
+      "description": "大きさと重さの異なるボールを並べ、年代や競技環境に合った選び方と扱いの違いを紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_016",
+      "title": "ハイプレスはなぜ外されると危険なのか",
+      "description": "全員で前へ出る守備の狙いと背後の空間をボードで再現し、成功条件とリスクを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_017",
+      "title": "視野を広げる首振りを回数で検証",
+      "description": "ボールを受ける前の確認回数を記録し、次のプレー決定までの速さとミスの変化を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_018",
+      "title": "直接フリーキックの壁は何人が正解？",
+      "description": "距離、角度、相手の得意な蹴り方を変え、壁とキーパーの守備範囲を配置図で考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_019",
+      "title": "インサイドキックが曲がる失敗を直す",
+      "description": "足首や当てる位置を映像で確認し、初心者がまっすぐ正確に蹴るための修正を段階的に試す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_020",
+      "title": "ボランチは試合中どこを見ている？",
+      "description": "攻守が切り替わる瞬間を追い、パスコースを作りながら危険な中央を守る判断を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_021",
+      "title": "少人数ミニゲームで判断は速くなる？",
+      "description": "コートの広さと人数を変え、ボールに触る回数や判断時間がどう変わるかを記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_022",
+      "title": "ロングボールの落下地点を早く読む方法",
+      "description": "蹴り出しの角度と回転を観察し、後ろ向きに走らず安全にボールへ入る足運びを練習する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_023",
+      "title": "得点期待値で見る良いシュート位置",
+      "description": "距離と角度別の仮想データを可視化し、難しい一発より好機を作る価値を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_024",
+      "title": "マンツーマン守備とゾーン守備を比較",
+      "description": "相手を追う基準と場所を守る基準を同じ場面で示し、受け渡しが必要になる瞬間を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_025",
+      "title": "浮き球パスを正確に送る力加減",
+      "description": "蹴る位置と振り幅を変え、守備者を越えて味方が扱いやすい軌道になる条件を探る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_026",
+      "title": "ゴール前で慌てないための選択肢練習",
+      "description": "シュート、パス、持ち出しの三択をランダムに提示し、顔を上げて判断する習慣を鍛える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_027",
+      "title": "サイドバックの走る距離を一試合分析",
+      "description": "攻撃参加と守備への帰陣を時系列で追い、体力配分とポジショニングの難しさを可視化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_028",
+      "title": "雨の日はパス速度がどれだけ変わる？",
+      "description": "安全な人工環境で乾いた面と湿った面を比べ、ボールの滑りに応じた調整を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_029",
+      "title": "ヘディングを使わない空中戦の競り方",
+      "description": "落下地点へ先に入る位置取りと胸や足での処理を学び、安全を優先した選択肢を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_030",
+      "title": "試合終盤の時間の使い方を戦術分析",
+      "description": "リード時と追う側のプレー選択を比べ、反則や遅延に頼らず主導権を保つ方法を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_031",
+      "title": "PKは先に動く？最後まで見る？",
+      "description": "キッカーとキーパー双方の視点から駆け引きを整理し、複数の戦略を確率で比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_032",
+      "title": "芝の長さでドリブルはどう変わる？",
+      "description": "条件の異なる安全なピッチでボールの転がりを計測し、タッチの強さをどう調整するか試す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_033",
+      "title": "初心者チームの守備を30分で整える",
+      "description": "まず中央を閉じる共通ルールを決め、練習前後で相手に許すシュート数の変化を見る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_034",
+      "title": "カウンター攻撃は何秒で完結する？",
+      "description": "ボール奪取からシュートまでの動線を分解し、人数をかける判断と速さのバランスを分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_035",
+      "title": "フェイントは大きいほど相手が動くのか",
+      "description": "上体、視線、足元の動きを一つずつ変え、守備者の重心を動かす要素を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_036",
+      "title": "キャプテンが試合中に伝えるべき3つ",
+      "description": "戦術の微調整、気持ちの整理、審判との対話を例に、短い言葉でチームをまとめる方法を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_037",
+      "title": "サッカーシューズのソールを用途別比較",
+      "description": "天然芝、人工芝、土に適した形状を整理し、けがを避けるための選び方を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_038",
+      "title": "前線からの守備は誰の合図で始める？",
+      "description": "パス方向や相手の体勢を合図にした連動を実演し、一人だけ追う守備との違いを示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_039",
+      "title": "ファーストタッチだけで相手を外す技術",
+      "description": "ボールを止めず空いた方向へ運ぶ動作を分解し、守備者との距離別に使い分ける。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_040",
+      "title": "試合映像から数える決定機の作り方",
+      "description": "クロス、裏へのパス、こぼれ球など起点を分類し、シュート数だけでは見えない攻撃の質を読む。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_041",
+      "title": "交代選手は流れをどう変えられる？",
+      "description": "疲労、役割、スコアの異なる場面を用意し、交代カードを切る優先順位をシミュレーションする。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_042",
+      "title": "無回転シュートは本当に予測しにくい？",
+      "description": "安全な距離から回転の異なる軌道を撮影し、ボールの揺れ方と再現の難しさを分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_043",
+      "title": "ゴールキックから安全に前進する方法",
+      "description": "短くつなぐ形と長く蹴る形を比べ、相手の守備位置に応じた出口の作り方を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_044",
+      "title": "100年前のサッカーと現代戦術を比較",
+      "description": "ルールや配置の変化を史料でたどり、選手の役割が専門化してきた背景を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_045",
+      "title": "疲れるとパス判断はどれだけ遅れる？",
+      "description": "無理のない運動前後で選択課題を行い、技術だけでなく認知の変化も記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_046",
+      "title": "守備ラインを上げるタイミング入門",
+      "description": "ボールへの圧力と味方の位置を基準に、全員が同時に前進するための合図を実演する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_047",
+      "title": "ニアとファー、クロスはどこへ送る？",
+      "description": "守備と味方の入り方を変え、低い球や浮き球を届ける狙いをケース別に比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_048",
+      "title": "審判のアドバンテージを場面別に理解",
+      "description": "反則後もプレーを続ける判断が有利になる条件を、攻撃側と守備側の両面から説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_049",
+      "title": "セットプレーだけで一試合何点狙える？",
+      "description": "コーナー、フリーキック、スローインの機会を集計し、準備した形が生む得点可能性を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_soccer_050",
+      "title": "後半残り5分、あなたならどう攻める？",
+      "description": "点差と相手配置の異なる局面を提示し、視聴者の予想後に複数の戦術案を比較する。",
+      "enabled": true
+    }
+  ]
+}

@@ -7,16 +7,26 @@ const dataDirectory = path.join(repoRoot, "data", "system-ideas");
 const outputPath = path.join(repoRoot, "docs", "SYSTEM_IDEAS.md");
 
 export const systemIdeaFiles = [
-  ["mainstream", "王道系", "mainstream.json"],
-  ["controversial", "炎上系", "controversial.json"],
-  ["idol", "アイドル系", "idol.json"],
+  ["mainstream", "王道系", "mainstream.json", null],
+  ["controversial", "炎上系", "controversial.json", null],
+  ["idol", "アイドル系", "idol.json", null],
+  ["specialized", "特化系・野球", "specialized/baseball.json", "baseball"],
+  ["specialized", "特化系・サッカー", "specialized/soccer.json", "soccer"],
+  ["specialized", "特化系・ゲーム攻略・検証", "specialized/gaming.json", "gaming"],
+  ["specialized", "特化系・PC・ガジェット", "specialized/pc-gadgets.json", "pc_gadgets"],
+  ["specialized", "特化系・科学・実験", "specialized/science.json", "science"],
+  ["specialized", "特化系・歴史・文化", "specialized/history-culture.json", "history_culture"],
+  ["specialized", "特化系・心霊・オカルト", "specialized/occult.json", "occult"],
+  ["specialized", "特化系・生き物・自然", "specialized/nature.json", "nature"],
+  ["specialized", "特化系・料理・食文化", "specialized/food-culture.json", "food_culture"],
+  ["specialized", "特化系・アウトドア・サバイバル", "specialized/outdoor-survival.json", "outdoor_survival"],
 ];
 
 export async function loadSystemIdeaCollections() {
   return Promise.all(
-    systemIdeaFiles.map(async ([code, label, filename]) => {
+    systemIdeaFiles.map(async ([code, label, filename, specialtyCode]) => {
       const source = await readFile(path.join(dataDirectory, filename), "utf8");
-      return { code, label, filename, data: JSON.parse(source) };
+      return { code, label, filename, specialtyCode, data: JSON.parse(source) };
     }),
   );
 }
@@ -62,13 +72,13 @@ export function renderSystemIdeasDoc(collections) {
 - 王道系（\`mainstream\`）：50件、完成
 - 炎上系（\`controversial\`）：50件、完成
 - アイドル系（\`idol\`）：50件、完成
-- 特化系（\`specialized\`）：今回未作成。既存仕様の10専門分野各50件は別セッションで追加する
-- 現在合計：150件
-- 既存仕様上の最終予定：王道系・炎上系・アイドル系150件と特化系500件の合計650件
+- 特化系（\`specialized\`）：10専門分野×50件、合計500件、完成
+- 現在合計：650件
+- 旧仕様の合計200件は廃止し、王道系・炎上系・アイドル系150件と特化系500件を収録する
 
 ## データ項目
 
-各チャンネルファイルは \`schemaVersion\`、\`channelTypeCode\`、\`ideas\` を持ちます。各企画は次の項目だけを持ちます。
+各コレクションファイルは \`schemaVersion\`、\`channelTypeCode\`、\`ideas\` を持ちます。特化系だけはファイル直下に \`specialtyCode\` も持ちます。各企画は次の項目だけを持ちます。
 
 | JSON項目 | 用途 |
 |---|---|
@@ -77,7 +87,7 @@ export function renderSystemIdeasDoc(collections) {
 | \`description\` | 35〜80文字の短い企画説明 |
 | \`enabled\` | 企画を利用可能にする真偽値 |
 
-チャンネルコードはファイル直下で一度だけ保持し、各企画へ重複保存しません。UUID、AI評価点、倍率、登録者転換率、サムネイル、使用済み状態、シャッフル順、ゲームID、ルールセットUUID、企画固有補正は保存しません。
+チャンネルコードと、特化系の専門分野コードはファイル直下で一度だけ保持し、各企画へ重複保存しません。UUID、AI評価点、倍率、登録者転換率、サムネイル、使用済み状態、シャッフル順、ゲームID、ルールセットUUID、企画固有補正は保存しません。
 
 ## JSONとDBの関係
 
@@ -87,6 +97,7 @@ JSONは企画作成・レビュー時の正本ですが、ゲーム実行時の�
 |---|---|
 | \`ideas[].code\` | \`system_idea_templates.code\` |
 | \`channelTypeCode\` | \`system_idea_templates.channel_type_code\` |
+| \`specialtyCode\` | \`system_idea_templates.specialty_code\`（特化系のみ。その他はNULL） |
 | \`ideas[].title\` | \`system_idea_templates.title\` |
 | \`ideas[].description\` | \`system_idea_templates.description\` |
 | \`ideas[].enabled\` | \`system_idea_templates.enabled\` |
@@ -118,11 +129,11 @@ JSONは企画作成・レビュー時の正本ですが、ゲーム実行時の�
 
 ## 重複防止と検証
 
-\`npm run system-ideas:validate\` でJSON Schema、件数、連番コード、コードとタイトルの全体一意性、文字数、許可フィールド、特化系0件、Markdownとの一致を検証します。同一チャンネル内のタイトル類似度も機械的に検査し、最終的な意味重複は人間が一覧で確認します。
+\`npm run system-ideas:validate\` でJSON Schema、各プール50件、連番コード、コードとタイトルの全体一意性、文字数、許可フィールド、専門分野マスター、Markdownとの一致を検証します。各プール内のタイトル類似度も機械的に検査し、最終的な意味重複は一覧で確認します。
 
-## 将来650件へ統合する方法
+## 特化系の選択と周回
 
-特化系は既存仕様の10専門分野ごとに50件を別セッションで作成します。専門分野コードを保持できるようJSON Schemaと生成・検証スクリプトをそのセッションで拡張し、レビュー後のseedで既存3チャンネルと同じテーブルへ投入します。今回の150件を作り直す必要はありません。
+ゲーム開始時に特化系を選んだ場合は10専門分野から1つを必須選択し、そのゲーム人生では変更しません。自動投稿では選択した専門分野の50件だけを重複なしで一巡し、使い切った後に再シャッフルします。新しい周回の先頭が直前の企画と同じ場合は並べ直します。特化系以外の企画や別専門分野の企画は混在させません。
 
 ## 後続seed実装で必要な作業
 
@@ -130,7 +141,7 @@ JSONは企画作成・レビュー時の正本ですが、ゲーム実行時の�
 2. \`system_idea_templates.code\` を自然キーとしてinsertまたは安全なupsertを行う
 3. 対応する \`channel_types.code\` の存在を検証する
 4. 対象ルールセットと \`rule_set_system_ideas\` を関連付ける
-5. チャンネルごとに有効な企画が50件であることをルールセット公開時に検証する
+5. 非特化系の各チャンネルと特化系の各専門分野に有効な企画が50件あることをルールセット公開時に検証する
 6. ゲーム実行時にJSONを読み込まず、RepositoryからDBを取得する
 7. 一巡50件のシャッフルとサイクル境界の連続重複回避をテストする
 

@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "pc_gadgets",
+  "ideas": [
+    {
+      "code": "specialized_pc_gadgets_001",
+      "title": "PC初心者が最初に覚えたいパーツの役割",
+      "description": "CPU、メモリ、保存装置などを仕事に例え、性能表を見る前に知りたい基礎を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_002",
+      "title": "メモリ容量を変えると作業はどう変わる？",
+      "description": "同じ複数作業を容量別の環境で行い、待ち時間と切り替えやすさの違いを計測する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_003",
+      "title": "高価なマウスは普通のマウスより正確？",
+      "description": "同じ操作課題で精度、疲れ、設定の幅を比べ、価格差が役立つ利用者を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_004",
+      "title": "キーボードの配列で入力速度は変わる？",
+      "description": "配列と大きさの異なる機種を使い、慣れの影響を分けながら誤入力と速度を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_005",
+      "title": "モニターの高さを1センチずつ調整",
+      "description": "姿勢と視線の変化を記録し、長時間作業で首や肩へ負担をかけにくい位置を探す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_006",
+      "title": "SSDとHDD、保存先で待ち時間を比較",
+      "description": "同じファイル操作と起動処理を試し、速度、容量、用途から選び分ける基準を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_007",
+      "title": "Wi-Fiが遅い原因を安全に切り分ける",
+      "description": "端末、距離、置き場所、回線の順で確認し、機器を買う前に試せる診断方法を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_008",
+      "title": "画面の明るさで見やすさはどこまで変わる？",
+      "description": "周囲の照明条件を変えて読みやすさを比べ、まぶしさを抑える設定の考え方を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_009",
+      "title": "安いマイクと上位マイクを音だけで判定",
+      "description": "同じ声と距離で録音し、価格を伏せて聞き比べながら違いが出やすい条件を探る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_010",
+      "title": "USB端子の種類を見分ける初心者講座",
+      "description": "形状と対応機能を写真で整理し、見た目が同じでも速度や映像出力が違う点を説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_011",
+      "title": "PCの熱は性能へどれだけ影響する？",
+      "description": "安全な負荷試験で温度と処理速度を記録し、通気と清掃が必要になる兆候を確認する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_012",
+      "title": "作業用モニターは1枚と2枚どちらが速い？",
+      "description": "資料を見ながら入力する課題で時間と視線移動を測り、向いている作業を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_013",
+      "title": "イヤホンとヘッドホンの聞こえ方を比較",
+      "description": "会話、音楽、ゲーム音で定位と装着感を比べ、利用場所に合う選び方を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_014",
+      "title": "バックアップ3-2-1ルールを実際に設計",
+      "description": "大切な写真や文書を例に、保存先を分散して故障や紛失へ備える構成を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_015",
+      "title": "充電ケーブルで速度が変わる理由",
+      "description": "対応規格と機器側の上限を確認し、安全な測定で充電時間の違いを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_016",
+      "title": "クリック音が少ない作業環境を作る",
+      "description": "静音機器、設置マット、入力方法を組み合わせ、操作感を保ちながら騒音を測る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_017",
+      "title": "PC起動を遅くする常駐アプリを整理",
+      "description": "起動項目を一つずつ確認し、必要な機能を残したまま起動の待ち時間を短縮する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_018",
+      "title": "画面解像度が違うと文字はどう見える？",
+      "description": "同じ大きさの画面で表示領域と文字サイズを比べ、倍率設定を含めた選び方を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_019",
+      "title": "トラックパッドだけで一日作業できる？",
+      "description": "文章、画像、表計算の操作を行い、マウスが必要になる場面と便利なジェスチャーを記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_020",
+      "title": "デスク上のケーブルを30分で整理",
+      "description": "抜いてよい線を確認して分類し、保守しやすく足元も安全な配線環境へ整える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_021",
+      "title": "CPUのコア数はどんな作業で効く？",
+      "description": "一つの処理と複数同時処理を比べ、クロックだけでは説明できない性能差を可視化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_022",
+      "title": "ショートカットキー10個で作業時間短縮",
+      "description": "毎日繰り返す編集操作へ少しずつ導入し、マウス移動と所要時間の変化を測る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_023",
+      "title": "ウェブカメラは照明でどこまで良くなる？",
+      "description": "カメラを変えず光の向きと背景を調整し、映像の見え方を条件別に比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_024",
+      "title": "スマートウォッチの通知を一週間最適化",
+      "description": "必要な連絡だけ残して振動回数を記録し、見逃しと作業への集中のバランスを探る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_025",
+      "title": "中古PCを選ぶときの確認項目",
+      "description": "外観、保証、電池、端子、性能の順でチェックし、価格だけでは分からない注意点を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_026",
+      "title": "ファンの数を増やせば必ず冷える？",
+      "description": "安全なケース環境で吸気と排気の配置を変え、温度と騒音の両方を測定する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_027",
+      "title": "キーボードの高さで疲れ方を比較",
+      "description": "リストレストと傾斜を変え、入力速度を保ちながら手首が自然になる条件を探す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_028",
+      "title": "同じ容量の画像を3形式で比べる",
+      "description": "画質、透過、ファイルサイズを並べ、保存や共有の目的に合う形式を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_029",
+      "title": "パスワード管理を見直す入門ガイド",
+      "description": "使い回しを避け、多要素認証と管理ツールを組み合わせる安全な基本方針を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_030",
+      "title": "格安スピーカーの置き方で音は変わる？",
+      "description": "壁からの距離と左右の間隔を変え、機器を買い替えず聞きやすくする方法を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_031",
+      "title": "スマホの空き容量を安全に増やす",
+      "description": "写真の退避、不要なダウンロード、アプリ容量を確認し、消してはいけないデータを守って整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_032",
+      "title": "ゲーミングPCと作業PCの違いを整理",
+      "description": "映像処理、静音性、拡張性など用途別の優先順位を比較し、名前に惑わされない選び方を示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_033",
+      "title": "ブラウザのタブ100枚はPCをどれだけ使う？",
+      "description": "タブ数を段階的に増やしてメモリと反応速度を測り、整理機能の効果も試す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_034",
+      "title": "ノートPCスタンドで姿勢と温度を改善",
+      "description": "高さと吸気口のふさがり方を比べ、外付け入力機器を含む快適な配置を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_035",
+      "title": "マウス感度を変えて狙いやすさを測る",
+      "description": "細かな選択と大きな移動の課題を行い、速度と正確さが両立する設定を探す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_036",
+      "title": "外付け保存装置の速度を用途別検証",
+      "description": "小さな文書と大きな動画を移動し、接続方式によって待ち時間が変わる理由を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_037",
+      "title": "オンライン会議の音が途切れる原因",
+      "description": "回線、マイク設定、周囲の音を順番に切り分け、相手へ聞きやすくする改善を試す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_038",
+      "title": "PC内部を開けずにできる健康診断",
+      "description": "保存容量、更新状況、温度、異音を確認し、危険な分解をせず不調の兆候を見つける。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_039",
+      "title": "左右対称マウスは誰に使いやすい？",
+      "description": "持ち方と手の大きさが異なる人で操作を比べ、形状が疲れや精度へ与える影響を見る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_040",
+      "title": "色温度を変えると写真編集はどう見える？",
+      "description": "同じ画像を複数設定で確認し、照明と画面の色が判断へ与える影響を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_041",
+      "title": "省電力設定で電池は何時間伸びる？",
+      "description": "明るさ、通信、性能モードを一つずつ変え、使い勝手と持続時間の差を測る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_042",
+      "title": "ルーターの置き場所を部屋ごとに測定",
+      "description": "床、棚、部屋の中央など安全な位置で電波を記録し、障害物の影響を可視化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_043",
+      "title": "同じ予算で新品と中古、どちらを選ぶ？",
+      "description": "保証、性能、電池、拡張性を点数化し、利用目的ごとに納得できる判断基準を作る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_044",
+      "title": "音声入力だけで記事を書けるのか",
+      "description": "静かな場所と雑音のある場所で認識精度を比べ、修正を含む総作業時間を計測する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_045",
+      "title": "ディスプレイのリフレッシュレート体感比較",
+      "description": "スクロールと動きの速い映像を用い、数値差が分かりやすい場面と不要な用途を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_046",
+      "title": "机の奥行きは何センチ必要？",
+      "description": "画面サイズと入力機器の配置を変え、視距離と手元の余裕から作業空間を設計する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_047",
+      "title": "通知を全部切ると集中力は上がる？",
+      "description": "通知ありと必要最小限の設定で同じ課題を行い、中断回数と見逃しを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_048",
+      "title": "古いPCを安全な設定変更だけで軽くする",
+      "description": "更新、空き容量、視覚効果、起動項目を見直し、部品交換なしで反応を改善できる範囲を測る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_049",
+      "title": "買う前に作るガジェット比較表",
+      "description": "必須条件、使う頻度、保証、総費用を並べ、スペックの数字だけで決めない選び方を実演する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_pc_gadgets_050",
+      "title": "一万円の環境改善、どこへ使う？",
+      "description": "照明、入力機器、スタンドなど候補を比較し、視聴者の予想後に効果の大きい組み合わせを検証する。",
+      "enabled": true
+    }
+  ]
+}

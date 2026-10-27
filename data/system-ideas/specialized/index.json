@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialties": [
+    {
+      "code": "baseball",
+      "name": "野球",
+      "filename": "baseball.json",
+      "displayOrder": 1,
+      "ideaCount": 50
+    },
+    {
+      "code": "soccer",
+      "name": "サッカー",
+      "filename": "soccer.json",
+      "displayOrder": 2,
+      "ideaCount": 50
+    },
+    {
+      "code": "gaming",
+      "name": "ゲーム攻略・検証",
+      "filename": "gaming.json",
+      "displayOrder": 3,
+      "ideaCount": 50
+    },
+    {
+      "code": "pc_gadgets",
+      "name": "PC・ガジェット",
+      "filename": "pc-gadgets.json",
+      "displayOrder": 4,
+      "ideaCount": 50
+    },
+    {
+      "code": "science",
+      "name": "科学・実験",
+      "filename": "science.json",
+      "displayOrder": 5,
+      "ideaCount": 50
+    },
+    {
+      "code": "history_culture",
+      "name": "歴史・文化",
+      "filename": "history-culture.json",
+      "displayOrder": 6,
+      "ideaCount": 50
+    },
+    {
+      "code": "occult",
+      "name": "心霊・オカルト",
+      "filename": "occult.json",
+      "displayOrder": 7,
+      "ideaCount": 50
+    },
+    {
+      "code": "nature",
+      "name": "生き物・自然",
+      "filename": "nature.json",
+      "displayOrder": 8,
+      "ideaCount": 50
+    },
+    {
+      "code": "food_culture",
+      "name": "料理・食文化",
+      "filename": "food-culture.json",
+      "displayOrder": 9,
+      "ideaCount": 50
+    },
+    {
+      "code": "outdoor_survival",
+      "name": "アウトドア・サバイバル",
+      "filename": "outdoor-survival.json",
+      "displayOrder": 10,
+      "ideaCount": 50
+    }
+  ]
+}
