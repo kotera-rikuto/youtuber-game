@@ -22,6 +22,21 @@
         "specialized"
       ]
     },
+    "specialtyCode": {
+      "type": "string",
+      "enum": [
+        "baseball",
+        "soccer",
+        "gaming",
+        "pc_gadgets",
+        "science",
+        "history_culture",
+        "occult",
+        "nature",
+        "food_culture",
+        "outdoor_survival"
+      ]
+    },
     "ideas": {
       "type": "array",
       "minItems": 50,
@@ -38,7 +53,7 @@
         "properties": {
           "code": {
             "type": "string",
-            "pattern": "^(mainstream|controversial|idol|specialized)_[0-9]{3}$"
+            "pattern": "^(mainstream|controversial|idol)_[0-9]{3}$|^specialized_(baseball|soccer|gaming|pc_gadgets|science|history_culture|occult|nature|food_culture|outdoor_survival)_[0-9]{3}$"
           },
           "title": {
             "type": "string",
@@ -56,5 +71,28 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "channelTypeCode": {
+            "const": "specialized"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "specialtyCode"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "specialtyCode"
+          ]
+        }
+      }
+    }
+  ]
 }

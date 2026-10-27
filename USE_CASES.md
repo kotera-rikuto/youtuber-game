@@ -324,8 +324,9 @@ type AdvanceWeekResult = CommittedWeekResult | FatalGameOverResult;
 
 ### 4.1 自動生成企画のデータソース
 
-- 王道系50件、炎上系50件、アイドル系50件の合計150件を `data/system-ideas/*.json` に作成済み
-- 特化系10分野の企画データは今回の作業対象に含めず、既存の `resolveSystemIdeaPool` と専門分野設計を変更しない
+- 王道系50件、炎上系50件、アイドル系50件を `data/system-ideas/*.json` に作成済み
+- 特化系は10専門分野ごとに各50件、合計500件を `data/system-ideas/specialized/*.json` に作成済み
+- ゲーム側企画は全体650件で、旧仕様の合計200件は廃止する
 - JSONは企画作成・レビュー時の正本であり、ゲーム実行時には読み込まない
 - JSONから `system_idea_templates` と `rule_set_system_ideas` へ投入する冪等なseed処理は後続セッションで実装する
 - `resolveSystemIdeaPool`、`createSystemIdeaCycle`、`selectSystemIdeasWithoutRepeat` は、ゲームのルールセット、チャンネル種類、必要な場合は専門分野に対応する有効な企画をRepository経由でDBから取得する

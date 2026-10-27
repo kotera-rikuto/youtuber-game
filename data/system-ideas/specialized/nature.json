@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "nature",
+  "ideas": [
+    {
+      "code": "specialized_nature_001",
+      "title": "公園の鳥は朝と夕方で行動が違う？",
+      "description": "距離を保った定点観察で種類と行動を記録し、時間帯による採食や休息の違いを比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_002",
+      "title": "アリの行列はどうやって道を決める？",
+      "description": "巣を傷つけず公開研究と安全な観察を組み合わせ、匂いの目印で仲間が進む仕組みを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_003",
+      "title": "同じ池の水面と底で生き物を比較",
+      "description": "採取せず水中カメラや公開資料を使い、光と酸素の違いが暮らし方へ与える影響を見る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_004",
+      "title": "落ち葉は一年でどこへ消える？",
+      "description": "同じ場所を季節ごとに観察し、菌類や小さな生物が土へ戻す過程を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_005",
+      "title": "鳥のくちばしを食べ物から分類",
+      "description": "さまざまな形を写真と模型で比べ、餌の取り方に適応した特徴をクイズ形式で学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_006",
+      "title": "ダンゴムシは明るい場所を避ける？",
+      "description": "短時間の安全な観察後に元の場所へ戻し、湿度と明るさの選択を分けて検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_007",
+      "title": "魚の群れは誰について曲がるのか",
+      "description": "飼育施設の許可映像と研究を基に、近くの仲間へ反応して全体が動く仕組みを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_008",
+      "title": "木の葉はなぜ同じ緑ではない？",
+      "description": "日なたと日陰、若葉と成葉を傷つけず定点撮影し、色と役割の違いを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_009",
+      "title": "昆虫の擬態を10秒で見つけられる？",
+      "description": "自然を乱さない写真教材で探索クイズを行い、体色や形が身を守る効果を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_010",
+      "title": "身近な花へ来る虫を一日観察",
+      "description": "花へ触れず訪問する種類と時間を記録し、受粉を支える生き物の多様さを可視化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_011",
+      "title": "カラスは人の顔を覚えるのか",
+      "description": "野生個体へ接触せず研究成果と通常行動を紹介し、高い学習能力の仕組みを考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_012",
+      "title": "海辺の貝殻から暮らし方を推理",
+      "description": "持ち帰り規則を守って観察のみ行い、形や傷から生息環境と捕食の痕跡を読む。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_013",
+      "title": "雨の前に生き物の動きは変わる？",
+      "description": "天気と身近な生物の出現を長期記録し、少数の観察例で断定せず傾向を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_014",
+      "title": "飛べない鳥はなぜ翼を残している？",
+      "description": "泳ぐ、走る、体温を調整するなど翼の役割を比べ、進化が目的を持たないことも説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_015",
+      "title": "夜に咲く花は誰を待っている？",
+      "description": "安全な場所で定点撮影し、香りや色と夜行性の送粉者との関係を資料から解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_016",
+      "title": "樹皮だけで木の種類を見分けられる？",
+      "description": "公園の樹木を傷つけず模様と手触りを観察し、葉がない季節の識別点を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_017",
+      "title": "犬と猫の耳の動きを比較",
+      "description": "嫌がる刺激を与えず日常映像を観察し、音源探索や感情表現に使う方向の違いを紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_018",
+      "title": "川の上流と下流で石の形が違う理由",
+      "description": "採取せず写真と流れの模型を使い、運ばれる間の衝突で角が取れる過程を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_019",
+      "title": "クモの巣は壊れても同じ形に戻る？",
+      "description": "巣には触れず複数日の定点観察を行い、修復する場所と網の構造を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_020",
+      "title": "渡り鳥は地図なしでなぜ帰れる？",
+      "description": "太陽、星、地磁気、地形など複数の手がかりを研究から紹介し、種類による違いも示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_021",
+      "title": "種の形で飛び方はどう変わる？",
+      "description": "落ちている一般的な種の模型を作り、回転、滑空、落下速度を比べて散布戦略を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_022",
+      "title": "同じ森でも高さで住人が違う",
+      "description": "地表、低木、樹冠の環境を公開映像で比べ、光や餌に応じたすみ分けを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_023",
+      "title": "ヤモリはなぜ壁から落ちない？",
+      "description": "足裏の微細構造を拡大資料と安全な模型で示し、接着剤とは異なる仕組みを説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_024",
+      "title": "冬の池で魚はどこにいる？",
+      "description": "水温の層と魚の活動を飼育施設の資料で確認し、氷を割るなど危険な観察は行わない。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_025",
+      "title": "キノコは植物ではない？",
+      "description": "菌糸、胞子、栄養の取り方を模型で比べ、森の分解者や共生者としての役割を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_026",
+      "title": "動物の足跡から歩き方を読む",
+      "description": "許可された遊歩道で足跡を撮影し、指の数や並びから候補を絞る方法を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_027",
+      "title": "サボテンが乾燥へ強い三つの工夫",
+      "description": "茎、棘、気孔それぞれの働きを観察し、水を蓄えて失いにくくする構造を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_028",
+      "title": "ホタルの光は熱くないのか",
+      "description": "捕獲せず公開映像と発光模型を用い、化学エネルギーを効率よく光へ変える仕組みを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_029",
+      "title": "潮だまりは小さな海の実験室",
+      "description": "生き物へ触れず潮位と温度を記録し、環境変化へ耐える多様な暮らし方を見る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_030",
+      "title": "木の年輪から何が分かる？",
+      "description": "伐採は行わず標本と資料を使い、年齢だけでなく気候や傷の記録を読む際の限界も示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_031",
+      "title": "ミツバチのダンスを地図にする",
+      "description": "巣へ近づかず研究映像を解析し、角度と長さで餌場の方向や距離を伝える仕組みを学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_032",
+      "title": "外来種はすべて悪者なのか",
+      "description": "持ち込みの経緯と生態系への影響を事例別に整理し、感情的に決めつけない見方を示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_033",
+      "title": "カエルの声を波形で見分ける",
+      "description": "録音ルールを守った公開音源を比較し、種類ごとの高さとリズムを可視化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_034",
+      "title": "砂浜の模様は波が描いている？",
+      "description": "安全な模型水槽で波の向きと粒の大きさを変え、縞模様ができる過程を観察する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_035",
+      "title": "鳥の羽は一枚ずつ役割が違う",
+      "description": "自然に落ちた羽の写真と模型を使い、飛行、保温、防水を担う形の違いを比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_036",
+      "title": "植物は隣の植物と競争する？",
+      "description": "適切に育てた同種の鉢で間隔だけを変え、光と根の空間が成長へ与える影響を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_037",
+      "title": "タコの腕はそれぞれ考えている？",
+      "description": "水族館の公開映像と神経研究を基に、分散した制御と高い学習能力を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_038",
+      "title": "雲の影で地面の温度は何度変わる？",
+      "description": "同じ場所を日なたと日陰で安全に測り、短時間の光の変化が地表へ与える影響を見る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_039",
+      "title": "小鳥のさえずりと地鳴きを聞き比べ",
+      "description": "公開音源と野外の距離を保った観察から、縄張りや連絡に使う声の違いを学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_040",
+      "title": "深海生物が光る理由ランキング",
+      "description": "捕食、目くらまし、仲間との合図など発光の用途を研究例から分類して紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_041",
+      "title": "一平方メートルに何種類の植物がある？",
+      "description": "踏み荒らさない区画で撮影だけ行い、身近な場所にもある多様性を季節ごとに比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_042",
+      "title": "動物の瞳孔はなぜ形が違う？",
+      "description": "活動時間や獲物との位置関係を資料で比較し、形だけで生活を断定できない点も説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_043",
+      "title": "紅葉は寒さだけで始まるのか",
+      "description": "日照時間、気温、樹種の記録を比べ、葉の色素が変化する複数の条件を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_044",
+      "title": "巣箱カメラで子育てを見守る",
+      "description": "専門団体の適切な設置例を用い、親鳥を驚かせず観察する倫理と成長過程を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_045",
+      "title": "生き物の最速記録を体格で比べる",
+      "description": "絶対速度だけでなく体長あたりの移動距離も計算し、異なる運動方法を公平に見比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_046",
+      "title": "森の倒木は片付けない方がいい？",
+      "description": "朽ち木を利用する菌類、昆虫、植物を観察し、管理林と自然林で目的が違うことを学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_047",
+      "title": "風向きだけで種の到着地点を予想",
+      "description": "採取不要の紙模型を安全な場所で飛ばし、形と風が散布距離へ与える影響を測る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_048",
+      "title": "絶滅した生物の色は分かるのか",
+      "description": "化石の微細構造や現生種との比較など研究法を紹介し、推定と確定を明確に分ける。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_049",
+      "title": "自然観察で守りたい7つのマナー",
+      "description": "距離、採取、餌付け、場所の公開範囲を整理し、生き物と生息地へ負担をかけない方法を示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_nature_050",
+      "title": "この生き物はどこに住む？環境クイズ",
+      "description": "体の特徴から森林、川、海、乾燥地を予想し、答え合わせで適応の仕組みを解説する。",
+      "enabled": true
+    }
+  ]
+}

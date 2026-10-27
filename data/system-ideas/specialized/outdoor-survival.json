@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "outdoor_survival",
+  "ideas": [
+    {
+      "code": "specialized_outdoor_survival_001",
+      "title": "初めてのキャンプで忘れやすい道具10選",
+      "description": "許可された施設を前提に、設営、睡眠、衛生、撤収で必要な物を優先度順に整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_002",
+      "title": "テントを風へどの向きに張る？",
+      "description": "安全な模型と管理されたキャンプ場で風向きを確認し、入口と張り綱の考え方を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_003",
+      "title": "地図の等高線から坂道を予想",
+      "description": "整備されたコースの地図と実際の景色を比べ、傾斜や尾根、谷を読む基礎を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_004",
+      "title": "雨キャンプで濡らさない荷物の分け方",
+      "description": "防水袋と収納順を工夫し、着替え、寝具、電子機器を守るパッキングを検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_005",
+      "title": "軽量装備と快適装備、歩きやすさを比較",
+      "description": "安全な短距離コースで重量を変え、疲労だけでなく睡眠や調理の快適さも評価する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_006",
+      "title": "寝袋の温度表示を正しく読む",
+      "description": "快適温度と限界温度の違い、服装やマットの影響を整理し、無理な寒冷挑戦を避ける。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_007",
+      "title": "方位磁針なしで方角は分かる？",
+      "description": "太陽や地形は補助情報にとどめ、確実な地図・コンパス・位置情報を併用する重要性を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_008",
+      "title": "キャンプ場の朝、結露はなぜできる？",
+      "description": "テント内外の温湿度を測り、換気と設営場所による水滴の違いを安全に比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_009",
+      "title": "野外料理の段取りを15分短縮",
+      "description": "許可された炊事場で食材を衛生管理し、下準備と器具配置による作業時間を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_010",
+      "title": "登山靴と運動靴、歩き方はどう変わる？",
+      "description": "整備された安全な道で支持性と足裏感覚を比べ、コースに合う履物の選び方を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_011",
+      "title": "もし道に迷ったら最初の5分で何をする？",
+      "description": "動き回らず位置と時刻を確認し、通信と救助要請を優先する安全な判断手順を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_012",
+      "title": "火を使わない非常食を三日分考える",
+      "description": "保存期間、水分、栄養、食べ慣れを基準に、家庭の防災備蓄を無理なく組み立てる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_013",
+      "title": "ペグの形で地面への効き方を比較",
+      "description": "砂、土、硬い地面を安全な試験箱で再現し、形状と向きによる保持力の違いを測る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_014",
+      "title": "レイヤリングで暑さ寒さへ対応",
+      "description": "肌着、中間着、外側の役割を運動量別に比べ、汗冷えを避ける着脱判断を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_015",
+      "title": "ハイキングの休憩は何分ごとが楽？",
+      "description": "無理のないコースで短い休憩と長い休憩を比べ、水分補給と疲労の記録から考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_016",
+      "title": "タープの影は時刻でどこへ動く？",
+      "description": "太陽の向きと影を時間ごとに定点撮影し、設営前に休憩場所を予測する方法を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_017",
+      "title": "防災リュックを重さ順に見直す",
+      "description": "水、衛生用品、照明などを優先し、家族構成と避難先に合わせて不要な重複を減らす。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_018",
+      "title": "アウトドア用ロープの結びを3つだけ覚える",
+      "description": "荷物固定など安全な用途に限定し、ほどきやすさと用途を確認して反復練習する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_019",
+      "title": "山の天気はなぜ急に変わる？",
+      "description": "地形と雲の発達を気象資料で解説し、予報確認と早めの引き返し判断を重視する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_020",
+      "title": "一泊分の水は何リットル必要？",
+      "description": "飲用、調理、衛生を分けて計画し、気温や活動量で必要量が変わることを安全側で考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_021",
+      "title": "ランタンの置き場所で見やすさを比較",
+      "description": "火を使わない照明で高さと向きを変え、まぶしさや影を減らす配置を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_022",
+      "title": "撤収が速いサイトは何が違う？",
+      "description": "乾かす物、最後まで使う物、ごみを分け、設営時から片付けやすい配置を作る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_023",
+      "title": "地図アプリだけに頼ると何が困る？",
+      "description": "電池切れと圏外を想定した机上訓練で、紙地図、予備電源、計画共有の役割を確認する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_024",
+      "title": "沢の水は透明でも飲めるのか",
+      "description": "見た目で安全を判断しない理由を解説し、携行水と公的に確認された給水源を優先する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_025",
+      "title": "朝露で濡れにくいテント位置",
+      "description": "指定区画内の低地と風通しを観察し、自然を傷つけず水分が集まりにくい場所を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_026",
+      "title": "初心者が地図と現地を一致させる練習",
+      "description": "分岐、建物、尾根など確実な目印を一つずつ照合し、現在地を推測だけで決めない方法を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_027",
+      "title": "ファーストエイドキットの中身を点検",
+      "description": "傷病の診断はせず、連絡、保護、保温に必要な用品と期限を公的情報に沿って確認する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_028",
+      "title": "キャンプ椅子の高さで作業は変わる？",
+      "description": "食事、調理補助、休憩の動きを比べ、机との高さと立ち座りのしやすさを評価する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_029",
+      "title": "雨具は傘・ポンチョ・上下式どれが合う？",
+      "description": "風のない安全な環境で動きやすさと荷物の守り方を比べ、用途別の選択を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_030",
+      "title": "道標を見落とさない歩き方",
+      "description": "整備されたコースで分岐前後の確認を習慣化し、違和感があれば早く戻る判断を練習する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_031",
+      "title": "車中泊ではなく避難車内の安全知識",
+      "description": "エンジンや換気、気温上昇の危険を公的資料から学び、指定避難所を基本に備えを考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_032",
+      "title": "クーラーボックスの保冷を長持ちさせる",
+      "description": "開閉回数、詰め方、日陰の利用を変え、食品を安全温度に保てる時間を測る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_033",
+      "title": "日帰り登山の出発時刻を逆算",
+      "description": "日没、歩行時間、休憩、予備時間から計画を作り、遅れたときの引き返し時刻も決める。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_034",
+      "title": "荷物の重心で歩きやすさは変わる？",
+      "description": "同じ重量をリュック内で移動し、安全な平地で姿勢と揺れの違いを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_035",
+      "title": "キャンプのごみを最初から減らす",
+      "description": "事前の詰め替えと献立計画で包装を抑え、分別してすべて持ち帰る仕組みを作る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_036",
+      "title": "火起こし道具を安全性から比較",
+      "description": "使用許可のある設備と管理者の指導下で、着火のしやすさより消火確認と扱いやすさを評価する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_037",
+      "title": "標高が上がると気温はどう変わる？",
+      "description": "安全な交通手段と公開観測値を使い、標高差だけでなく天候や風の影響も比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_038",
+      "title": "テント設営の失敗を模型で再現",
+      "description": "張り綱の緩み、入口の向き、排水の問題を小型模型で示し、危険なく改善点を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_039",
+      "title": "自然の中で音はどこまで届く？",
+      "description": "周囲へ迷惑をかけない小音量と距離で聞こえ方を測り、緊急時は笛など適切な手段を使う。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_040",
+      "title": "山で雷の兆候を感じたら",
+      "description": "避難場所と避ける行動を公的な安全情報から整理し、撮影継続より下山・退避を優先する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_041",
+      "title": "一枚の銀色シートでできる防寒",
+      "description": "包み方と地面からの断熱を安全な室内で比べ、応急用品の限界と追加の保温策を説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_042",
+      "title": "初心者二人で設営すると速くなる？",
+      "description": "声かけと役割分担を決め、単独時との時間とミスを許可された区画で比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_043",
+      "title": "行動食は何を基準に選ぶ？",
+      "description": "食べやすさ、保存性、アレルギー、重量を比べ、普段食べ慣れた物から計画する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_044",
+      "title": "野外で手洗い環境をどう作る？",
+      "description": "飲用水を汚さず、石けんや排水の施設ルールを守って衛生を確保する方法を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_045",
+      "title": "災害時の連絡方法を家族で決める",
+      "description": "集合場所、遠方の連絡先、伝言サービスを確認し、通信混雑を想定した机上訓練を行う。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_046",
+      "title": "双眼鏡の倍率は高いほど見やすい？",
+      "description": "安全な展望地で視野、手ぶれ、明るさを比べ、自然観察に合う倍率を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_047",
+      "title": "キャンプ場選びで確認する10項目",
+      "description": "営業情報、許可、設備、天候、避難経路を事前に調べ、無許可野営を避ける計画を作る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_048",
+      "title": "遭難を防ぐ『やめる判断』を練習",
+      "description": "天候悪化、時刻、体調の架空シナリオを提示し、目標達成より撤退を選ぶ基準を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_049",
+      "title": "予算別キャンプ道具、優先するのは？",
+      "description": "安全と睡眠に必要な物から順位を付け、レンタルや共有を含めた三つの予算案を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_outdoor_survival_050",
+      "title": "この装備で行ける？季節別パッキングクイズ",
+      "description": "気温、雨、距離の異なる安全な計画を提示し、視聴者予想後に不足品と不要品を解説する。",
+      "enabled": true
+    }
+  ]
+}

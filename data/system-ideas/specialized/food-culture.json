@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "food_culture",
+  "ideas": [
+    {
+      "code": "specialized_food_culture_001",
+      "title": "包丁を速く動かさず均一に切るコツ",
+      "description": "安全な持ち方と食材を押さえる手を確認し、速さより大きさをそろえる基本を実演する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_002",
+      "title": "塩を入れる順番でスープの味は変わる？",
+      "description": "同じ材料を使い、加える時点だけ変えて香り、食感、味のまとまりを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_003",
+      "title": "炊飯前の浸水時間を4段階で比較",
+      "description": "同じ米と水量で浸水時間だけを変え、炊き上がりの硬さと粒の状態を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_004",
+      "title": "高級だしと身近なだしを目隠し比較",
+      "description": "価格を伏せて香りとうま味を評価し、料理によって選ぶ基準が変わるかを検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_005",
+      "title": "初心者でも失敗しにくい卵料理3選",
+      "description": "十分に加熱し衛生を守りながら、火加減を目で判断できる簡単な料理を段階的に作る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_006",
+      "title": "パスタのゆで汁はソースを変える？",
+      "description": "加える量を変えたソースを比べ、でんぷんと塩分が口当たりへ与える影響を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_007",
+      "title": "世界の朝ごはんを一週間作る",
+      "description": "各地域の定番を背景の食文化とともに紹介し、入手しやすい材料で敬意を持って再現する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_008",
+      "title": "同じ野菜を焼く・蒸す・ゆでる",
+      "description": "加熱時間をそろえて甘さ、香り、食感を比べ、それぞれの料理に合う方法を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_009",
+      "title": "冷蔵庫の場所で保存期間は変わる？",
+      "description": "メーカーの安全基準に従い、温度帯と食材の置き場所を整理して衛生的な保存を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_010",
+      "title": "盛り付ける皿の色でおいしさは変わる？",
+      "description": "同じ料理を複数の色の皿へ盛り、量の見え方と印象を視聴者評価で比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_011",
+      "title": "弱火と強火、玉ねぎの甘さを比較",
+      "description": "焦がさないよう加熱温度と時間を記録し、水分の減少と香りの変化を観察する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_012",
+      "title": "一つの鍋で三日分の献立を展開",
+      "description": "最初の煮込みを衛生的に冷却・保存し、味を変えて無理なく食べ切る計画を作る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_013",
+      "title": "発酵食品は世界でなぜ生まれた？",
+      "description": "気候、保存、風味の観点から各地の例を比べ、微生物管理と衛生の重要性も説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_014",
+      "title": "1000円で栄養バランス献立に挑戦",
+      "description": "地域や時期で価格が変わる点を断り、主食、主菜、副菜をそろえる考え方を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_015",
+      "title": "フライパンの材質で焼き色は変わる？",
+      "description": "同じ食材と火力で温まり方を測り、重さや手入れを含めた使い分けを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_016",
+      "title": "香辛料を一つずつ足してカレーを設計",
+      "description": "辛さだけでなく香りの役割を確かめ、少量ずつ安全に調整して好みの配合を探す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_017",
+      "title": "パンがふくらむ仕組みを断面で観察",
+      "description": "適切な発酵温度を守って生地を比べ、気泡を支える構造と失敗原因を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_018",
+      "title": "郷土料理を地形と気候から読み解く",
+      "description": "海、山、雪、乾燥など地域条件と保存技術を結び付け、料理が生まれた背景を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_019",
+      "title": "電子レンジの温めむらを減らせる？",
+      "description": "機器の説明書を守り、置き場所と途中の混ぜ方を変えて安全な温度分布を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_020",
+      "title": "目分量と計量、味はどこまでそろう？",
+      "description": "同じ料理を複数回作り、塩分と仕上がりのばらつきから計量の価値を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_021",
+      "title": "だし巻き卵の失敗を三つ再現",
+      "description": "加熱不足を避けた安全な条件で、火力、油、巻く時機の違いを比べて改善する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_022",
+      "title": "乾麺と生麺、ソースで相性は変わる？",
+      "description": "食感と麺表面への絡み方を複数の味付けで比べ、用途に合う選び方を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_023",
+      "title": "おにぎりは握る強さで食感が変わる",
+      "description": "衛生的な手袋と器具を使い、同じ重量で圧力だけ変えて粒の残り方を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_024",
+      "title": "食材を無駄にしない一週間献立",
+      "description": "傷みやすい順と使い回しを考えて買い物を計画し、安全な保存期限内で食べ切る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_025",
+      "title": "和食の五味を一皿で探す",
+      "description": "甘味、酸味、塩味、苦味、うま味が互いをどう支えるか、身近な料理で確認する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_026",
+      "title": "冷凍すると食感が変わる野菜",
+      "description": "推奨される下処理と解凍法を守り、生と冷凍後の細胞の変化を料理科学で解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_027",
+      "title": "同じ肉を休ませる時間で食べ比べ",
+      "description": "中心まで安全に加熱したうえで切る時点を変え、肉汁と温度の変化を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_028",
+      "title": "世界の麺料理、すする文化の違い",
+      "description": "食器、食べ方、食事中の音への価値観を地域別に紹介し、優劣をつけず背景を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_029",
+      "title": "砂糖の種類で焼き菓子はどう変わる？",
+      "description": "同じ生地の配合で砂糖の種類だけを替え、焼き色、水分、香りの違いを安全に比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_030",
+      "title": "料理初心者の同時進行を図で整理",
+      "description": "完成時刻から逆算して切る、加熱する、休ませる順番を組み、慌てない段取りを実演する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_031",
+      "title": "余熱だけでどこまで火が入る？",
+      "description": "中心温度計を使い安全基準を守りながら、加熱後も温度が変わる様子を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_032",
+      "title": "高級トマトと身近なトマトを料理別比較",
+      "description": "生食、加熱、ソースで甘味と酸味を比べ、価格ではなく料理への適性で評価する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_033",
+      "title": "味見の回数を減らして味を決められる？",
+      "description": "すべての調味料を重量で管理し、途中の記録から再現性の高いレシピ作りを試す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_034",
+      "title": "包丁一本と調理ばさみ、時短はどっち？",
+      "description": "安全に扱える食材で下ごしらえ時間と洗い物を比べ、得意な作業を使い分ける。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_035",
+      "title": "食品表示から献立を選ぶ練習",
+      "description": "原材料、内容量、保存方法、アレルゲン表示を読み、目的に合う商品を判断する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_036",
+      "title": "同じスープを温度別に味わう",
+      "description": "やけどしない範囲で温度を測り、香り、塩味、口当たりの感じ方の変化を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_037",
+      "title": "一汁一菜を飽きずに七日間",
+      "description": "だし、具材、薬味を替え、少ない品数でも季節と栄養を意識した献立を組む。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_038",
+      "title": "世界の保存食に学ぶ知恵",
+      "description": "乾燥、塩蔵、発酵などを文化史として紹介し、家庭では公的な安全手順に従うよう説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_039",
+      "title": "揚げずにサクサク食感は作れる？",
+      "description": "オーブンなど安全な調理器具で衣と油の量を変え、仕上がりの食感と手間を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_040",
+      "title": "切り方だけで野菜の味は変わる？",
+      "description": "野菜の厚さと繊維方向を変え、加熱時間や噛んだときの香りの出方を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_041",
+      "title": "食器の大きさで一人前はどう見える？",
+      "description": "同じ量を複数の器へ盛り、見た目の満足感と取り分け判断への影響を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_042",
+      "title": "料理酒とみりんの役割を分けて検証",
+      "description": "アルコールを十分に加熱し、香り、甘味、照り、食感へ与える違いを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_043",
+      "title": "失敗した炊き込みご飯を原因分析",
+      "description": "水分、具材量、調味料の順で振り返り、次回に同じ失敗を防ぐ修正表を作る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_044",
+      "title": "旬の食材はなぜおいしいと言われる？",
+      "description": "栄養や価格の利点を断定しすぎず、収穫時期、流通、料理との関係から説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_045",
+      "title": "コンロ一口で30分定食を作る",
+      "description": "加熱順と余熱を活用し、生ものの交差汚染を避けながら主菜と副菜を完成させる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_046",
+      "title": "レシピの『少々』を重さにしてみた",
+      "description": "複数人の感覚を計測し、曖昧な表現が家庭料理で果たす役割と再現性を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_047",
+      "title": "家庭料理を美しく見せる余白の使い方",
+      "description": "器の形、料理の高さ、食材の色の配置を変え、特別な道具なしで印象を整える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_048",
+      "title": "同じ材料を和・洋・中の味付けへ",
+      "description": "切り方と調味の組み合わせを変え、食材を使い切りながら三つの料理に展開する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_049",
+      "title": "一番おいしい焼き加減を視聴者予想",
+      "description": "安全に加熱できる食材で時間を段階変更し、断面を見せた後に食感と香りを評価する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_food_culture_050",
+      "title": "料理の常識10問を科学で答え合わせ",
+      "description": "水に塩を入れる時期など身近な疑問を安全な比較実験で確かめ、条件による違いを解説する。",
+      "enabled": true
+    }
+  ]
+}

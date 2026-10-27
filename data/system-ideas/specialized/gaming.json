@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "gaming",
+  "ideas": [
+    {
+      "code": "specialized_gaming_001",
+      "title": "初心者が最初の1時間で確認すべき設定",
+      "description": "画面表示、操作、音量、アクセシビリティを見直し、遊びやすさへ直結する項目を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_002",
+      "title": "初期装備だけで最終エリアへ行けるのか",
+      "description": "強化を制限した架空の検証条件で、知識と操作だけでどこまで進めるか挑戦する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_003",
+      "title": "攻撃力と手数、ダメージ効率が高いのは？",
+      "description": "一撃型と連続攻撃型の構成を同じ時間で比べ、敵や状況による使い分けを分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_004",
+      "title": "地図を見ずに迷わないマップの読み方",
+      "description": "目印、光、道幅など開発者が置いた誘導を探し、空間を覚える観察ポイントを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_005",
+      "title": "レアアイテムの確率を1000回検証",
+      "description": "同じ条件の試行結果を記録し、表示確率とのずれや少ない回数で判断する危険を説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_006",
+      "title": "回復禁止で高難易度ボスに挑戦",
+      "description": "被弾を減らす動きと攻撃機会の選び方を振り返り、失敗ごとに改善した点を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_007",
+      "title": "最短ルートと安全ルートをタイム比較",
+      "description": "同じステージを二つの方針で攻略し、速さだけでなく失敗率を含めた実用性を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_008",
+      "title": "チュートリアルはどこまでプレイヤーを導く？",
+      "description": "説明文、実演、失敗からの学習を分類し、分かりやすい導入設計の工夫を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_009",
+      "title": "防御力を上げるより回避を磨くべき？",
+      "description": "装備重視と操作重視の攻略を同じ敵で試し、必要技術と安定性の違いを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_010",
+      "title": "見えないパラメータを行動から推理する",
+      "description": "移動速度や敵の警戒範囲を条件をそろえて測り、内部仕様を推定する過程を見せる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_011",
+      "title": "ランダム生成マップに共通する法則",
+      "description": "複数回の地形を重ねて観察し、完全な偶然に見える配置から攻略に使える規則を探す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_012",
+      "title": "操作遅延は何ミリ秒から体感できる？",
+      "description": "安全なテスト環境で遅延を段階的に加え、入力の正確さとプレイ感覚の変化を計測する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_013",
+      "title": "所持金ゼロから効率よく立て直す方法",
+      "description": "入手しやすい資源と優先すべき強化を整理し、無駄な買い物を減らす復帰手順を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_014",
+      "title": "同じキャラを火力型と支援型で比較",
+      "description": "役割の異なる二つの構成を同条件で試し、個人記録とチーム貢献の違いを分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_015",
+      "title": "目隠し音声だけでステージを進める？",
+      "description": "アクセシビリティ機能と音の手がかりを活用し、視覚情報が担う役割を安全に検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_016",
+      "title": "セーブ地点の配置から難所を予測できるか",
+      "description": "休憩地点までの距離と敵配置を記録し、ゲームが緊張と安心を作る方法を読み解く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_017",
+      "title": "一つの技だけでクリアする縛り攻略",
+      "description": "使える行動を限定し、通常は見逃す技の強みと通用しない場面を攻略過程から分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_018",
+      "title": "初心者と上級者のカメラ操作を比較",
+      "description": "同じ場面の視点移動を記録し、状況把握や酔いにくさへ影響する操作習慣を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_019",
+      "title": "敵AIはプレイヤーをどこまで追う？",
+      "description": "距離、遮蔽物、高低差を変えたテストで、追跡が解除される条件と行動パターンを調べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_020",
+      "title": "説明を読まないと見落とす便利機能10選",
+      "description": "操作一覧や設定画面を丁寧に確認し、攻略時間を短縮する汎用的な機能を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_021",
+      "title": "低レベルのまま経験値エリアを突破",
+      "description": "戦闘回避と資源管理を中心に進み、レベル差を知識で補える範囲を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_022",
+      "title": "最強装備より相性装備が勝つ条件",
+      "description": "属性や敵の行動に合わせた構成を試し、単純な数値順位では決められない装備選びを示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_023",
+      "title": "失敗100回から作るボス行動表",
+      "description": "攻撃の予兆、範囲、反撃可能な時間を記録し、観察を再現可能な攻略情報へまとめる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_024",
+      "title": "ゲーム内経済はなぜインフレする？",
+      "description": "報酬と消費先のバランスを仮想データで追い、通貨価値を保つ設計を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_025",
+      "title": "字幕と音声、情報を早く取れるのはどっち？",
+      "description": "同じ指示を二つの方法で受け、反応時間と見落としやすさを条件別に比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_026",
+      "title": "最弱キャラクターだけでチームを組む",
+      "description": "評価が低い能力の組み合わせを工夫し、役割分担で弱点を補えるか挑戦する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_027",
+      "title": "回復アイテムは温存するほど損なのか",
+      "description": "使用せず余らせる場合と積極的に使う場合を比べ、資源管理の心理と攻略効率を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_028",
+      "title": "タイムアタックのルートを1分縮める分析",
+      "description": "移動、戦闘、メニュー操作を区間計測し、最大の時間損失から順に改善する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_029",
+      "title": "難易度設定で敵は何が変わる？",
+      "description": "体力だけでなく行動頻度や資源量も確認し、難しさを作る複数の要素を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_030",
+      "title": "隠し通路は背景のどこに示されている？",
+      "description": "壁の模様、照明、音など繰り返される手がかりを分類し、探索デザインを読み解く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_031",
+      "title": "連打と正確入力、成功率が高いのは？",
+      "description": "入力受付時間の異なる課題を用意し、速さとタイミングのどちらが重要かを検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_032",
+      "title": "アイテム説明だけで性能順位を予想",
+      "description": "数値を隠した状態で用途を推測し、実測結果との違いから説明文の情報設計を評価する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_033",
+      "title": "ノーダメージ攻略に必要な練習順",
+      "description": "回避、位置取り、攻撃欲の管理を段階的に練習し、成功率が上がる過程を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_034",
+      "title": "協力プレイは人数が多いほど簡単？",
+      "description": "敵の強化、役割分担、意思疎通を含め、人数ごとのクリア時間と失敗原因を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_035",
+      "title": "ゲームの『見えない壁』はなぜ必要？",
+      "description": "移動制限の置き方と世界への没入感を例で比べ、自然な境界設計の工夫を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_036",
+      "title": "乱数はロードし直すと変わるのか",
+      "description": "同じ操作と異なる操作を繰り返し、結果が決まるタイミングを統計的に推定する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_037",
+      "title": "装備重量ゼロと最大で移動を比較",
+      "description": "速度、回避、持久力の変化を測り、持ち物を増やす代償が攻略へどう響くかを見る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_038",
+      "title": "序盤スキルの振り直しなし攻略ガイド",
+      "description": "後悔しにくい基礎能力を優先し、特定作品に依存しない成長方針を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_039",
+      "title": "ミニマップを消すと探索は楽しくなる？",
+      "description": "目的地到達時間と周囲を見る回数を比べ、利便性と没入感のトレードオフを検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_040",
+      "title": "負けイベントは本当に勝てないのか",
+      "description": "通常プレイの範囲で条件を変えて挑み、勝敗が固定される演出の仕組みを分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_041",
+      "title": "敵の弱点をエフェクトだけで見抜ける？",
+      "description": "色、音、反応の違いから有効な攻撃を予想し、ゲームが伝える非言語情報を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_042",
+      "title": "初心者がやりがちな資源不足の原因",
+      "description": "強化の偏りや探索不足など典型的な失敗を再現し、詰みにくい優先順位へ改善する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_043",
+      "title": "ゲーム内の一日を最適化してみた",
+      "description": "移動と待ち時間を減らす順路を組み、効率重視が楽しさへ与える影響も振り返る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_044",
+      "title": "同じステージを3つの操作機器で攻略",
+      "description": "入力精度、疲れやすさ、ボタン配置を比べ、自分に合う操作環境の選び方を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_045",
+      "title": "ランク表は攻略に本当に役立つ？",
+      "description": "単独性能、扱いやすさ、編成相性を分けて評価し、一つの順位にまとめる限界を検討する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_046",
+      "title": "画面情報を減らすと上達は速くなる？",
+      "description": "補助表示を段階的に外し、状況判断が鍛えられる点と不便になる点を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_047",
+      "title": "安全地帯の見つけ方をボス戦で検証",
+      "description": "攻撃範囲を重ねて立てる場所を探し、偶然の回避を再現可能な位置取りへ変える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_048",
+      "title": "名作の操作感は何フレームで決まる？",
+      "description": "入力受付、予備動作、効果音の関係を分解し、気持ちよさを生むゲーム設計を考察する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_049",
+      "title": "クリア率1%の自作ステージを改善",
+      "description": "テスト結果から失敗地点を集計し、難しさを残したまま理不尽さを減らす調整を行う。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_gaming_050",
+      "title": "次の一手を視聴者投票だけで攻略",
+      "description": "複数の選択肢と予想結果を提示し、投票で決まった方針を最後まで検証する。",
+      "enabled": true
+    }
+  ]
+}

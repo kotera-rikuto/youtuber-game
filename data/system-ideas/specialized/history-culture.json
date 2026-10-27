@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "history_culture",
+  "ideas": [
+    {
+      "code": "specialized_history_culture_001",
+      "title": "縄文と弥生、一日の暮らしを比べる",
+      "description": "住居、食事、道具を考古資料から組み立て、時代が変わっても一斉には変化しなかった点も解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_002",
+      "title": "江戸の町はどうやって時刻を知った？",
+      "description": "鐘と不定時法を史料からたどり、季節で一刻の長さが変わる生活感覚を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_003",
+      "title": "古代ローマの道路が長く使われた理由",
+      "description": "路盤、排水、経路選びを遺構と研究から読み、広い領域を結んだ技術と目的を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_004",
+      "title": "戦国の城は天守よりここが重要だった",
+      "description": "堀、土塁、曲輪、道の曲がり方に注目し、城全体で守る仕組みを模型で解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_005",
+      "title": "昔の人は旅に何を持っていった？",
+      "description": "時代別の旅道具と記録を比べ、移動速度や宿、身分によって荷物が変わる様子をたどる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_006",
+      "title": "世界の食卓でスプーンが広まった道のり",
+      "description": "地域ごとの食事形式と道具の変化を追い、優劣ではなく料理との関係から説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_007",
+      "title": "浮世絵はどうやって何枚も刷った？",
+      "description": "絵師、彫師、摺師の分業と色版の重ね方を安全な簡易版画づくりで再現する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_008",
+      "title": "歴史年表を暗記せず流れで読む方法",
+      "description": "原因、変化、影響の三段階で出来事を結び、同時代の世界も並べて理解する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_009",
+      "title": "古い地図と今の町を重ねてみた",
+      "description": "公開資料の地図を丁寧に照合し、川、道、地名に残る土地利用の変化を読み解く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_010",
+      "title": "なぜ世界にはさまざまな暦がある？",
+      "description": "太陽、月、季節を基準にした暦を比べ、暮らしや祭礼との結び付きを紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_011",
+      "title": "甲冑は本当に動きにくかったのか",
+      "description": "博物館資料と安全な復元模型から、守る場所と動きやすさを両立する工夫を観察する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_012",
+      "title": "中世の市場で使われたお金と物々交換",
+      "description": "貨幣の種類、信用、地域差を史料から整理し、単純な物々交換だけではない経済を描く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_013",
+      "title": "神話と歴史はどこで分けて読む？",
+      "description": "神話が伝える価値観と史料で検証できる事実を分け、両方を尊重して読む方法を示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_014",
+      "title": "着物の形は時代ごとにどう変わった？",
+      "description": "袖、帯、重ね方の変化を美術資料で追い、生活様式や身分との関係を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_015",
+      "title": "大航海時代の船員は何を食べた？",
+      "description": "航海記録から保存食と補給の課題をたどり、長期航海を支えた工夫と限界を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_016",
+      "title": "江戸のごみはどこへ行ったのか",
+      "description": "回収、修理、再利用の仕事を史料から調べ、循環の仕組みを現代と単純比較せず解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_017",
+      "title": "古代の文字を解読する手がかり",
+      "description": "対訳碑文や繰り返し記号など実際の研究法を例に、未知の文字へ意味を与える過程を追う。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_018",
+      "title": "城下町の道が曲がっている理由を検証",
+      "description": "防御説だけで断定せず、地形、既存道路、町割りなど複数の要因を地図から比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_019",
+      "title": "昔の台所で一汁三菜を作るなら",
+      "description": "かまどや保存技術を資料から再現し、現代と異なる手間と季節性を安全な調理で考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_020",
+      "title": "ピラミッド建設の有力説を比べる",
+      "description": "運搬路や労働組織に関する複数の研究を紹介し、確定事項と未解明部分を分ける。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_021",
+      "title": "鉄道開通で一日の距離感はどう変わった？",
+      "description": "時刻表と旅日記を比較し、移動時間、町の発展、時間意識への影響を可視化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_022",
+      "title": "家紋は名字と同じように使われた？",
+      "description": "家や集団を示す印としての役割を資料で確認し、地域や時代による使われ方の違いを説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_023",
+      "title": "世界の伝統住居は気候にどう適応した？",
+      "description": "暑さ、寒さ、雨、風への工夫を地域別に比べ、材料と暮らしが形を決めることを示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_024",
+      "title": "手紙の書き方で分かる昔の人間関係",
+      "description": "敬称、紙、使者の選び方を史料から読み、文章以外にも込められた意味を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_025",
+      "title": "発明は一人の天才だけで生まれる？",
+      "description": "印刷や蒸気機関を例に改良の積み重ねを追い、複数地域の知識が関わる過程を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_026",
+      "title": "忍者の史実と創作イメージを仕分ける",
+      "description": "残された記録で確認できる役割と後世の物語表現を分け、分からない点も明示する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_027",
+      "title": "昔の子どもは何をして遊んだ？",
+      "description": "絵画や出土品に残る遊びを時代別に比べ、身近な材料から生まれた工夫を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_028",
+      "title": "香辛料が世界史を動かした理由",
+      "description": "保存性だけに限定せず、味、薬用、希少性、交易路の変化を資料から整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_029",
+      "title": "日本の名字はいつ広く使われた？",
+      "description": "公的な名字と日常の呼び名を区別し、制度と地域慣習の変化を時代順にたどる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_030",
+      "title": "古代オリンピックと現代大会の違い",
+      "description": "競技、参加者、宗教行事との関係を史料で比べ、同じ名称でも異なる背景を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_031",
+      "title": "なぜ古い建物は釘なしで建つのか",
+      "description": "継手や仕口の模型で力の流れを観察し、実物修理は専門家が行う文化財技術として紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_032",
+      "title": "海賊の旗に込められた戦略",
+      "description": "実在した旗の記録と後世の創作を分け、威嚇や識別に使われた可能性を複数資料で見る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_033",
+      "title": "明治の学校生活を時間割で再現",
+      "description": "教科、服装、教材、通学を資料から組み立て、地域や性別で差があった点も説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_034",
+      "title": "世界のパンはなぜ形も食感も違う？",
+      "description": "穀物、気候、発酵、焼く設備の歴史を比べ、各地の食文化との結び付きを紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_035",
+      "title": "国境線はどうやって決まってきた？",
+      "description": "地形、条約、植民地化など複数の背景を例示し、現在の対立を単純化せず説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_036",
+      "title": "昔の裁判はどんな証拠を見た？",
+      "description": "異なる時代と地域の制度を史料から比べ、現代の価値観だけで断定しないよう整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_037",
+      "title": "十二支は動物の順番だけではない",
+      "description": "暦、方角、時刻を表す体系としての役割を紹介し、地域ごとの動物の違いも比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_038",
+      "title": "印刷前の本はどう作られた？",
+      "description": "写本、紙、装丁、読み手を資料からたどり、一冊の本に必要だった時間と分業を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_039",
+      "title": "古戦場の地形だけで作戦は読める？",
+      "description": "高低差、川、道を地図で確認しつつ、後世に起きた地形変化と史料の限界も示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_040",
+      "title": "コーヒー文化が世界へ広がった道",
+      "description": "栽培、交易、社交空間の変化を追い、強制労働など負の歴史にも触れて解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_041",
+      "title": "庶民の日記から見る歴史の一日",
+      "description": "政治の大事件だけでなく天気、物価、仕事の記録を読み、生活者の視点で時代を描く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_042",
+      "title": "伝統色の名前はどこから来た？",
+      "description": "植物、鉱物、季節、身近な物に由来する伝統色の名前を実物資料とともに紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_043",
+      "title": "失われた都市はなぜ放棄された？",
+      "description": "気候、交易、政治、災害など複数要因を遺跡研究から比べ、単一原因説を避けて考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_044",
+      "title": "昔のニュースはどの速さで届いた？",
+      "description": "使者、掲示、印刷物、電信を時代順に比べ、情報速度が社会へ与えた影響を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_045",
+      "title": "博物館の展示はどう歴史を選ぶ？",
+      "description": "資料の保存、研究、説明文の作成を追い、展示も根拠に基づく解釈であることを学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_046",
+      "title": "海のシルクロードを品物からたどる",
+      "description": "陶磁器、香辛料、ガラスの移動を地図に重ね、人と技術も交流した道として紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_047",
+      "title": "同じ英雄が国ごとに違って語られる理由",
+      "description": "複数地域の史料と後世の物語を比べ、記憶のされ方が時代で変わることを示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_048",
+      "title": "歴史写真はどこまで事実を写す？",
+      "description": "撮影者、構図、演出、説明文を確認し、写真も背景を読んで使う史料だと解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_049",
+      "title": "もし一つだけ過去へ持っていくなら？",
+      "description": "衛生、通信、測定など候補の歴史的影響を視聴者に予想してもらい、実現条件を検討する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_history_culture_050",
+      "title": "三つの史料が食い違う事件を推理",
+      "description": "作成時期と立場の異なる記録を比較し、断定できる事実と残る仮説を丁寧に仕分ける。",
+      "enabled": true
+    }
+  ]
+}

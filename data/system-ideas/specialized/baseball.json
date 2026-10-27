@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "baseball",
+  "ideas": [
+    {
+      "code": "specialized_baseball_001",
+      "title": "初心者が最初に覚えたい野球の基本ルール10選",
+      "description": "試合の進み方からアウトの数え方まで、観戦とプレーの土台になるルールを図解で整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_002",
+      "title": "同じ球速でも打ちにくさが違うのはなぜ？",
+      "description": "回転数や球筋、リリース位置の違いを比べ、打者が感じる速さの正体を分かりやすく解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_003",
+      "title": "芯を外すと飛距離はどれだけ落ちる？",
+      "description": "打点を少しずつずらした打球を計測し、バットの芯と飛距離や打球速度の関係を確かめる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_004",
+      "title": "ゴロ捕球が安定する足運びを基礎から解説",
+      "description": "構えから送球までを段階に分け、初心者が失敗しやすい姿勢と改善練習を実演する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_005",
+      "title": "盗塁の成功率を上げるリード幅の考え方",
+      "description": "投手と捕手の動きを読む視点を紹介し、安全な練習環境でリード幅による違いを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_006",
+      "title": "変化球はなぜ曲がる？回転を見える化",
+      "description": "安全な模型と映像解析を使い、ボールの回転方向が軌道へ与える影響を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_007",
+      "title": "バントは本当に得点へつながるのかデータ検証",
+      "description": "走者とアウト数ごとの得点期待値を比べ、送りバントが有効になりやすい場面を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_008",
+      "title": "内野5ポジションの役割を一打席で追う",
+      "description": "投球前の準備から打球処理後の連係まで、各守備位置が同時に何を考えるかを追跡する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_009",
+      "title": "初心者用と上級者用グラブは何が違う？",
+      "description": "重さ、革の硬さ、ポケットの形を比べ、守備位置や経験に合う選び方を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_010",
+      "title": "コントロールを乱す投球フォームの共通点",
+      "description": "踏み出しや体の開きを映像で確認し、狙った場所へ投げるための修正ポイントを実演する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_011",
+      "title": "フライを見失わない目線と追い方",
+      "description": "打球判断の最初の一歩から落下地点への入り方まで、風がある場合も含めて練習する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_012",
+      "title": "配球だけで打者の狙いを外せるのか",
+      "description": "球種とコースの組み合わせを仮想打席で比較し、前の一球が次の判断へ与える影響を読む。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_013",
+      "title": "金属バットと木製バットの打球を比較",
+      "description": "同じ条件で打球速度と感触を記録し、素材や芯の広さによる特徴の違いを紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_014",
+      "title": "二塁から本塁へ帰れる打球を見極める",
+      "description": "外野手の位置や打球速度を変え、三塁コーチが進塁を判断する材料をケース別に考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_015",
+      "title": "野球スコアブックを一試合つけてみよう",
+      "description": "記号の読み方から走者の進み方まで、初心者でも試合を記録できる手順を例題で学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_016",
+      "title": "左投手と右投手で打者の見え方はどう変わる？",
+      "description": "カメラ位置をそろえた映像でリリース角度を比較し、左右の相性が生まれる理由を探る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_017",
+      "title": "併殺プレーを速くする送球ルート研究",
+      "description": "捕球位置とベースへの入り方を変え、無理なく二つのアウトを取る連係を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_018",
+      "title": "打順はどう組む？出塁率から考える攻撃設計",
+      "description": "異なる特徴の打者を並べた仮想チームで、得点しやすい打順の考え方をシミュレーションする。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_019",
+      "title": "捕手のサイン交換と守備指示を徹底解説",
+      "description": "投手への球種指示だけでなく、走者や守備位置を動かす捕手の判断を場面別に紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_020",
+      "title": "ストライクゾーンは立ち位置でどう見える？",
+      "description": "打者、捕手、審判それぞれの視点映像を比べ、判定が難しい高さとコースを確認する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_021",
+      "title": "遠投より先に身につけたい正しい送球動作",
+      "description": "肩だけに頼らず下半身から力を伝える流れを分解し、近距離から段階的に練習する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_022",
+      "title": "外野守備の一歩目を打球音だけで判断できる？",
+      "description": "音と打球方向の情報を段階的に制限し、経験による初動判断の精度を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_023",
+      "title": "四球を選べる打者は何を見ているのか",
+      "description": "ボールの見送り方とカウント別の狙いを整理し、出塁につながる判断の組み立てを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_024",
+      "title": "握りを変えると送球の回転は安定する？",
+      "description": "指のかかり方を変えた安全な近距離送球を撮影し、回転軸と球筋の違いを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_025",
+      "title": "狭い場所でもできる野球基礎練習7選",
+      "description": "壁当てを避けた捕球や足運びなど、周囲の安全を確保して行える練習を難易度順に紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_026",
+      "title": "満塁で守備位置はどう変えるべき？",
+      "description": "点差とイニングを変えた盤面で、前進守備や併殺狙いの利点とリスクを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_027",
+      "title": "ホームランを生む打球角度を数字で分析",
+      "description": "打球速度と角度の組み合わせを可視化し、強い打球が必ず本塁打になるとは限らない理由を探る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_028",
+      "title": "雨の日のグラウンドで守備はどう変わる？",
+      "description": "滑りやすさや打球の減速を安全な模擬条件で再現し、確実性を優先するプレーを考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_029",
+      "title": "野球ボールの縫い目はプレーにどう影響する？",
+      "description": "縫い目の高さと握りや回転の関係を観察し、ボール設計に込められた工夫を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_030",
+      "title": "代打を出すならいつ？終盤の采配を考える",
+      "description": "点差、走者、投手との相性をカード化し、限られた選手を使う判断を複数案で比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_031",
+      "title": "スライディングは本当に走塁を速くする？",
+      "description": "安全な指導下で駆け抜けとの到達時間を比べ、使う場面とけがを防ぐ基本を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_032",
+      "title": "ブルペン投球を試合につなげる練習法",
+      "description": "球数だけで終わらせず、打者やカウントを想定して投げる練習メニューを組み立てる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_033",
+      "title": "捕球から送球までを0.1秒ずつ改善する",
+      "description": "動作を区間ごとに計測し、急ぐほど乱れやすい部分を見つけて確実な短縮方法を試す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_034",
+      "title": "犠牲フライになる深さを球場模型で検証",
+      "description": "外野の位置と走者の速度を変え、タッチアップが成功しやすい条件を模型上で可視化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_035",
+      "title": "野球のポジション番号を連係で覚える",
+      "description": "守備番号を暗記するだけでなく、代表的な打球の記録と実際の動きを結び付けて理解する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_036",
+      "title": "打撃不振から抜け出す映像チェック5項目",
+      "description": "好調時と不調時のフォームを同じ角度で比べ、変える点を一度に増やさない改善法を示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_037",
+      "title": "球場の広さが試合戦術を変える理由",
+      "description": "外野の奥行きやファウルゾーンの違いを仮想球場で比べ、守備配置と長打の傾向を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_038",
+      "title": "一球ごとの間合いで投手は何を整える？",
+      "description": "呼吸、サイン確認、走者警戒の流れを追い、一定のテンポを作る意義を分かりやすく示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_039",
+      "title": "軟式と硬式、同じ打ち方で飛ぶのか",
+      "description": "安全設備と経験者の管理下で反発や変形を比べ、用具に合わせた打撃の違いを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_040",
+      "title": "初心者チームが一試合で減らせるミスは何個？",
+      "description": "事前に優先順位を決めた守備練習を行い、送球や連係のミスがどう変化したかを記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_041",
+      "title": "申告敬遠は試合の流れをどう変える？",
+      "description": "次打者や走者状況の異なる場面を例に、得点期待と守備側の狙いを両面から考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_042",
+      "title": "野球用スパイクの違いを足元から比較",
+      "description": "ソール形状や重量による踏ん張りと動きやすさを安全な走路で試し、選び方を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_043",
+      "title": "カットプレーで失点を防ぐ中継位置",
+      "description": "外野から本塁までの送球を分割し、肩の強さだけに頼らない中継の位置取りを実演する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_044",
+      "title": "100年前の野球ルールと現代を比べる",
+      "description": "用具や試合進行の変化を史料に基づいてたどり、現在のルールが生まれた背景を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_045",
+      "title": "投球数が増えるとフォームはどう変わる？",
+      "description": "無理のない球数で姿勢と制球の変化を記録し、疲労の兆候と休息の重要性を確認する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_046",
+      "title": "ノックの難易度を5段階で設計してみた",
+      "description": "正面のゴロから判断を伴う打球まで、成功率を見ながら段階的な守備練習を組み立てる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_047",
+      "title": "走者一塁、右方向への打撃は有効？",
+      "description": "進塁打を狙う利点と打撃を狭める欠点をデータで比べ、状況に応じた考え方を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_048",
+      "title": "ファウルで粘る技術を打席映像から学ぶ",
+      "description": "追い込まれた後の狙い球とスイングの変化を分析し、簡単にアウトにならない工夫を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_049",
+      "title": "グラブの手入れで捕りやすさは変わる？",
+      "description": "適切な清掃と保管の前後で革の状態を比べ、型を崩さず長く使う基本を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_baseball_050",
+      "title": "9回裏1点差、あなたならどう守る？",
+      "description": "走者と打順の異なる三つの局面を提示し、視聴者の予想後に守備戦術の選択肢を検討する。",
+      "enabled": true
+    }
+  ]
+}

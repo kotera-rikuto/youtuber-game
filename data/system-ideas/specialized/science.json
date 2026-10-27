@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "science",
+  "ideas": [
+    {
+      "code": "specialized_science_001",
+      "title": "水滴はなぜ丸くなる？表面張力を観察",
+      "description": "安全な水と身近な素材を使い、表面の違いで水滴の形が変わる様子を拡大して比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_002",
+      "title": "紙飛行機の翼を変えると飛距離は伸びる？",
+      "description": "機体の重さをそろえて翼の幅と角度だけを変え、飛行時間と安定性を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_003",
+      "title": "同じ音でも部屋で聞こえ方が違う理由",
+      "description": "壁材や家具の配置が異なる場所で反響を測り、音が吸収・反射される仕組みを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_004",
+      "title": "氷が一番早く溶ける置き場所はどこ？",
+      "description": "日なたを避けた安全な室内で素材と空気の流れを変え、熱の伝わり方を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_005",
+      "title": "月が地平線で大きく見える錯覚を再現",
+      "description": "同じ大きさの図形を背景だけ変えて観察し、脳が距離と大きさを判断する仕組みを探る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_006",
+      "title": "風船をこすらず静電気を見つける方法",
+      "description": "市販の安全な器具で微小な引力を観察し、電荷が移動する条件を分かりやすく説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_007",
+      "title": "植物は光の方向をどう見つける？",
+      "description": "同じ種類の苗を適切に世話しながら光の方向を変え、茎の成長を日ごとに記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_008",
+      "title": "炭酸の泡はどこから生まれるのか",
+      "description": "透明な炭酸水を温度や容器の表面ごとに観察し、泡ができるきっかけを比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_009",
+      "title": "磁石の力は紙を何枚まで通り抜ける？",
+      "description": "磁石と小さなクリップの間へ紙を増やし、距離による力の変化を安全に測る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_010",
+      "title": "夕焼けが赤く見える仕組みを光で再現",
+      "description": "安全な光源と薄い濁りを使い、光が進む距離によって届く色が変わる様子を観察する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_011",
+      "title": "振り子の速さを決めるのは重さ？長さ？",
+      "description": "一度に一つの条件だけ変え、往復時間を測って予想と結果の違いを確かめる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_012",
+      "title": "雲の種類から天気の変化を読める？",
+      "description": "公開された気象資料と空の定点観察を結び付け、断定せず傾向として整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_013",
+      "title": "石けんで油汚れが落ちる瞬間を観察",
+      "description": "食用油と安全な洗剤を透明容器で混ぜ、油が細かく分散する仕組みを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_014",
+      "title": "目の錯覚ランキング、脳はどこで迷う？",
+      "description": "複数の錯視図形を条件をそろえて試し、形、色、動きのどれが判断を狂わせるか分類する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_015",
+      "title": "砂糖は水温でどれだけ溶け方が変わる？",
+      "description": "安全な温度範囲で同じ量を混ぜ、溶ける時間と最終的な量を分けて記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_016",
+      "title": "空気にも重さがあることを確かめる",
+      "description": "風船と簡単なつり合い装置を使い、目に見えない空気の質量を安全に可視化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_017",
+      "title": "音の高さを決める振動を見える化",
+      "description": "輪ゴムや市販の音叉を使い、振動の速さと聞こえる高さの関係をスロー映像で示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_018",
+      "title": "卵の形はどの向きから強いのか",
+      "description": "食材を無駄にしない模型と安全な荷重で形による強度を比べ、殻の構造を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_019",
+      "title": "星の明るさは距離だけで決まる？",
+      "description": "恒星の大きさ、温度、距離を模型データで比べ、地球からの見え方を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_020",
+      "title": "影の長さだけで時刻を当てられるか",
+      "description": "安全な屋外で同じ棒の影を定時記録し、太陽の位置と季節による違いを調べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_021",
+      "title": "紙は何回折ると厚さが1メートル？",
+      "description": "実際に無理な折り方はせず、測定した一枚の厚さから指数的な増え方を計算で確かめる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_022",
+      "title": "水中では物が近く見えるのはなぜ",
+      "description": "透明容器越しの目盛りを角度別に観察し、光の屈折で位置がずれて見える仕組みを示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_023",
+      "title": "冷たい缶に水滴がつく正体",
+      "description": "缶の表面温度と周囲の湿度を記録し、中の水が漏れたのではないことを検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_024",
+      "title": "鳥の翼と飛行機の翼は同じ仕組み？",
+      "description": "形を単純化した模型と映像資料を比べ、共通点と生物ならではの違いを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_025",
+      "title": "身近な素材で断熱性能を比べる",
+      "description": "同じ温度の容器を安全な布や紙で包み、冷め方の差から熱を逃がしにくい構造を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_026",
+      "title": "色水は植物のどこを通る？",
+      "description": "安全な食用色素と切り花を使い、茎から葉や花へ水が移動する道筋を観察する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_027",
+      "title": "気圧が低いと袋はどう変わる？",
+      "description": "密閉された安全な観察容器を使い、周囲の圧力差で柔らかな袋の形が変わる様子を見る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_028",
+      "title": "鏡は左右を反転しているのか",
+      "description": "文字と体の動きを鏡で比較し、実際には前後方向が入れ替わって見える理由を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_029",
+      "title": "雨粒は涙形ではない？落下する形を解説",
+      "description": "高速度映像と模型を使い、小さな水滴が空気抵抗で変形する過程を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_030",
+      "title": "発酵と腐敗は何が違う？",
+      "description": "食品科学の資料と安全に管理された市販食品を例に、人に役立つ微生物の働きを整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_031",
+      "title": "同じ重さでも沈む物と浮く物の違い",
+      "description": "体積の異なる安全な物体を水へ入れ、密度と浮力の関係を予想しながら確かめる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_032",
+      "title": "宇宙では音が聞こえない理由",
+      "description": "真空を直接作る危険な実験は行わず、粒子が音を伝える模型で宇宙環境を説明する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_033",
+      "title": "指紋はなぜ一人ずつ違うのか",
+      "description": "採取手順ではなく拡大画像と発生過程に注目し、模様の共通分類と個人差を学ぶ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_034",
+      "title": "金属と木、触ると冷たいのはどっち？",
+      "description": "同じ室温の素材へ安全に触れ、熱の移りやすさが温度感覚へ与える影響を測る。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_035",
+      "title": "虹はなぜ決まった順番の色になる？",
+      "description": "安全なプリズムと白色光で色を分け、波長によって曲がり方が異なる様子を観察する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_036",
+      "title": "眠る植物の葉を一晩観察",
+      "description": "植物へ負担をかけず定点撮影し、明暗に合わせて葉の向きが変わる種類の行動を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_037",
+      "title": "摩擦を減らすと物体はどこまで進む？",
+      "description": "表面素材と車輪の有無を変えた模型で距離を測り、止まる原因を力の視点から考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_038",
+      "title": "天気予報の降水確率を正しく理解",
+      "description": "地域と時間に対する確率の意味を例題で整理し、よくある誤解をデータから解く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_039",
+      "title": "泡の形はなぜ丸や六角形になる？",
+      "description": "安全な石けん液の泡を単体と集団で観察し、面積を小さくする力が作る形を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_040",
+      "title": "昆虫と人間の目は何が違う？",
+      "description": "複眼の模型と画像処理を使い、見える範囲や動きへの反応が異なる理由を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_041",
+      "title": "温度計なしで熱い冷たいを当てられる？",
+      "description": "安全な温度範囲の水を用い、先に触れた温度で感覚が変わる順応を体験する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_042",
+      "title": "月の満ち欠けを球とライトで再現",
+      "description": "月そのものが欠けるのではなく、太陽に照らされた面の見え方が変わることを模型で示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_043",
+      "title": "古代の科学者は地球の大きさをどう測った？",
+      "description": "影と距離を使った歴史的な考え方を模型で再現し、観察から計算へ進む過程をたどる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_044",
+      "title": "水の渦は回す方向で変わる？",
+      "description": "小さな容器で初期の回し方をそろえて比べ、日常規模では地球の自転以外の影響が大きいと確かめる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_045",
+      "title": "透明なのにガラスが見える理由",
+      "description": "反射と屈折を角度別に観察し、境界面が光を変えることで輪郭が分かる仕組みを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_046",
+      "title": "静かな場所ほど小さな音が聞こえる？",
+      "description": "安全な音量の信号を背景音ごとに聞き比べ、音量差ではなく比率が聞き取りへ影響することを調べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_047",
+      "title": "種はどの条件で発芽する？",
+      "description": "食用の種を適切に管理し、水、温度、光の条件を一つずつ変えて成長を記録する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_048",
+      "title": "科学の定説はどう更新されるのか",
+      "description": "観察、仮説、再現、反証の流れを歴史例で追い、意見と科学的根拠の違いを整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_049",
+      "title": "結果を先に予想する科学クイズ10問",
+      "description": "身近な現象の二択実験を安全に行い、予想が外れた理由を一問ずつ科学的に解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_science_050",
+      "title": "同じ実験を10回すると結果はそろう？",
+      "description": "紙飛行機など安全な題材でばらつきを記録し、平均値と再現性が必要な理由を学ぶ。",
+      "enabled": true
+    }
+  ]
+}

@@ -492,19 +492,20 @@ PKは`(rule_set_id, system_idea_template_id)`。公開時検証では、関連�
 
 ### 7.5 今回の自動生成企画コンテンツとDB投入
 
-`data/system-ideas/*.json` には、今回作成した王道系50件、炎上系50件、アイドル系50件の合計150件を収録する。特化系10分野各50件は今回の作業対象に含めず、7.4節の専門分野設計を変更しない。
+`data/system-ideas/*.json` には王道系50件、炎上系50件、アイドル系50件を収録し、`data/system-ideas/specialized/*.json` には10専門分野ごとに各50件、合計500件を収録する。全体は650件であり、旧仕様の合計200件は使用しない。`data/system-ideas/specialized/index.json` は専門分野コード、表示名、表示順、ファイル名、件数をレビューするための一覧とする。
 
-今回の3チャンネルにおけるJSONとDBの対応は次のとおり。これらは特化系ではないため、`system_idea_templates.specialty_code` はNULLとする。
+JSONとDBの対応は次のとおり。非特化系の `system_idea_templates.specialty_code` はNULLとし、特化系ではファイル直下の専門分野コードを必須で保存する。
 
 | JSON | DB |
 |---|---|
 | `ideas[].code` | `system_idea_templates.code` |
 | ファイル直下の `channelTypeCode` | `system_idea_templates.channel_type_code` |
+| ファイル直下の `specialtyCode` | `system_idea_templates.specialty_code`（特化系のみ） |
 | `ideas[].title` | `system_idea_templates.title` |
 | `ideas[].description` | `system_idea_templates.description` |
 | `ideas[].enabled` | `system_idea_templates.enabled` |
 
-JSONは企画作成・レビュー時の正本であり、ゲーム実行時は参照しない。後続セッションでJSONを入力とする冪等なseed処理を実装し、`system_idea_templates` へ投入したうえで、`rule_set_system_ideas` により対象ルールセットと関連付ける。ゲーム実行時はRepositoryを通してDBだけを参照する。
+JSONは企画作成・レビュー時の正本であり、ゲーム実行時は参照しない。後続セッションでJSONを入力とする冪等なseed処理を実装し、`system_idea_templates.code` を自然キーとして安全にupsertしたうえで、`rule_set_system_ideas` により対象ルールセットと関連付ける。特化系は `specialty_categories` と `specialtyCode` の存在を検証してから投入する。ゲーム実行時はRepositoryを通してDBだけを参照する。
 
 現行の6.1節と `DATABASE_ERD.svg` はサイクル項目を `system_idea_rule_id` と表記しているが、7.4節で定義している対応テーブル名は `rule_set_system_ideas` であり、参照先の命名が一致していない。DB実装時は `rule_set_system_idea_id` など、`rule_set_system_ideas` へのFKであることが明確な名称へ統一する。今回のJSON作成ではDBスキーマを変更しない。
 

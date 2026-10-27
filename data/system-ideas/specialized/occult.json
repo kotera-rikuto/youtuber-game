@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "specialized",
+  "specialtyCode": "occult",
+  "ideas": [
+    {
+      "code": "specialized_occult_001",
+      "title": "深夜の足音、その正体を音響検証",
+      "description": "許可された室内で配管音や床の収縮を再現し、怪音に聞こえる条件を科学的に比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_002",
+      "title": "視聴者投稿『窓に映る顔』を解析",
+      "description": "個人情報を除いた再現画像で、反射、圧縮ノイズ、見間違いの可能性を順に検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_003",
+      "title": "百年前の怪談を現代語で読み解く",
+      "description": "出典が確認できる古い記録を紹介し、当時の暮らしや恐れが物語へ与えた影響を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_004",
+      "title": "誰もいない部屋のノック【再現ドラマ】",
+      "description": "投稿風の体験談をもとにしたフィクションを演じ、最後に演出と現実的な解釈を明かす。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_005",
+      "title": "都市伝説はどの町で変化した？",
+      "description": "同じ筋書きの異なる版を資料で比較し、人から人へ伝わる間に変わる要素を地図化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_006",
+      "title": "心霊写真に見える光の玉を再現",
+      "description": "ほこり、水滴、フラッシュの位置を安全に変え、丸い光が写り込む条件を撮影で確かめる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_007",
+      "title": "呪われた人形の一週間【創作記録】",
+      "description": "小道具と出演者による完全なフィクションとして、日ごとに増える異変を連続ドラマで描く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_008",
+      "title": "金縛りの体験はなぜ似ている？",
+      "description": "睡眠研究の知見と文化ごとの語られ方を紹介し、超常現象と断定せず複数の解釈を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_009",
+      "title": "廃墟へ行かずに怖い場所を作れるか",
+      "description": "許可された撮影セットで光、音、構図を調整し、場所そのものより演出が生む恐怖を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_010",
+      "title": "怪談の怖さは音楽なしで残る？",
+      "description": "同じ創作朗読へ異なる音響を加え、視聴者評価から声、間、効果音の影響を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_011",
+      "title": "古い鏡にだけ映る影【短編フィクション】",
+      "description": "安全なスタジオと映像効果で制作した創作怪談として、鏡を見るたび変わる物語を描く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_012",
+      "title": "未確認生物の目撃証言を地図で比較",
+      "description": "公開された伝承を環境や時代と重ね、事実認定ではなく物語が生まれる条件を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_013",
+      "title": "録音に入った謎の声は人の声？",
+      "description": "再現音声の周波数と逆再生による錯覚を調べ、意味のある言葉へ聞こえる仕組みを解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_014",
+      "title": "絶対に振り返るな【再現ドラマ】",
+      "description": "昔話の禁忌を題材にしたフィクションとして、約束を破る心理と結末を映像化する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_015",
+      "title": "予言はなぜ当たったように見える？",
+      "description": "曖昧な表現、後付け解釈、外れた例の忘却を整理し、判断の偏りをクイズ形式で示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_016",
+      "title": "学校の七不思議は全国共通なのか",
+      "description": "複数地域の伝承を比較し、共通する舞台と土地ごとに異なる要素を分類する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_017",
+      "title": "監視カメラの影を一晩検証",
+      "description": "貸切セットで虫、車の光、圧縮処理を再現し、人影に見える映像ができる条件を調べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_018",
+      "title": "消える乗客【ラジオドラマ風創作】",
+      "description": "架空の深夜バスを舞台に、音だけで情景を想像させる完全フィクションを制作する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_019",
+      "title": "恐怖で時間が長く感じるのは本当？",
+      "description": "安全な映像刺激と中立映像の体感時間を比べ、緊張が時間判断へ与える影響を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_020",
+      "title": "世界の魔除けに共通する形を探す",
+      "description": "博物館資料や伝承を地域ごとに比べ、文化的背景を尊重しながら共通点と違いを紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_021",
+      "title": "視聴者の夢日記を怪談に再構成",
+      "description": "匿名化した断片を許可の範囲で用い、創作であると明示した短編映像へ組み立てる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_022",
+      "title": "階段が一段増える夜【創作検証番組】",
+      "description": "同じセットを撮影方法だけで変化させるフィクションとして、錯覚トリックも最後に解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_023",
+      "title": "幽霊を見た記憶は書き換わる？",
+      "description": "安全な記憶課題と心理学研究を紹介し、体験者を否定せず記憶が変化する可能性を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_024",
+      "title": "古いトンネルの声を安全な模型で再現",
+      "description": "実在の危険な場所へ行かず、管の長さと反響によって声が変わる現象を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_025",
+      "title": "怪異の起きる部屋を間取りから推理",
+      "description": "架空の物件図に音源や光源の手がかりを置き、視聴者参加型で現実的な原因を解く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_026",
+      "title": "口裂け女の噂はどう広がった？",
+      "description": "当時の報道や研究を手がかりに、子どものネットワークと社会不安の関係をたどる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_027",
+      "title": "写真の端に現れる手【再現企画】",
+      "description": "出演者と小道具による再現映像を作り、遠近法で不自然な手が写る仕組みを明かす。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_028",
+      "title": "方角で変わる怪談の結末",
+      "description": "同じ伝承の地域差を資料から集め、土地の地形や信仰が物語へ加えた要素を比較する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_029",
+      "title": "ラップ音は温度変化で鳴るのか",
+      "description": "許可された建物で室温と音の時刻を記録し、木材や配管が鳴る可能性を安全に調べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_030",
+      "title": "存在しない駅【短編モキュメンタリー】",
+      "description": "架空の資料と出演者で作ったフィクションとして、駅名を検索する主人公の物語を描く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_031",
+      "title": "暗闇では顔が別人に見える？",
+      "description": "安全な明るさを保って光の方向を変え、陰影が表情認識へ与える影響を検証する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_032",
+      "title": "有名な心霊映像の演出技法を再現",
+      "description": "既存作品を転載せず、独自素材でカメラ揺れや画質劣化が恐怖を生む方法を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_033",
+      "title": "海に伝わる怪物は何を見間違えた？",
+      "description": "波、流木、既知の生物、距離感を資料で比べ、伝承と自然現象の両面から考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_034",
+      "title": "封を開けるな【呪物風フィクション】",
+      "description": "安全な小道具を用いた完全創作として、箱を受け継いだ家族の再現ドラマを制作する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_035",
+      "title": "怖い話を昼と夜に聞くと印象は変わる？",
+      "description": "同じ創作朗読を時間帯と照明だけ変えて聞き、期待が恐怖評価へ与える影響を比べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_036",
+      "title": "未解決暗号を作って視聴者と解く",
+      "description": "実在事件とは無関係な創作暗号を提示し、手がかりを段階公開して推理を楽しむ。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_037",
+      "title": "神隠し伝承を地形から読み直す",
+      "description": "古道、境界、山の環境を公開資料で確認し、史実と伝承を混同せず背景を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_038",
+      "title": "二人だけ聞こえた声【創作会議録】",
+      "description": "出演者によるフィクションの聞き取り映像として、証言が少しずつ食い違う恐怖を描く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_039",
+      "title": "偶然の一致は何回で奇跡に見える？",
+      "description": "誕生日など安全な確率問題を試し、試行回数を無視すると珍しさを過大評価する点を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_040",
+      "title": "古い写真の人物を調べる資料術",
+      "description": "架空写真を使い、服装や背景から年代を絞る方法を示し、実在個人の特定や暴露は行わない。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_041",
+      "title": "怪談に出てくる『境界』ランキング",
+      "description": "橋、峠、扉など物語で異界との境目になる場所を分類し、文化的な意味を解説する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_042",
+      "title": "電話の向こうの自分【音声フィクション】",
+      "description": "録音と出演者で作った創作として、未来の自分から電話が来る短編物語を制作する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_043",
+      "title": "幽霊センサーは何に反応している？",
+      "description": "市販機器の説明と通常環境の測定を確認し、数値が超常現象の証明にならない理由を示す。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_044",
+      "title": "怪しい動画を3段階で見抜く方法",
+      "description": "撮影条件、編集痕、別の説明を順に確認し、断定せず検証可能性を評価する手順を紹介する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_045",
+      "title": "山の怪談を入山せず資料で追う",
+      "description": "図書館資料と公開地図を用い、危険な現地探索をせず伝承の変遷と自然背景を調べる。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_046",
+      "title": "一枚ずつ消える家族写真【創作】",
+      "description": "小道具と画像編集による完全なフィクションとして、記憶まで薄れる怪異を連続形式で描く。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_047",
+      "title": "心霊スポット化は地域へ何を残す？",
+      "description": "迷惑行為や無断侵入の問題を取り上げ、噂を楽しむ側が守るべき境界を考える。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_048",
+      "title": "怖さを作る沈黙は何秒が最適？",
+      "description": "創作映像の間を変えて視聴者評価を比べ、予測と驚きを制御する編集技法を分析する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_049",
+      "title": "あなたは超常現象をどう判定する？",
+      "description": "証拠の強さが異なる架空事例を提示し、視聴者投票後に代替説明と追加検証案を整理する。",
+      "enabled": true
+    },
+    {
+      "code": "specialized_occult_050",
+      "title": "怪異か偶然か、10本の映像クイズ",
+      "description": "すべて独自に再現した安全な映像を使い、答え合わせで錯覚や演出の仕組みを解説する。",
+      "enabled": true
+    }
+  ]
+}
