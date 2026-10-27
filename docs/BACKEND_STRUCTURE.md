@@ -200,6 +200,8 @@ importしてはいけないもの：
 
 単体テストとApplicationテストは並列実行可能な独立したテストにする。DBテストは各ケースが残した状態に依存させない。結合テストでは外部境界を必要最小限にし、OpenAI AdapterはFakeへ差し替える。
 
+DBテストは役割ごとに配置を分ける。`supabase/tests/database/*.sql` はSupabase CLIが `npm run db:test` で直接実行するpgTAP SQLであり、マイグレーション、制約、RLS、DB関数をDB内部から検証する。`tests/db/**/*.test.ts` は将来、Supabaseクライアントを通したTypeScript DB結合テストを置き、`npm run test:db` で実行する。同じ検証を両方へ複製しない。ローカルDBの詳細手順は `docs/SUPABASE_LOCAL_DEVELOPMENT.md` を参照する。
+
 ## テストコマンド
 
 ```bash
@@ -207,8 +209,9 @@ npm test                  # CI向け。単体 + Applicationを1回実行
 npm run test:watch        # 開発向け。単体 + Applicationをwatch
 npm run test:unit         # 単体テストだけ
 npm run test:application  # Applicationテストだけ
-npm run test:db           # DBテストだけ（BE-002以降で追加）
+npm run test:db           # TypeScript DB結合テストだけ（対象実装時に追加）
 npm run test:integration  # 結合テストだけ（対象実装時に追加）
+npm run db:test           # Supabase CLIでpgTAP SQLを実行
 ```
 
 未実装カテゴリの個別コマンドには `--passWithNoTests` を付けている。各カテゴリに最初のテストが追加された時点で外し、テストの欠落をCIで検知できるようにする。`npm test` は `--passWithNoTests` を使わず、常に少なくとも1件のテスト実行を要求する。

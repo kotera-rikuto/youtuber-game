@@ -1,0 +1,3 @@
+-- BE-003 and later tickets add idempotent static catalog and rule seed data here.
+-- BE-011 adds the 650 system ideas after converting the reviewed JSON to SQL.
+-- Runtime game code must read seeded rows from PostgreSQL, not JSON files.
