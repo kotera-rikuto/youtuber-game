@@ -1,7 +1,7 @@
 # 『YouTuberになろう！（仮）』ユースケース関数一覧
 
-> ステータス：非UI実装着手版
-> 更新日：2026年10月27日
+> ステータス：非UI実装着手版  
+> 更新日：2026年10月27日  
 > 参照仕様：`docs/ゆーちゅーばーになろう（仮）_ゲーム仕様書.md`
 
 ## 1. ユースケース関数の位置づけ
@@ -30,7 +30,7 @@ type UseCaseContext = {
 
 | # | 関数名 | プレイヤーの操作 | 主な責務 | 状態 |
 |---:|---|---|---|---|
-| 1 | `startGame` | 新しいゲームを開始する | チャンネル名・種類と初期値でゲーム人生を作成する | 必須 |
+| 1 | `startGame` | 新しいゲームを開始する | チャンネル名・種類・特化時の専門分野と初期値でゲーム人生を作成する | 必須 |
 | 2 | `abandonGame` | 現在の人生を中断する | 進行中ゲームを終了し、新しい人生を開始可能にする | 必須 |
 | 3 | `renameChannel` | チャンネル名を変更する | チャンネル種類は変えず、名前だけ更新する | 必須 |
 | 4 | `setPostingFrequency` | 週の投稿本数を変更する | 週1・3・7本の設定を保存する | 必須 |
@@ -50,26 +50,51 @@ type UseCaseContext = {
 ### 3.1 `startGame`
 
 ```ts
-type StartGameInput = {
-  channelName: string;
-  postingStyle: "mainstream" | "specialized" | "controversial" | "idol";
-};
+type SpecialtyCode =
+  | "baseball"
+  | "soccer"
+  | "gaming"
+  | "pc_gadgets"
+  | "science"
+  | "history_culture"
+  | "occult"
+  | "nature"
+  | "food_culture"
+  | "outdoor_survival";
+
+type NonSpecializedPostingStyle = "mainstream" | "controversial" | "idol";
+
+type StartGameInput =
+  | {
+      channelName: string;
+      postingStyle: "specialized";
+      specialtyCode: SpecialtyCode;
+    }
+  | {
+      channelName: string;
+      postingStyle: NonSpecializedPostingStyle;
+      specialtyCode?: never;
+    };
 
 type StartGameResult = {
   runId: string;
 };
 ```
 
+画面は`postingStyle === "specialized"`のときだけ専門分野の選択欄を表示し、未選択では開始操作を送信できない。他の3種類へ切り替えた場合は、クライアント側の専門分野選択値を破棄する。ただし、正しさは画面だけに依存せず、Server Actionのスキーマ検証、ユースケース、DB制約でも保証する。
+
 処理内容：
 
 1. Server Actionが保証した匿名セッションの`UseCaseContext.actorUserId`を受け取る。
 2. 同じ匿名ユーザーに`playing`または`stage_cleared`のゲームがないことを確認する。
-3. チャンネル名と、変更不能なチャンネル種類を検証する。
-4. 登録者0、所持金100,000円、体力100、6能力各10、能力ポイント0、機材なし、企画空、週1本、処理対象週1を設定する。
-5. ステージ1「第156週までに登録者10万人」を設定する。
-6. ルールバージョンと状態バージョンを保存する。生の乱数や乱数シードは保存しない。
+3. チャンネル名と、アクティブなルールセットで選択可能なチャンネル種類を検証する。
+4. 特化系なら`specialtyCode`が必須で、アクティブな`rule_set_specialties`に含まれる10分野のいずれかであることを確認する。特化系以外で値が送られた場合も拒否する。
+5. `game_runs`へ変更不能なチャンネル種類と専門分野を保存する。専門分野は特化系だけ非NULLとする。
+6. 登録者0、所持金100,000円、体力100、6能力各10、能力ポイント0、機材なし、企画空、週1本、処理対象週1を設定する。
+7. ステージ1「第156週までに登録者10万人」を設定する。
+8. ルールバージョンと状態バージョンを保存する。生の乱数や乱数シードは保存しない。
 
-終了済みゲームは上書きしない。年齢は初期版の入力・ゲーム計算・DBに含めない。
+終了済みゲームは上書きしない。年齢は初期版の入力・ゲーム計算・DBに含めない。専門分野は企画プールだけを決定し、能力参照・チャンネル倍率・炎上確率は特化系の共通ルールを使う。
 
 ### 3.2 `abandonGame`
 
@@ -77,7 +102,7 @@ type StartGameResult = {
 
 ### 3.3 `renameChannel`
 
-進行中のゲームのチャンネル名だけを変更する。チャンネル種類は変更できない。
+進行中のゲームのチャンネル名だけを変更する。チャンネル種類と特化系の専門分野は変更できない。
 
 ### 3.4 `setPostingFrequency`
 
@@ -245,7 +270,7 @@ type AdvanceWeekResult = CommittedWeekResult | FatalGameOverResult;
 2. 所有者、実行可能状態、処理対象週、`expectedVersion` を確認する。
 3. 現在状態、ステージ、企画、メイン行動、ルールを取得する。
 4. その週のメイン行動が1つ選ばれていることを確認し、効果を適用する。休憩は先に回復し、企業案件報酬は週開始時登録者数から決定する。
-5. 投稿本数分のプレイヤー企画をキュー先頭から選び、不足分を確定済みのシステム企画サイクル順から補う。サイクルがなければ50件をシャッフルして作る。
+5. 投稿本数分のプレイヤー企画をキュー先頭から選び、不足分を確定済みのシステム企画サイクル順から補う。特化系は`game_runs.specialty_code`に一致する50件、それ以外はチャンネル種類に一致する50件だけを使い、サイクルがなければ対象50件をシャッフルして作る。
 6. 動画ごとに0〜100,000の基礎再生数を生成し、登録者・能力・企画・投稿頻度・チャンネル・機材・コラボの7倍率を掛けて切り捨てる。
 7. 炎上とは独立して週間ランダムイベントを判定する。良い5%・悪い5%・なし90%とし、カテゴリ内3種類は均等抽選する。
 8. 再生数イベント後の正式週間総再生数を切り捨て、元の再生数比率で動画へ比例配分する。端数は小数部分が大きい順、同率なら投稿順で配分する。
@@ -275,7 +300,8 @@ type AdvanceWeekResult = CommittedWeekResult | FatalGameOverResult;
 |---|---|
 | `applyWeeklyMainAction` | 1つのメイン行動の効果を適用する |
 | `selectIdeasFromStock` | キュー先頭から投稿本数分のプレイヤー企画を選ぶ |
-| `createSystemIdeaCycle` | チャンネル別50件をシャッフルし、直前サイクル末尾との連続重複を避けた順序を作る |
+| `resolveSystemIdeaPool` | ゲーム人生のチャンネル種類を参照し、特化系なら固定済み専門分野まで一致する有効な50件を取得する |
+| `createSystemIdeaCycle` | `resolveSystemIdeaPool`が返した50件をシャッフルし、直前サイクル末尾との連続重複を避けた順序を作る |
 | `selectSystemIdeasWithoutRepeat` | 確定済みサイクルの未使用先頭から不足数を選ぶ |
 | `calculateSubscriberMultiplier` | 現在登録者数から倍率を計算する |
 | `calculateAbilityMultiplier` | チャンネル種類に対応する2能力の平均から倍率を計算する |
@@ -299,16 +325,17 @@ type AdvanceWeekResult = CommittedWeekResult | FatalGameOverResult;
 ### 4.1 自動生成企画のデータソース
 
 - 王道系50件、炎上系50件、アイドル系50件の合計150件を `data/system-ideas/*.json` に作成済み
-- 特化系50件は専門ジャンル分類の決定後に別セッションで追加し、最終的に4チャンネル合計200件とする
+- 特化系10分野の企画データは今回の作業対象に含めず、既存の `resolveSystemIdeaPool` と専門分野設計を変更しない
 - JSONは企画作成・レビュー時の正本であり、ゲーム実行時には読み込まない
 - JSONから `system_idea_templates` と `rule_set_system_ideas` へ投入する冪等なseed処理は後続セッションで実装する
-- `createSystemIdeaCycle` と `selectSystemIdeasWithoutRepeat` は、ゲームの `rule_set_id` とチャンネル種類に対応する有効な企画をRepository経由でDBから取得する
-- サイクル作成時はDBからちょうど50件取得できることを検証し、不足・重複があれば週進行を確定しない
+- `resolveSystemIdeaPool`、`createSystemIdeaCycle`、`selectSystemIdeasWithoutRepeat` は、ゲームのルールセット、チャンネル種類、必要な場合は専門分野に対応する有効な企画をRepository経由でDBから取得する
+- サイクル作成時は対象プールからちょうど50件取得できることを検証し、不足・重複があれば週進行を確定しない
 
 ## 5. 画面表示用Query（ユースケース関数ではない）
 
 | 関数名 | 返すDTO |
 |---|---|
+| `getGameStartOptionsDTO` | アクティブなルールセットの4チャンネル種類と、特化系で選択可能な10専門分野。専門分野コード・表示名・表示順を返す |
 | `getCurrentGameDTO` | `current_game_view` からチャンネル、現在値、6能力、機材、目標、解放状態 |
 | `getIdeaStockDTO` | `idea_stock_view` から未投稿企画、キュー順、今週の作成済み件数 |
 | `getWeeklyActionOptionsDTO` | 4行動の解放状態、クールダウン、選択中行動 |
@@ -347,6 +374,7 @@ type AdvanceWeekResult = CommittedWeekResult | FatalGameOverResult;
 - `game_runs` は識別情報、`run_state` は現在値、`week_results` 以下は確定履歴として責務を混ぜない。
 - 能力、機材、解放機能、企画キューを横持ち列やJSONBにせず、型付きの子テーブルで扱う。
 - バランス値は公開後変更不能な `rule_sets` 配下の型付きルールから取得し、巨大な設定JSONBを作らない。
+- 特化系の専門分野は`startGame`でだけ設定し、以後の更新ユースケースでは変更しない。システム企画取得時は必ずサーバー側の`game_runs.specialty_code`を使用し、クライアントから企画プールを指定させない。
 
 ## 8. 共通エラーコード
 
@@ -367,6 +395,8 @@ Server Actionは例外文言へ依存せず、ユースケースの判定結果�
 | `INSUFFICIENT_FUNDS` | 機材購入に必要な所持金がない |
 | `IDEA_WEEKLY_LIMIT` | その週の企画作成3件を使い切った |
 | `IDEA_STOCK_FULL` | 未投稿企画が30件に達している |
+| `SPECIALTY_REQUIRED` | 特化系なのに専門分野が未選択 |
+| `SPECIALTY_NOT_ALLOWED` | 特化系以外で専門分野が指定された、または現在のルールセットで選択できない専門分野が指定された |
 | `VALIDATION_ERROR` | 文字数、列挙値、配分値などの入力不正 |
 
 同じ`idempotencyKey`の再送はエラーではなく、最初に確定した`AdvanceWeekResult`を返す。

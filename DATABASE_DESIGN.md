@@ -1,8 +1,8 @@
 # 『YouTuberになろう！（仮）』データベース設計
 
-> ステータス：非UI実装着手版
-> 更新日：2026年10月27日
-> DB：Supabase PostgreSQL
+> ステータス：非UI実装着手版  
+> 更新日：2026年10月27日  
+> DB：Supabase PostgreSQL  
 > 正本仕様：`docs/ゆーちゅーばーになろう（仮）_ゲーム仕様書.md`
 
 図：`DATABASE_ERD.svg` / `DATABASE_ERD.png`（実行時データ）、`RULES_ERD.svg` / `RULES_ERD.png`（ルール構造）
@@ -29,6 +29,7 @@
 | AI点数帯の対応をプログラムだけで管理 | バランス変更時にコード改修が必要 | `idea_score_band_rules` でバージョン管理 |
 | 企画の `status`、`published_week`、`deleted_at` が重複 | 矛盾した状態を作れる | 原本、キュー、消費を別テーブルへ分離 |
 | 動画にプレイヤー企画とテンプレートを直接混在 | システム企画の周回制約を表現しづらい | `system_idea_cycles`と`system_idea_cycle_entries`で一巡順を保存 |
+| 特化系の専門分野を自由文字列やJSONBで保持 | 表記揺れ、存在しない分野、ルール版との不整合が起きる | `specialty_categories`と`rule_set_specialties`へ正規化し、人生からFK参照 |
 | 週次行動と週間結果に行動コードを重複 | 値が食い違う可能性 | `week_results.weekly_action_id` で確定行動を参照 |
 | ルールマスタの一部だけバージョン付き | 過去プレイが現在のマスタを参照してしまう | すべてのバランス値を `rule_sets` 配下へ統一 |
 | `game_events.payload` が数値結果の正本 | JSON構造変更で集計が壊れる | 数値結果は型付き履歴、JSONBは表示用補足だけ |
@@ -79,12 +80,13 @@ CookieにはSupabase匿名認証セッションだけを保持し、ゲームデ
 | `user_id` | `uuid` | NOT NULL、FK → `auth.users.id` |
 | `rule_set_id` | `uuid` | FK → `rule_sets.id`、開始後変更禁止 |
 | `channel_rule_id` | `uuid` | FK → `channel_rules.id`、開始後変更禁止 |
+| `specialty_code` | `text` | NULL可、特化系では必須。`rule_set_id`との複合FK → `rule_set_specialties` |
 | `channel_name` | `text` | 変更可能 |
 | `status` | `text` | `playing / stage_cleared / cleared / game_over / abandoned` |
 | `created_at` | `timestamptz` | NOT NULL |
 | `completed_at` | `timestamptz` | NULL可 |
 
-`channel_rule_id` が `rule_set_id` と同じルールセットに属することは制約トリガーで保証する。
+`channel_rule_id` が `rule_set_id` と同じルールセットに属することは制約トリガーで保証する。`specialty_code`は、参照先`channel_rules`のチャンネル種類が`specialized`なら必ず非NULL、それ以外なら必ずNULLとする。特化系では`(rule_set_id, specialty_code)`の複合FKにより、そのルール版で選択可能な専門分野だけを保存できる。チャンネル種類と専門分野は開始後変更禁止とする。
 
 `status IN ('playing', 'stage_cleared')`を進行中とみなし、`user_id`に部分一意インデックスを付ける。これにより1匿名ユーザーの進行中ゲームを最大1件にする。終了済み人生は同じ`user_id`に複数保持し、新規人生は常に新しい`game_runs.id`で作成する。
 
@@ -262,7 +264,7 @@ PKは `(run_id, feature_rule_id)`。登録者が減っても行を削除しな�
 
 ### 6.1 `system_idea_cycles` と `system_idea_cycle_entries`
 
-チャンネル別50件をシャッフルした一巡分の順序を、サイクル開始時に確定して保存する。
+ゲーム人生に対応する50件をシャッフルした一巡分の順序を、サイクル開始時に確定して保存する。王道系・炎上系・アイドル系はチャンネル種類別、特化系は`game_runs.specialty_code`に一致する専門分野別の50件を対象にする。
 
 `system_idea_cycles`：
 
@@ -384,6 +386,7 @@ PKは `(run_id, feature_rule_id)`。登録者が減っても行を削除しな�
 名称や識別コードだけを持ち、バランス値を持たない。
 
 - `channel_types(code, name)`
+- `specialty_categories(code, name, display_order)`
 - `ability_definitions(code, name, display_order)`
 - `equipment_types(code, name, display_order)`
 - `action_definitions(code, name, description)`
@@ -392,6 +395,21 @@ PKは `(run_id, feature_rule_id)`。登録者が減っても行を削除しな�
 - `event_definitions(code, category_code, name)`
 
 拡張可能な種類をPostgreSQL Enumへ固定しない。コードはFKで保証し、廃止は `enabled` やルールセット側で扱う。
+
+`specialty_categories`の初期データは次の10件とする。
+
+| code | name |
+|---|---|
+| `baseball` | 野球 |
+| `soccer` | サッカー |
+| `gaming` | ゲーム攻略・検証 |
+| `pc_gadgets` | PC・ガジェット |
+| `science` | 科学・実験 |
+| `history_culture` | 歴史・文化 |
+| `occult` | 心霊・オカルト |
+| `nature` | 生き物・自然 |
+| `food_culture` | 料理・食文化 |
+| `outdoor_survival` | アウトドア・サバイバル |
 
 ### 7.2 `rule_sets`
 
@@ -404,6 +422,7 @@ PKは `(run_id, feature_rule_id)`。登録者が減っても行を削除しな�
 | `global_rules` | 基礎再生数範囲、体力上限、活動不能週の回復量、企画作成上限、ストック上限、炎上ペナルティ、BAN回数、広告単価、システム企画倍率・転換率 |
 | `channel_rules` | チャンネル種類、再生数倍率、週間炎上確率 |
 | `channel_ability_weights` | チャンネルルール、能力コード、重み。現仕様では各チャンネル2能力を0.5ずつ |
+| `rule_set_specialties` | `rule_set_id`, `specialty_code`。PKは`(rule_set_id, specialty_code)`で、そのルール版で特化系として選択可能な専門分野を表す |
 | `posting_frequency_rules` | 投稿本数、再生数倍率、体力消費、付与能力ポイント |
 | `idea_score_band_rules` | 最低点、最高点、再生数倍率、転換率 |
 | `equipment_tier_rules` | 機材種類、ランク、価格、再生数補正 |
@@ -414,16 +433,68 @@ PKは `(run_id, feature_rule_id)`。登録者が減っても行を削除しな�
 | `event_category_rules` | 良い・悪いカテゴリの週間発生確率。各5% |
 | `event_rules` | イベント、カテゴリ内抽選重み、週間再生数倍率、固定金額差分、固定登録者差分、登録者倍率 |
 | `health_risk_rules` | 体力下限・上限、発生確率、活動不能期間の最小・最大週数 |
-| `system_idea_templates` | 管理コード、変更不能なタイトル・短い説明、チャンネル種類、有効状態 |
+| `system_idea_templates` | 管理コード、変更不能なタイトル・短い説明、チャンネル種類、NULL可の専門分野、有効状態 |
 | `rule_set_system_ideas` | ルールセットと使用可能な企画テンプレートの対応、有効状態 |
 
 `sponsorship_reward_rules`は登録者数範囲の重複を排他制約で禁止する。`health_risk_rules`は50〜100、30〜49、10〜29、1〜9の確定帯を隙間なく持ち、期間は発症時に両端を含む均等分布で抽選する。イベントの良い・悪いカテゴリ内は各イベントの`selection_weight=1`で均等抽選する。
 
-### 7.4 自動生成企画コンテンツとDB投入
+`system_idea_templates.specialty_code`は`specialty_categories.code`へのFKとし、対象チャンネルが特化系なら必須、他の3種類ならNULLとする。ルールセット公開時には、王道系・炎上系・アイドル系が各50件、`rule_set_specialties`に含まれる各専門分野がそれぞれ50件の有効な企画を持つことを検証する。初期ルールセットでは10専門分野を有効にするため、特化系500件、全体650件となる。
 
-企画作成・レビュー時の正本は `data/system-ideas/*.json` とし、王道系50件、炎上系50件、アイドル系50件の合計150件を収録する。特化系50件は専門ジャンル分類の決定後に別セッションで追加し、最終的に4チャンネル合計200件とする。
+### 7.4 専門分野とシステム企画の詳細定義
 
-JSONとDBの対応は次のとおり。
+#### `specialty_categories`
+
+専門分野の安定した識別情報を持つ静的マスタ。表示順の正本もこの表だけに置く。
+
+| カラム | 型 | 制約・意味 |
+|---|---|---|
+| `code` | `text` | PK。前節で定義した10コード |
+| `name` | `text` | NOT NULL、UNIQUE。画面表示名 |
+| `display_order` | `smallint` | NOT NULL、UNIQUE、1以上 |
+
+#### `rule_set_specialties`
+
+ルールセットごとに選択可能な専門分野を表す関連テーブル。行が存在することを「選択可能」とみなし、重複する`enabled`列は持たない。
+
+| カラム | 型 | 制約・意味 |
+|---|---|---|
+| `rule_set_id` | `uuid` | FK → `rule_sets.id` |
+| `specialty_code` | `text` | FK → `specialty_categories.code` |
+
+PKは`(rule_set_id, specialty_code)`。初期ルールセットには10分野を10行登録する。公開済みルールセットの行は更新・削除せず、将来分野を増減する場合は新しいルールセットを作る。
+
+#### `system_idea_templates`
+
+ルール数値から独立した企画原本。タイトルと説明は利用開始後に上書きせず、文言変更が必要なら新しい管理コードの行を作る。
+
+| カラム | 型 | 制約・意味 |
+|---|---|---|
+| `id` | `uuid` | PK |
+| `code` | `text` | NOT NULL、UNIQUE。変更しない管理コード |
+| `channel_type_code` | `text` | NOT NULL、FK → `channel_types.code` |
+| `specialty_code` | `text` | NULL可、FK → `specialty_categories.code` |
+| `title` | `text` | NOT NULL |
+| `description` | `text` | NOT NULL |
+| `enabled` | `boolean` | NOT NULL、既定値TRUE |
+| `created_at` | `timestamptz` | NOT NULL |
+
+`CHECK ((channel_type_code = 'specialized') = (specialty_code IS NOT NULL))`を設ける。これにより特化系だけ専門分野を必須とし、他種類への誤設定を拒否する。
+
+#### `rule_set_system_ideas`
+
+| カラム | 型 | 制約・意味 |
+|---|---|---|
+| `rule_set_id` | `uuid` | FK → `rule_sets.id` |
+| `system_idea_template_id` | `uuid` | FK → `system_idea_templates.id` |
+| `enabled` | `boolean` | NOT NULL、既定値TRUE |
+
+PKは`(rule_set_id, system_idea_template_id)`。公開時検証では、関連するテンプレートの`channel_type_code`と`specialty_code`を集計し、各対象プールがちょうど50件であることを保証する。
+
+### 7.5 今回の自動生成企画コンテンツとDB投入
+
+`data/system-ideas/*.json` には、今回作成した王道系50件、炎上系50件、アイドル系50件の合計150件を収録する。特化系10分野各50件は今回の作業対象に含めず、7.4節の専門分野設計を変更しない。
+
+今回の3チャンネルにおけるJSONとDBの対応は次のとおり。これらは特化系ではないため、`system_idea_templates.specialty_code` はNULLとする。
 
 | JSON | DB |
 |---|---|
@@ -433,9 +504,9 @@ JSONとDBの対応は次のとおり。
 | `ideas[].description` | `system_idea_templates.description` |
 | `ideas[].enabled` | `system_idea_templates.enabled` |
 
-JSONはDB実装前の中間成果物であり、ゲーム実行時は参照しない。後続セッションでJSONを入力とする冪等なseed処理を実装し、`system_idea_templates` へ投入したうえで、`rule_set_system_ideas(rule_set_id, system_idea_template_id, enabled)` によりルールセットと関連付ける。ゲーム実行時はRepositoryを通してDBだけを参照する。
+JSONは企画作成・レビュー時の正本であり、ゲーム実行時は参照しない。後続セッションでJSONを入力とする冪等なseed処理を実装し、`system_idea_templates` へ投入したうえで、`rule_set_system_ideas` により対象ルールセットと関連付ける。ゲーム実行時はRepositoryを通してDBだけを参照する。
 
-現行の6.1節と `DATABASE_ERD.svg` はサイクル項目を `system_idea_rule_id` と表記しているが、7.3節で定義している対応テーブル名は `rule_set_system_ideas` であり、参照先の命名が一致していない。DB実装時は `rule_set_system_idea_id` など、`rule_set_system_ideas` へのFKであることが明確な名称へ統一する。今回のJSON作成ではDBスキーマを変更しない。
+現行の6.1節と `DATABASE_ERD.svg` はサイクル項目を `system_idea_rule_id` と表記しているが、7.4節で定義している対応テーブル名は `rule_set_system_ideas` であり、参照先の命名が一致していない。DB実装時は `rule_set_system_idea_id` など、`rule_set_system_ideas` へのFKであることが明確な名称へ統一する。今回のJSON作成ではDBスキーマを変更しない。
 
 ## 8. View / DTO
 
@@ -443,7 +514,7 @@ JSONはDB実装前の中間成果物であり、ゲーム実行時は参照し�
 
 | View | 用途 |
 |---|---|
-| `current_game_view` | `run_state`、能力、機材、現在目標、解放機能を1行へ集約 |
+| `current_game_view` | チャンネル種類・選択専門分野、`run_state`、能力、機材、現在目標、解放機能を1行へ集約 |
 | `idea_stock_view` | キュー順、企画タイトル、AI評価の内部状態を結合 |
 | `week_history_view` | before/afterから差分を計算し、行動名・イベント名を結合 |
 | `video_result_view` | 動画と計算スナップショットを結合 |
@@ -457,6 +528,7 @@ Supabaseで公開するViewは `security_invoker = true` を使用し、基底�
 - `run_state.state_version` は更新ごとに1増やす。
 - `week_results`、`videos`、`video_calculations`、`occurred_events` は確定後UPDATE禁止。
 - 1匿名ユーザーにつき`playing / stage_cleared`のゲームは最大1件。
+- `game_runs.specialty_code`は特化系で必須、特化系以外でNULLとし、現在の`rule_set_id`で選択可能な専門分野だけを許可する。
 - 1ゲームにつき進行中目標は最大1件。
 - 1週につきメイン行動と週結果は各最大1件。
 - 企画キュー位置はゲーム内で一意。
@@ -470,6 +542,8 @@ Supabaseで公開するViewは `security_invoker = true` を使用し、基底�
 - `run_equipment.equipment_type_code` と参照先ティアルールの機材種類は、複合FKまたは制約トリガーで一致させる。
 - `idea_score_band_rules` は点数範囲の重複を排他制約で禁止し、0〜100を隙間なく覆うことを公開時検証で保証する。
 - `channel_ability_weights` はチャンネルごとの重み合計が1になることを公開時検証で保証する。
+- `rule_set_specialties`は同じ専門分野を1ルールセットへ重複登録できない。公開時には初期版の10コードがすべて存在し、各専門分野に有効なシステム企画が50件あることを保証する。
+- `system_idea_templates`は特化系だけ`specialty_code`を必須とし、他のチャンネル種類ではNULLを強制する。
 - `event_rules`の倍率・登録者倍率は0以上、金額・固定登録者差分は仕様上の符号と範囲をCHECKで保証する。
 - `event_category_rules`は良い5%・悪い5%、`event_rules.selection_weight`は各カテゴリ内で正の整数とする。
 - `health_risk_rules`と`sponsorship_reward_rules`の範囲重複を排他制約で禁止する。
@@ -507,6 +581,9 @@ OpenAI呼び出しは長時間トランザクションを避けるため、DBト
 ```sql
 game_runs(user_id, status)
 game_runs(user_id) UNIQUE WHERE status IN ('playing', 'stage_cleared')
+game_runs(rule_set_id, specialty_code)
+rule_set_specialties(rule_set_id, specialty_code) PRIMARY KEY
+system_idea_templates(channel_type_code, specialty_code) WHERE enabled = true
 run_goals(run_id) WHERE status = 'active'
 run_conditions(run_id, unavailable_through_week) WHERE recovered_at IS NULL
 player_ideas(run_id, created_week)
