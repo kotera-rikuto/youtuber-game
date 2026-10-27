@@ -40,6 +40,8 @@
 		"start": "next start",
 		"lint": "eslint .",
 		"typecheck": "next typegen --webpack && tsc --noEmit",
+		"system-ideas:docs": "node scripts/generate-system-ideas-doc.mjs",
+		"system-ideas:validate": "node scripts/validate-system-ideas.mjs",
 		"cf:dev": "vite dev",
 		"cf:build": "vite build",
 		"cf:preview": "npm run cf:build && vite preview",

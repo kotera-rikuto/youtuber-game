@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "channelTypeCode": "controversial",
+  "ideas": [
+    {
+      "code": "controversial_001",
+      "title": "【大炎上】店の商品を勝手に全部並べ替えてみた",
+      "description": "貸切の架空店舗を使い、合意済みの出演者を店員役にして、売り場をめちゃくちゃにする騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_002",
+      "title": "突然、知らない人の家で朝ごはんを食べてみた",
+      "description": "撮影用住宅と出演者を用意し、初対面の住人宅へ強引に上がり込む迷惑系動画を演出する。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_003",
+      "title": "【大炎上】友達の家を勝手に爆破してみた",
+      "description": "撮影用の家セットと合意済みの友人役を用意し、留守中の家を丸ごと爆破したように見せる騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_004",
+      "title": "店員に無茶振りを続けたら何分でキレる？",
+      "description": "架空店舗のセットで店員役へ理不尽な注文を繰り返し、周囲が止めに入る寸劇を撮影する。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_005",
+      "title": "他人の高級車に勝手に落書きしてみた",
+      "description": "撮影用の車両と持ち主役を用意し、大切な車へ無断で落書きしたように見せる炎上騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_006",
+      "title": "閉店後のコンビニに勝手に泊まってみた",
+      "description": "貸切店舗と合意済みの店員役を使い、棚の陰に隠れて閉店後も居座る非常識な一夜を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_007",
+      "title": "知らない結婚式に乱入して主役を奪ってみた",
+      "description": "撮影用の式場と出演者を用意し、招待されていない人物が勝手に祝辞や記念撮影へ加わる騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_008",
+      "title": "料理を全部注文して一口で帰ってみた",
+      "description": "架空レストランで大量注文した客が料理をほとんど残し、店員や周囲を困らせる場面を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_009",
+      "title": "深夜のマンション廊下でカラオケ大会",
+      "description": "貸切の集合住宅セットで住人役の制止を無視し、廊下を占領して大声で盛り上がる騒動を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_010",
+      "title": "隣の家の庭を勝手に巨大プールへ改造",
+      "description": "撮影用の二軒の家と住人役を使い、留守中の庭を無断で派手なプールに変える騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_011",
+      "title": "友達の部屋を水浸しにしてみた",
+      "description": "防水された撮影セットと友人役を用意し、部屋中が水で台無しになったように見せる過激ないたずらを演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_012",
+      "title": "美術館の展示を勝手に入れ替えてみた",
+      "description": "貸切の展示施設と複製品を使い、迷惑な来場者が作品の配置を好き放題に変える場面を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_013",
+      "title": "会社の会議室を自分の部屋にしてみた",
+      "description": "撮影用オフィスで会議の予定を無視して家具や私物を運び込み、社員役を困らせる騒動を起こす。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_014",
+      "title": "スーパーで勝手にカートレース開催してみた",
+      "description": "貸切店舗と安全な撮影用カートを使い、買い物客役を巻き込んで売り場を占領する大騒ぎを演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_015",
+      "title": "行列の先頭へ50回割り込んでみた",
+      "description": "出演者だけの架空行列で順番を何度も無視し、周囲から怒号が飛ぶほど身勝手な人物を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_016",
+      "title": "電車の中を勝手にクラブ会場にしてみた",
+      "description": "走行しない車両セットへ照明や音響を持ち込み、乗客役の迷惑を無視して騒ぎ続ける場面を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_017",
+      "title": "友達のスマホをコンクリートで固めてみた",
+      "description": "壊れてもよい小道具と友人役を用意し、大切な端末を取り出せない塊に変えたように見せる騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_018",
+      "title": "他人の宅配便を勝手に全部開封してみた",
+      "description": "中身を用意した撮影用の荷物と受取人役を使い、届いた箱を次々に無断開封する非常識な場面を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_019",
+      "title": "寝ている友達の家具を全部外へ出してみた",
+      "description": "撮影用住宅で友人役が眠っている間に家具を運び出し、空になった部屋で目覚める大がかりないたずらを撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_020",
+      "title": "友達の家の壁に巨大な穴を開けてみた",
+      "description": "交換可能な撮影用壁と友人役を使い、留守中に家を勝手に破壊したように見せる炎上騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_021",
+      "title": "レストランへ自分の机を持ち込んで料理した",
+      "description": "貸切店舗で大きな机や調理道具を勝手に広げ、店員役の注意を無視して営業を妨げる客を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_022",
+      "title": "ホテルの部屋を勝手にキャンプ場へ改造",
+      "description": "撮影用客室へ大量の人工芝やテントを持ち込み、備品をどかして好き放題に模様替えする騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_023",
+      "title": "街の噴水で突然泡風呂を始めてみた",
+      "description": "管理された屋外セットの噴水を使い、通行人役があきれるほど大量の泡に埋もれて騒ぐ場面を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_024",
+      "title": "駐車場を巨大アスレチックにしてみた",
+      "description": "貸切の駐車場へ障害物を並べ、利用者役の車を入れさせず遊び場として占領する迷惑騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_025",
+      "title": "友達の郵便受けを謎の手紙で埋めてみた",
+      "description": "撮影用住宅と友人役を使い、郵便受けからあふれるほど大量の手紙を送りつける不気味ないたずらを演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_026",
+      "title": "友達の服を全部同じ色に染めてみた",
+      "description": "撮影用衣装と友人役を用意し、クローゼットの服が無断ですべて派手な一色になった騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_027",
+      "title": "大事な会議に楽団を乱入させてみた",
+      "description": "撮影用オフィスと出演者を使い、真剣な会議の最中に大音量の演奏で進行を台無しにする場面を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_028",
+      "title": "映画館で上映中ずっと実況してみた",
+      "description": "貸切の劇場と架空映像を使い、静かに見たい観客役を無視して大声で話し続ける迷惑客を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_029",
+      "title": "ジムの器具を全部一人で占領してみた",
+      "description": "貸切のトレーニング施設で全器具へ私物を置き、利用者役を一切使わせない身勝手な人物を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_030",
+      "title": "美容室で無茶な注文を100個してみた",
+      "description": "撮影用サロンで次々と矛盾した要望を出し、担当者役を振り回して施術を進めさせない客を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_031",
+      "title": "洗濯機を全部使って店を占領してみた",
+      "description": "貸切のコインランドリーで全台を一人分の荷物で埋め、利用客役を長時間待たせる騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_032",
+      "title": "店の値札を勝手に全部1円へ変えてみた",
+      "description": "架空店舗と小道具の商品を使い、値札を無断で書き換えて店員役と客役を混乱させる騒動を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_033",
+      "title": "レストランの皿を天井まで積み上げてみた",
+      "description": "撮影用店舗と割れない小道具を使い、食事中の客役を無視して大量の皿で通路をふさぐ場面を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_034",
+      "title": "友達の家へ宅配便100個送りつけてみた",
+      "description": "空箱と撮影用住宅を用意し、玄関も部屋も荷物で埋まって身動きできなくなる迷惑ないたずらを演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_035",
+      "title": "隣の庭に巨大な自分の像を建ててみた",
+      "description": "撮影用の庭と軽い模型を使い、住人役に無断で巨大な像を設置して景色を台無しにする騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_036",
+      "title": "友達の部屋を丸ごと砂浜にしてみた",
+      "description": "撮影セットへ安全な素材を大量に敷き詰め、友人役の私物も床も砂に埋まったように見せる騒動を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_037",
+      "title": "他人の車をシール1万枚で埋め尽くす",
+      "description": "撮影用車両と剥がせる小道具を使い、持ち主役が言葉を失うほど車体を派手に覆ういたずらを演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_038",
+      "title": "会社の中で勝手にバーベキューしてみた",
+      "description": "火を使わない撮影セットで煙や料理を演出し、仕事中の社員役を巻き込んで宴会を始める騒動を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_039",
+      "title": "卒業式に乱入して勝手にスピーチ",
+      "description": "架空の式典と出演者を用意し、関係者ではない人物が壇上を奪って長々と話し続ける場面を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_040",
+      "title": "静かな図書館で突然ライブを始めてみた",
+      "description": "貸切の図書館セットで静寂を破る演奏を始め、利用者役の制止にも構わず盛り上がる騒動を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_041",
+      "title": "カフェを一杯だけで朝から閉店まで占領",
+      "description": "撮影用店舗で最も広い席に居座り、混雑しても移動せず店員役や客役を困らせる人物を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_042",
+      "title": "友達のゲーム部屋を全部解体してみた",
+      "description": "撮影用の機材と家具を使い、友人役が留守の間に大切な遊び部屋を跡形もなく片付ける騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_043",
+      "title": "道路の真ん中に巨大ベッドを置いて寝てみた",
+      "description": "通行を止めた撮影用道路に大きなベッドを置き、車役や通行人役を無視して眠り続ける場面を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_044",
+      "title": "エレベーターを勝手にダンスフロアへ改造",
+      "description": "停止した撮影用エレベーターへ照明を持ち込み、乗客役を巻き込んで狭い空間を占領する騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_045",
+      "title": "ホテルの廊下で深夜ボウリング大会",
+      "description": "貸切の宿泊施設で廊下いっぱいにレーンを作り、宿泊客役の睡眠を邪魔するほど騒ぐ場面を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_046",
+      "title": "友達の家の玄関を別のドアに交換してみた",
+      "description": "交換できる撮影用玄関と友人役を使い、帰宅しても自宅へ入れないように見せる大がかりないたずらを演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_047",
+      "title": "偽の引っ越し業者が友達の部屋を空にする",
+      "description": "出演者と撮影用家具を用意し、友人役の留守中に業者を装って部屋の物をすべて運び出す騒動を撮る。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_048",
+      "title": "ビルの屋上に巨大な顔写真を掲げてみた",
+      "description": "撮影用建物と軽い幕を使い、周囲の景観を無視して自分の顔を大きく宣伝する迷惑行為を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_049",
+      "title": "誕生日ケーキを友達の部屋の壁に塗ってみた",
+      "description": "撮影セットと食べ物を模した素材を使い、友人役への贈り物を壁一面に塗り広げる騒動を演じる。",
+      "enabled": true
+    },
+    {
+      "code": "controversial_050",
+      "title": "ドライブスルーで同じ注文を100回してみた",
+      "description": "撮影用店舗と停止した車両を使い、後ろの客役を待たせながら注文を延々と繰り返す迷惑客を演じる。",
+      "enabled": true
+    }
+  ]
+}
