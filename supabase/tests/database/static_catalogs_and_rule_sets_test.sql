@@ -320,16 +320,16 @@ select lives_ok(
   $$
     update public.rule_sets
     set status = 'active', published_at = statement_timestamp()
-    where id = '00000000-0000-4000-8000-000000000100'
+    where id = '00000000-0000-4000-8000-000000000001'
   $$,
-  'draft rule sets can be published'
+  'complete draft rule sets can be published'
 );
 
 select throws_ok(
   $$
     update public.rule_sets
     set version = 'forbidden-published-edit'
-    where id = '00000000-0000-4000-8000-000000000100'
+    where id = '00000000-0000-4000-8000-000000000001'
   $$,
   'P0001',
   'Published rule set fields are immutable',
@@ -340,7 +340,7 @@ select lives_ok(
   $$
     update public.rule_sets
     set status = 'retired'
-    where id = '00000000-0000-4000-8000-000000000100'
+    where id = '00000000-0000-4000-8000-000000000001'
   $$,
   'active rule sets can be retired'
 );
@@ -349,7 +349,7 @@ select throws_ok(
   $$
     update public.rule_sets
     set status = 'active'
-    where id = '00000000-0000-4000-8000-000000000100'
+    where id = '00000000-0000-4000-8000-000000000001'
   $$,
   'P0001',
   'Invalid published rule set status transition: retired to active',
@@ -357,7 +357,7 @@ select throws_ok(
 );
 
 select throws_ok(
-  $$delete from public.rule_sets where id = '00000000-0000-4000-8000-000000000100'$$,
+  $$delete from public.rule_sets where id = '00000000-0000-4000-8000-000000000001'$$,
   'P0001',
   'Published rule sets cannot be deleted',
   'published rule sets cannot be deleted'
