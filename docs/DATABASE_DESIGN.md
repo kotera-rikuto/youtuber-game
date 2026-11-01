@@ -273,8 +273,8 @@ PKは `(run_id, feature_rule_id)`。登録者が減っても行を削除しな�
 
 `system_idea_cycle_entries`：
 
-- `id`, `cycle_id`, `system_idea_rule_id`, `position`
-- `UNIQUE (cycle_id, system_idea_rule_id)`
+- `id`, `cycle_id`, `rule_set_system_idea_id`, `position`
+- `UNIQUE (cycle_id, rule_set_system_idea_id)`
 - `UNIQUE (cycle_id, position)`
 - `position`は1〜50
 
@@ -484,11 +484,13 @@ PKは`(rule_set_id, specialty_code)`。初期ルールセットには10分野を
 
 | カラム | 型 | 制約・意味 |
 |---|---|---|
+| `id` | `uuid` | PK |
 | `rule_set_id` | `uuid` | FK → `rule_sets.id` |
 | `system_idea_template_id` | `uuid` | FK → `system_idea_templates.id` |
 | `enabled` | `boolean` | NOT NULL、既定値TRUE |
+| `created_at` | `timestamptz` | NOT NULL |
 
-PKは`(rule_set_id, system_idea_template_id)`。公開時検証では、関連するテンプレートの`channel_type_code`と`specialty_code`を集計し、各対象プールがちょうど50件であることを保証する。
+`UNIQUE (rule_set_id, system_idea_template_id)`。公開時検証では、関連するテンプレートの`channel_type_code`と`specialty_code`を集計し、各対象プールがちょうど50件であることを保証する。
 
 ### 7.5 今回の自動生成企画コンテンツとDB投入
 
@@ -507,7 +509,7 @@ JSONとDBの対応は次のとおり。非特化系の `system_idea_templates.sp
 
 JSONは企画作成・レビュー時の正本であり、ゲーム実行時は参照しない。後続セッションでJSONを入力とする冪等なseed処理を実装し、`system_idea_templates.code` を自然キーとして安全にupsertしたうえで、`rule_set_system_ideas` により対象ルールセットと関連付ける。特化系は `specialty_categories` と `specialtyCode` の存在を検証してから投入する。ゲーム実行時はRepositoryを通してDBだけを参照する。
 
-現行の6.1節と `DATABASE_ERD.svg` はサイクル項目を `system_idea_rule_id` と表記しているが、7.4節で定義している対応テーブル名は `rule_set_system_ideas` であり、参照先の命名が一致していない。DB実装時は `rule_set_system_idea_id` など、`rule_set_system_ideas` へのFKであることが明確な名称へ統一する。今回のJSON作成ではDBスキーマを変更しない。
+サイクル項目は `rule_set_system_idea_id` とし、`rule_set_system_ideas` へのFKであることが分かる名称に統一する。
 
 ## 8. View / DTO
 
