@@ -10,7 +10,7 @@ import {
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDirectory = path.join(repoRoot, "data", "system-ideas");
 const schemaPath = path.join(dataDirectory, "system-idea.schema.json");
-const markdownPath = path.join(repoRoot, "docs", "SYSTEM_IDEAS.md");
+const markdownPath = path.join(repoRoot, "docs", "VIDEO_IDEAS.md");
 const specializedIndexPath = path.join(dataDirectory, "specialized", "index.json");
 
 const specialtyCodes = [
@@ -326,10 +326,10 @@ async function main() {
   try {
     actualMarkdown = await readFile(markdownPath, "utf8");
   } catch {
-    errors.push("docs/SYSTEM_IDEAS.md is missing");
+    errors.push("docs/VIDEO_IDEAS.md is missing");
   }
   if (actualMarkdown && actualMarkdown !== expectedMarkdown) {
-    errors.push("docs/SYSTEM_IDEAS.md is out of date; run npm run system-ideas:docs");
+    errors.push("docs/VIDEO_IDEAS.md is out of date; run npm run system-ideas:docs");
   }
 
   if (errors.length > 0) {

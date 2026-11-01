@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDirectory = path.join(repoRoot, "data", "system-ideas");
-const outputPath = path.join(repoRoot, "docs", "SYSTEM_IDEAS.md");
+const outputPath = path.join(repoRoot, "docs", "VIDEO_IDEAS.md");
 
 export const systemIdeaFiles = [
   ["mainstream", "王道系", "mainstream.json", null],
