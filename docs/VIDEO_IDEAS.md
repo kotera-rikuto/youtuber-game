@@ -37,7 +37,7 @@ JSONは企画作成・レビュー時の正本ですが、ゲーム実行時の�
 | `ideas[].description` | `system_idea_templates.description` |
 | `ideas[].enabled` | `system_idea_templates.enabled` |
 
-`rule_set_system_ideas` は、後続seedで `rule_set_id`、`system_idea_template_id`、有効状態を関連付けます。現行DB資料の `system_idea_cycle_entries.system_idea_rule_id` は参照先の名称が曖昧なため、DB実装時に `rule_set_system_ideas` を参照するFK名へ統一します。これは今回のJSON形式を変更しません。
+`rule_set_system_ideas` は、`rule_set_id`、`system_idea_template_id`、有効状態を関連付けます。`system_idea_cycle_entries.rule_set_system_idea_id` はこの対応行を参照し、サイクルごとの順番を保持します。これはJSON形式を変更しません。
 
 ## 全体の作成方針
 
