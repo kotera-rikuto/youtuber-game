@@ -72,8 +72,8 @@ values
   ('flame', 'system', '炎上')
 on conflict do nothing;
 
--- Numeric rules are added by later tickets, so this version must not be
--- published until those rules and publication checks are complete.
+-- Rule rows are only inserted while the initial rule set is a draft. The final
+-- seed file validates the exact contents before publishing it.
 insert into public.rule_sets (id, version, status)
 values ('00000000-0000-4000-8000-000000000001', '1.0.0', 'draft')
 on conflict do nothing;

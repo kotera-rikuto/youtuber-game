@@ -233,24 +233,6 @@ values
   ('86000000-0000-4000-8000-000000000001', '82000000-0000-4000-8000-000000000001', 'Player idea one', 1),
   ('86000000-0000-4000-8000-000000000002', '82000000-0000-4000-8000-000000000001', 'Player idea two', 1);
 
-insert into public.system_idea_templates (
-  id, code, channel_type_code, title, description
-) values (
-  '86100000-0000-4000-8000-000000000001',
-  'be008_system_idea',
-  'mainstream',
-  'System idea',
-  'System idea for week result history tests.'
-);
-
-insert into public.rule_set_system_ideas (
-  id, rule_set_id, system_idea_template_id
-) values (
-  '86200000-0000-4000-8000-000000000001',
-  '00000000-0000-4000-8000-000000000001',
-  '86100000-0000-4000-8000-000000000001'
-);
-
 insert into public.system_idea_cycles (id, run_id, cycle_number, created_week)
 values (
   '86300000-0000-4000-8000-000000000001',
@@ -261,12 +243,16 @@ values (
 
 insert into public.system_idea_cycle_entries (
   id, cycle_id, rule_set_system_idea_id, position
-) values (
+)
+select
   '86400000-0000-4000-8000-000000000001',
   '86300000-0000-4000-8000-000000000001',
-  '86200000-0000-4000-8000-000000000001',
+  association.id,
   1
-);
+from public.rule_set_system_ideas as association
+join public.system_idea_templates as template on template.id = association.system_idea_template_id
+where association.rule_set_id = '00000000-0000-4000-8000-000000000001'
+  and template.code = 'mainstream_001';
 
 select lives_ok(
   $$insert into public.videos (id, week_result_id, sequence_number, player_idea_id, title_snapshot) values ('87000000-0000-4000-8000-000000000001', '85000000-0000-4000-8000-000000000001', 1, '86000000-0000-4000-8000-000000000001', 'Player video')$$,

@@ -129,17 +129,19 @@ insert into public.system_idea_templates (
   ('41000000-0000-4000-8000-000000000008', 'test_publish_guard', 'mainstream', null, 'Publish guard', 'A template used to test publication protection.', true);
 
 insert into public.rule_sets (id, version)
-values ('42000000-0000-4000-8000-000000000001', 'be007-other-rule-set');
+values
+  ('42000000-0000-4000-8000-000000000001', 'be007-cycle-rule-set'),
+  ('42000000-0000-4000-8000-000000000002', 'be007-other-rule-set');
 
 insert into public.channel_rules (
   id, rule_set_id, channel_type_code, view_multiplier, weekly_flame_probability
-) values (
-  '42000000-0000-4000-8100-000000000001',
-  '42000000-0000-4000-8000-000000000001',
-  'mainstream',
-  1,
-  0.001
-);
+) values
+  ('42000000-0000-4000-8100-000000000001', '42000000-0000-4000-8000-000000000001', 'mainstream', 1, 0.001),
+  ('42000000-0000-4000-8100-000000000002', '42000000-0000-4000-8000-000000000001', 'specialized', 1, 0.001),
+  ('42000000-0000-4000-8100-000000000003', '42000000-0000-4000-8000-000000000002', 'mainstream', 1, 0.001);
+
+insert into public.rule_set_specialties (rule_set_id, specialty_code)
+values ('42000000-0000-4000-8000-000000000001', 'baseball');
 
 select lives_ok(
   $$
@@ -147,7 +149,7 @@ select lives_ok(
       id, rule_set_id, system_idea_template_id
     ) values (
       '43000000-0000-4000-8000-000000000001',
-      '00000000-0000-4000-8000-000000000001',
+      '42000000-0000-4000-8000-000000000001',
       '41000000-0000-4000-8000-000000000001'
     )
   $$,
@@ -155,7 +157,7 @@ select lives_ok(
 );
 
 select throws_ok(
-  $$insert into public.rule_set_system_ideas (rule_set_id, system_idea_template_id) values ('00000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000001')$$,
+  $$insert into public.rule_set_system_ideas (rule_set_id, system_idea_template_id) values ('42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000001')$$,
   '23505', null, 'a rule set cannot contain the same template twice'
 );
 
@@ -166,24 +168,24 @@ select throws_ok(
 );
 
 select throws_ok(
-  $$insert into public.rule_set_system_ideas (rule_set_id, system_idea_template_id) values ('00000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-999999999999')$$,
+  $$insert into public.rule_set_system_ideas (rule_set_id, system_idea_template_id) values ('42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-999999999999')$$,
   '23503', null, 'associations require an existing template'
 );
 
 insert into public.rule_set_system_ideas (
   id, rule_set_id, system_idea_template_id, enabled
 ) values
-  ('43000000-0000-4000-8000-000000000002', '00000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000002', true),
-  ('43000000-0000-4000-8000-000000000003', '00000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000003', true),
-  ('43000000-0000-4000-8000-000000000004', '00000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000004', true),
-  ('43000000-0000-4000-8000-000000000005', '00000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000005', true),
-  ('43000000-0000-4000-8000-000000000006', '00000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000006', true),
-  ('43000000-0000-4000-8000-000000000007', '00000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000007', false),
-  ('43000000-0000-4000-8000-000000000008', '42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000001', true),
-  ('43000000-0000-4000-8000-000000000009', '00000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000008', true);
+  ('43000000-0000-4000-8000-000000000002', '42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000002', true),
+  ('43000000-0000-4000-8000-000000000003', '42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000003', true),
+  ('43000000-0000-4000-8000-000000000004', '42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000004', true),
+  ('43000000-0000-4000-8000-000000000005', '42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000005', true),
+  ('43000000-0000-4000-8000-000000000006', '42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000006', true),
+  ('43000000-0000-4000-8000-000000000007', '42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000007', false),
+  ('43000000-0000-4000-8000-000000000008', '42000000-0000-4000-8000-000000000002', '41000000-0000-4000-8000-000000000001', true),
+  ('43000000-0000-4000-8000-000000000009', '42000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000008', true);
 
 select throws_ok(
-  $$update public.rule_set_system_ideas set rule_set_id = '42000000-0000-4000-8000-000000000001' where id = '43000000-0000-4000-8000-000000000001'$$,
+  $$update public.rule_set_system_ideas set rule_set_id = '42000000-0000-4000-8000-000000000002' where id = '43000000-0000-4000-8000-000000000001'$$,
   '23514', 'Rule set system idea associations cannot be reassigned',
   'an association rule set cannot be replaced'
 );
@@ -204,10 +206,10 @@ values
 insert into public.game_runs (
   id, user_id, rule_set_id, channel_rule_id, specialty_code, channel_name
 ) values
-  ('45000000-0000-4000-8000-000000000001', '44000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000001', '00000000-0000-4000-8100-000000001001', null, 'Mainstream run'),
-  ('45000000-0000-4000-8000-000000000002', '44000000-0000-4000-8000-000000000002', '00000000-0000-4000-8000-000000000001', '00000000-0000-4000-8100-000000001001', null, 'Other mainstream run'),
-  ('45000000-0000-4000-8000-000000000003', '44000000-0000-4000-8000-000000000003', '00000000-0000-4000-8000-000000000001', '00000000-0000-4000-8100-000000001002', 'baseball', 'Baseball run'),
-  ('45000000-0000-4000-8000-000000000004', '44000000-0000-4000-8000-000000000004', '42000000-0000-4000-8000-000000000001', '42000000-0000-4000-8100-000000000001', null, 'Other rule-set run');
+  ('45000000-0000-4000-8000-000000000001', '44000000-0000-4000-8000-000000000001', '42000000-0000-4000-8000-000000000001', '42000000-0000-4000-8100-000000000001', null, 'Mainstream run'),
+  ('45000000-0000-4000-8000-000000000002', '44000000-0000-4000-8000-000000000002', '42000000-0000-4000-8000-000000000001', '42000000-0000-4000-8100-000000000001', null, 'Other mainstream run'),
+  ('45000000-0000-4000-8000-000000000003', '44000000-0000-4000-8000-000000000003', '42000000-0000-4000-8000-000000000001', '42000000-0000-4000-8100-000000000002', 'baseball', 'Baseball run'),
+  ('45000000-0000-4000-8000-000000000004', '44000000-0000-4000-8000-000000000004', '42000000-0000-4000-8000-000000000002', '42000000-0000-4000-8100-000000000003', null, 'Other rule-set run');
 
 select lives_ok(
   $$insert into public.system_idea_cycles (id, run_id, cycle_number, created_week) values ('46000000-0000-4000-8000-000000000001', '45000000-0000-4000-8000-000000000001', 1, 1)$$,
@@ -365,62 +367,30 @@ select throws_ok(
   'boundary duplication is rejected when the previous last entry is inserted second'
 );
 
-update public.rule_set_system_ideas
-set enabled = false
-where rule_set_id = '00000000-0000-4000-8000-000000000001';
-
-insert into public.system_idea_templates (
-  code, channel_type_code, specialty_code, title, description
-)
-select
-  'cycle_publication_' || pool.pool_code || '_' || item_number,
-  pool.channel_type_code,
-  pool.specialty_code,
-  'Cycle publication fixture ' || pool.pool_code || ' ' || item_number,
-  'Temporary publication-validation fixture.'
-from (
-  select channel_type_code, specialty_code, pool_code
-  from (values
-    ('mainstream'::text, null::text, 'mainstream'::text),
-    ('controversial'::text, null::text, 'controversial'::text),
-    ('idol'::text, null::text, 'idol'::text)
-  ) as fixed_pool(channel_type_code, specialty_code, pool_code)
-  union all
-  select 'specialized', specialty_code, 'specialized_' || specialty_code
-  from public.rule_set_specialties
-  where rule_set_id = '00000000-0000-4000-8000-000000000001'
-) as pool
-cross join pg_catalog.generate_series(1, 50) as item_number;
-
-insert into public.rule_set_system_ideas (rule_set_id, system_idea_template_id)
-select '00000000-0000-4000-8000-000000000001', id
-from public.system_idea_templates
-where code like 'cycle_publication_%';
-
 select lives_ok(
-  $$update public.rule_sets set status = 'active', published_at = statement_timestamp() where id = '00000000-0000-4000-8000-000000000001'$$,
-  'the complete initial rule set can be published for immutability checks'
+  $$select public.validate_rule_set_for_publication('00000000-0000-4000-8000-000000000001')$$,
+  'the seeded initial rule set remains publication-valid'
 );
 
 select throws_ok(
-  $$update public.system_idea_templates set title = 'Changed published title' where id = '41000000-0000-4000-8000-000000000008'$$,
+  $$update public.system_idea_templates set title = 'Changed published title' where code = 'mainstream_001'$$,
   '23514', 'System idea content referenced by a published rule set is immutable',
   'content referenced by a published rule set cannot be changed'
 );
 
 select lives_ok(
-  $$update public.system_idea_templates set enabled = false where id = '41000000-0000-4000-8000-000000000008'$$,
+  $$update public.system_idea_templates set enabled = false where code = 'mainstream_001'$$,
   'the global availability switch remains operational after publication'
 );
 
 select throws_ok(
-  $$update public.rule_set_system_ideas set enabled = false where id = '43000000-0000-4000-8000-000000000009'$$,
+  $$update public.rule_set_system_ideas set enabled = false where rule_set_id = '00000000-0000-4000-8000-000000000001' and system_idea_template_id = (select id from public.system_idea_templates where code = 'mainstream_001')$$,
   'P0001', 'Rules belonging to published rule sets are immutable',
   'published rule-set associations cannot be changed'
 );
 
 select throws_ok(
-  $$delete from public.rule_set_system_ideas where id = '43000000-0000-4000-8000-000000000009'$$,
+  $$delete from public.rule_set_system_ideas where rule_set_id = '00000000-0000-4000-8000-000000000001' and system_idea_template_id = (select id from public.system_idea_templates where code = 'mainstream_001')$$,
   'P0001', 'Rules belonging to published rule sets are immutable',
   'published rule-set associations cannot be deleted'
 );
