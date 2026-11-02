@@ -132,12 +132,19 @@ insert into public.profiles (user_id, display_name)
 values ('b1000000-0000-4000-8000-000000000002', 'User B');
 
 insert into public.rule_sets (id, version, status, published_at)
-values (
-  'd1000000-0000-4000-8000-000000000001',
-  'rls-published',
-  'retired',
-  statement_timestamp()
-);
+values
+  (
+    'd1000000-0000-4000-8000-000000000001',
+    'rls-published',
+    'retired',
+    statement_timestamp()
+  ),
+  (
+    'd1000000-0000-4000-8000-000000000002',
+    'rls-draft',
+    'draft',
+    null
+  );
 
 insert into public.global_rules (
   rule_set_id, base_views_min, base_views_max, energy_max,
@@ -146,10 +153,15 @@ insert into public.global_rules (
   ad_revenue_per_view, system_idea_view_multiplier,
   system_idea_subscriber_conversion_rate
 )
-values (
-  'd1000000-0000-4000-8000-000000000001', 0, 100, 100,
-  10, 3, 30, 0.05, 20, 3, 0.2, 0.6, 0.02
-);
+values
+  (
+    'd1000000-0000-4000-8000-000000000001', 0, 100, 100,
+    10, 3, 30, 0.05, 20, 3, 0.2, 0.6, 0.02
+  ),
+  (
+    'd1000000-0000-4000-8000-000000000002', 0, 100, 100,
+    10, 3, 30, 0.05, 20, 3, 0.2, 0.6, 0.02
+  );
 
 insert into public.system_idea_templates (
   id, code, channel_type_code, title, description
@@ -175,7 +187,7 @@ insert into public.rule_set_system_ideas (
 )
 values
   ('d1000000-0000-4000-8000-000000000001', 'e1000000-0000-4000-8000-000000000001'),
-  ('00000000-0000-4000-8000-000000000001', 'e1000000-0000-4000-8000-000000000002');
+  ('d1000000-0000-4000-8000-000000000002', 'e1000000-0000-4000-8000-000000000002');
 
 insert into public.game_runs (
   id, user_id, rule_set_id, channel_rule_id, channel_name
@@ -382,26 +394,37 @@ select is(
 );
 
 select is(
-  (select count(*)::integer from public.rule_sets where id = '00000000-0000-4000-8000-000000000001'),
+  (select count(*)::integer from public.rule_sets where id = 'd1000000-0000-4000-8000-000000000002'),
   0,
   'authenticated cannot read a draft rule set'
 );
 
 select is(
-  (select count(*)::integer from public.global_rules where rule_set_id = '00000000-0000-4000-8000-000000000001'),
+  (select count(*)::integer from public.global_rules where rule_set_id = 'd1000000-0000-4000-8000-000000000002'),
   0,
   'authenticated cannot read rules belonging to a draft rule set'
 );
 
 select is(
-  (select count(*)::integer from public.rule_set_system_ideas),
+  (
+    select count(*)::integer
+    from public.rule_set_system_ideas
+    where system_idea_template_id in (
+      'e1000000-0000-4000-8000-000000000001',
+      'e1000000-0000-4000-8000-000000000002'
+    )
+  ),
   1,
   'authenticated sees only system-idea associations for published rules'
 );
 
 select is(
-  (select title from public.system_idea_templates),
-  'Published system idea',
+  (
+    select count(*)::integer
+    from public.system_idea_templates
+    where id = 'e1000000-0000-4000-8000-000000000002'
+  ),
+  0,
   'system idea templates linked only to draft rules remain hidden'
 );
 
