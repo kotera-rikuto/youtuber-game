@@ -585,14 +585,17 @@ OpenAI呼び出しは長時間トランザクションを避けるため、DBト
 
 ## 11. RLS
 
-- 匿名ユーザーもSupabase上では`auth.users.id`と認証済みセッションを持つ。未認証の`anon`ロールへゲームデータを公開しない。
+- 「始める」操作ではSupabase Anonymous Sign-Inを行う。画面上は匿名でも`auth.users.id`と認証済みJWTを持ち、PostgreSQLでは`authenticated`ロールとして扱う。HTTP APIキーだけの未認証`anon`ロールへ、ゲームデータ・マスタ・ルールを公開しない。
 - `game_runs.user_id = auth.uid()` を所有権の起点にする。
 - 子テーブルは `EXISTS` で所有する `game_runs` まで辿る。
-- AI評価点はServer専用Queryだけで取得し、クライアント向けSELECTポリシーから除外する。
-- 静的カタログと公開済みルールは読み取り専用。
-- `draft` ルールセットは管理者だけが読める。
+- `profiles`は`profiles.user_id = auth.uid()`の本人だけが参照・作成・表示名変更・削除できる。所有者IDと作成日時はクライアントから変更できない。
+- AI評価点と評価メタデータはServer専用Queryだけで取得し、`idea_evaluations`にはクライアント用テーブル権限もSELECTポリシーも付与しない。
+- 静的カタログと公開済みルールは`authenticated`から読み取り専用とする。`active`と`retired`を公開済みとして参照可能にし、`draft`ルールセットとその配下のルールは管理者だけが読める。
+- ゲームデータは所有者へ読み取りだけを許可する。確定履歴を含むゲームテーブルのINSERT / UPDATE / DELETEはクライアントロールへ付与せず、Server Action配下のユースケースへ集約する。
 - 複雑な週進行は直接テーブル更新を許可せず、Server Action → Use Case →Server専用DB関数の経路に集約する。
-- `commit_advance_week`は`PUBLIC`、`anon`、`authenticated`から`EXECUTE`を剥奪し、Server Actionだけが保持するサーバー資格情報から呼ぶ。関数内でもセッションから得た実行主体IDと`game_runs.user_id`の一致を検証する。
+- publicスキーマの内部検証関数、トリガー関数、Server専用DB関数は`PUBLIC`、`anon`、`authenticated`から`EXECUTE`を剥奪する。`postgres`が今後作成する関数にも同じdefault privilegesを適用し、新しい関数をクライアントへ自動公開しない。
+- `commit_advance_week`はServer Actionだけが保持するサーバー資格情報から呼ぶ。関数内でもセッションから得た実行主体IDと`game_runs.user_id`の一致を検証する。
+- `service_role`などRLSを迂回できるサーバー資格情報はブラウザへ渡さず、Server専用モジュールの環境変数からだけ利用する。
 
 ## 12. 主なインデックス
 
