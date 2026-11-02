@@ -2,7 +2,7 @@ begin;
 
 set local search_path = extensions, public, pg_catalog;
 
-select plan(60);
+select plan(61);
 
 select has_table('public', 'channel_types', 'channel_types exists');
 select has_table('public', 'specialty_categories', 'specialty_categories exists');
@@ -293,12 +293,18 @@ select is(
 
 select is(
   (
-    select jsonb_build_array(id::text, version, status, published_at)
+    select jsonb_build_array(id::text, version, status)
     from public.rule_sets
     where version = '1.0.0'
   ),
-  '["00000000-0000-4000-8000-000000000001", "1.0.0", "draft", null]'::jsonb,
-  'the initial rule set has a stable id and remains draft'
+  '["00000000-0000-4000-8000-000000000001", "1.0.0", "active"]'::jsonb,
+  'the initial rule set has a stable id and is active'
+);
+
+select isnt(
+  (select published_at from public.rule_sets where version = '1.0.0'),
+  null,
+  'the initial rule set records its publication time'
 );
 
 select lives_ok(
@@ -318,41 +324,9 @@ select lives_ok(
   'draft rule sets can be edited'
 );
 
-insert into public.system_idea_templates (
-  code, channel_type_code, specialty_code, title, description
-)
-select
-  'static_publication_' || pool.pool_code || '_' || item_number,
-  pool.channel_type_code,
-  pool.specialty_code,
-  'Publication fixture ' || pool.pool_code || ' ' || item_number,
-  'Temporary publication-validation fixture.'
-from (
-  select channel_type_code, specialty_code, pool_code
-  from (values
-    ('mainstream'::text, null::text, 'mainstream'::text),
-    ('controversial'::text, null::text, 'controversial'::text),
-    ('idol'::text, null::text, 'idol'::text)
-  ) as fixed_pool(channel_type_code, specialty_code, pool_code)
-  union all
-  select 'specialized', specialty_code, 'specialized_' || specialty_code
-  from public.rule_set_specialties
-  where rule_set_id = '00000000-0000-4000-8000-000000000001'
-) as pool
-cross join pg_catalog.generate_series(1, 50) as item_number;
-
-insert into public.rule_set_system_ideas (rule_set_id, system_idea_template_id)
-select '00000000-0000-4000-8000-000000000001', id
-from public.system_idea_templates
-where code like 'static_publication_%';
-
 select lives_ok(
-  $$
-    update public.rule_sets
-    set status = 'active', published_at = statement_timestamp()
-    where id = '00000000-0000-4000-8000-000000000001'
-  $$,
-  'complete draft rule sets can be published'
+  $$select public.validate_rule_set_for_publication('00000000-0000-4000-8000-000000000001')$$,
+  'the seeded active rule set passes publication validation'
 );
 
 select throws_ok(

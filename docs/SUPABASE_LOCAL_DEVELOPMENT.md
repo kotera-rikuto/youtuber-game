@@ -6,6 +6,7 @@
 
 - `.nvmrc` に記載したNode.js 22.23.2とnpm 10
 - Docker Desktopなど、起動済みのDocker互換ランタイム
+- 冪等性テストでローカルPostgreSQLへ接続する `psql`
 - プロジェクトのdevDependencyとして固定したSupabase CLI 2.122.0
 
 依存関係は `npm ci` で再現します。Supabase CLIはグローバルインストールせず、npm scriptsまたは `npx supabase` から実行してください。
@@ -42,10 +43,33 @@ npm run db:reset
 ファイル名はCLIが生成する `<UTCの14桁タイムスタンプ>_<snake_caseの説明>.sql` を使用します。既に共有済みのマイグレーションを書き換えず、追加のマイグレーションで変更してください。
 
 - マイグレーション: `supabase/migrations/*.sql`
-- seed: `supabase/seed.sql`
+- seed: `supabase/seed.sql` と `supabase/seeds/*.sql`
 - pgTAP SQL: `supabase/tests/database/*.sql`
 
-seedはマイグレーション完了後に実行されます。BE-003以降で静的マスタを、BE-011でゲーム側企画650件を冪等SQLとして追加します。ゲーム実行時に `data/system-ideas/*.json` を直接参照しません。DDLはseedではなくマイグレーションへ置きます。
+seedはマイグレーション完了後、`supabase/config.toml` の `db.seed.sql_paths` に記載した次の順で実行されます。
+
+1. `supabase/seed.sql`: 静的マスタ、初期ルールセット、数値ルール
+2. `supabase/seeds/010_system_ideas.sql`: 650件の企画と初期ルールセットとの関連
+3. `supabase/seeds/020_publish_initial_rule_set.sql`: seed内容の完全一致と公開条件を検証し、1.0.0をactive化
+
+企画内容の正本は `data/system-ideas` のJSONです。生成SQLを直接編集せず、JSON変更時は次を実行します。
+
+```bash
+npm run system-ideas:docs
+npm run system-ideas:validate
+npm run system-ideas:seed:generate
+npm run system-ideas:seed:check
+```
+
+生成SQLはGit管理するため、CIやDB resetでNode.jsからJSONを読む必要はありません。ゲーム実行時もJSONを参照せず、`system_idea_templates` と `rule_set_system_ideas` だけを使用します。DDLはseedではなくマイグレーションへ置きます。
+
+初回seedではdraftの1.0.0へデータを投入し、公開前検証後にactive化します。activeな1.0.0へ再実行した場合は公開済み行を更新せず、seedとDBの完全一致を検証します。不一致やretired状態では自動修正せず失敗します。ルール変更時は公開済み1.0.0を上書きせず、新しいバージョンを作成してください。
+
+同じローカルDBへseed一式を2回実行し、件数・UUID・内容・`published_at`が変わらないことを確認するには次を実行します。このコマンドは最初にローカルDBをresetするため、保存中のローカルデータは削除されます。
+
+```bash
+npm run db:seed:idempotency
+```
 
 ## lintとDBテスト
 

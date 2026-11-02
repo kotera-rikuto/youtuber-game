@@ -91,7 +91,7 @@ export function renderSystemIdeasDoc(collections) {
 
 ## JSONとDBの関係
 
-JSONは企画作成・レビュー時の正本ですが、ゲーム実行時のデータソースではありません。後続セッションでJSONを読み込む冪等なseed処理を実装し、Supabase PostgreSQLへ投入します。ゲーム実行時はRepositoryを通してDBだけを参照します。
+JSONは企画作成・レビュー時の正本ですが、ゲーム実行時のデータソースではありません。検証済みJSONから決定的なseed SQLを生成してSupabase PostgreSQLへ投入し、ゲーム実行時はRepositoryを通してDBだけを参照します。
 
 | JSON | DB |
 |---|---|
@@ -135,15 +135,15 @@ JSONは企画作成・レビュー時の正本ですが、ゲーム実行時の�
 
 ゲーム開始時に特化系を選んだ場合は10専門分野から1つを必須選択し、そのゲーム人生では変更しません。自動投稿では選択した専門分野の50件だけを重複なしで一巡し、使い切った後に再シャッフルします。新しい周回の先頭が直前の企画と同じ場合は並べ直します。特化系以外の企画や別専門分野の企画は混在させません。
 
-## 後続seed実装で必要な作業
+## seed運用
 
-1. JSONを入力とする冪等なseed処理を作成する
-2. \`system_idea_templates.code\` を自然キーとしてinsertまたは安全なupsertを行う
-3. 対応する \`channel_types.code\` の存在を検証する
-4. 対象ルールセットと \`rule_set_system_ideas\` を関連付ける
-5. 非特化系の各チャンネルと特化系の各専門分野に有効な企画が50件あることをルールセット公開時に検証する
+1. JSON変更後は \`npm run system-ideas:docs\` と \`npm run system-ideas:seed:generate\` を実行する
+2. CIでは \`npm run system-ideas:validate\` と \`npm run system-ideas:seed:check\` でJSON・Markdown・生成SQLの同期を確認する
+3. seedは \`system_idea_templates.code\` を自然キーにし、DB生成UUIDを再実行後も保持する
+4. 初期ルールセットがdraftのときだけ企画と関連を投入し、公開前検証後にactive化する
+5. activeな1.0.0の再seedでは書き換えず完全一致を検証し、不一致やretired状態はエラーにする
 6. ゲーム実行時にJSONを読み込まず、RepositoryからDBを取得する
-7. 一巡50件のシャッフルとサイクル境界の連続重複回避をテストする
+7. 一巡50件のシャッフルとサイクル境界の連続重複回避はDB制約とテストで保証する
 
 ${sections}
 `;

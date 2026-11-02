@@ -121,8 +121,8 @@ select is((select count(*)::integer from public.health_risk_rules where rule_set
 
 select is(
   (select status from public.rule_sets where id = '00000000-0000-4000-8000-000000000001'),
-  'draft',
-  'the initial rule set remains draft'
+  'active',
+  'the initial rule set is active after seeding'
 );
 
 select is(
@@ -260,17 +260,17 @@ select throws_ok(
 );
 
 select throws_ok(
-  $$insert into public.idea_score_band_rules (rule_set_id, min_score, max_score, view_multiplier, subscriber_conversion_rate) values ('00000000-0000-4000-8000-000000000001', 30, 40, 1, 0.03)$$,
+  $$do $block$ begin insert into public.idea_score_band_rules (rule_set_id, min_score, max_score, view_multiplier, subscriber_conversion_rate) values ('00000000-0000-4000-8000-000000000900', 0, 39, 1, 0.03); insert into public.idea_score_band_rules (rule_set_id, min_score, max_score, view_multiplier, subscriber_conversion_rate) values ('00000000-0000-4000-8000-000000000900', 30, 40, 1, 0.03); end $block$;$$,
   '23P01', null, 'overlapping idea score bands are rejected'
 );
 
 select throws_ok(
-  $$insert into public.sponsorship_reward_rules (rule_set_id, min_subscribers, max_subscribers, reward_amount) values ('00000000-0000-4000-8000-000000000001', 200000, 400000, 1)$$,
+  $$do $block$ begin insert into public.sponsorship_reward_rules (rule_set_id, min_subscribers, max_subscribers, reward_amount) values ('00000000-0000-4000-8000-000000000900', 100000, 299999, 1); insert into public.sponsorship_reward_rules (rule_set_id, min_subscribers, max_subscribers, reward_amount) values ('00000000-0000-4000-8000-000000000900', 200000, 400000, 1); end $block$;$$,
   '23P01', null, 'overlapping sponsorship reward bands are rejected'
 );
 
 select throws_ok(
-  $$insert into public.health_risk_rules (rule_set_id, min_energy, max_energy, occurrence_probability, min_unavailable_weeks, max_unavailable_weeks) values ('00000000-0000-4000-8000-000000000001', 40, 60, 0.1, 1, 2)$$,
+  $$do $block$ begin insert into public.health_risk_rules (rule_set_id, min_energy, max_energy, occurrence_probability, min_unavailable_weeks, max_unavailable_weeks) values ('00000000-0000-4000-8000-000000000900', 30, 49, 0.1, 1, 2); insert into public.health_risk_rules (rule_set_id, min_energy, max_energy, occurrence_probability, min_unavailable_weeks, max_unavailable_weeks) values ('00000000-0000-4000-8000-000000000900', 40, 60, 0.1, 1, 2); end $block$;$$,
   '23P01', null, 'overlapping health risk bands are rejected'
 );
 
@@ -290,12 +290,12 @@ select throws_ok(
 );
 
 select throws_ok(
-  $$insert into public.channel_rules (rule_set_id, channel_type_code, view_multiplier, weekly_flame_probability) values ('00000000-0000-4000-8000-000000000001', 'mainstream', 1, 0.001)$$,
+  $$do $block$ begin insert into public.channel_rules (rule_set_id, channel_type_code, view_multiplier, weekly_flame_probability) values ('00000000-0000-4000-8000-000000000900', 'mainstream', 1, 0.001); insert into public.channel_rules (rule_set_id, channel_type_code, view_multiplier, weekly_flame_probability) values ('00000000-0000-4000-8000-000000000900', 'mainstream', 1, 0.001); end $block$;$$,
   '23505', null, 'duplicate channel rules are rejected'
 );
 
 select throws_ok(
-  $$insert into public.rule_set_specialties (rule_set_id, specialty_code) values ('00000000-0000-4000-8000-000000000001', 'baseball')$$,
+  $$do $block$ begin insert into public.rule_set_specialties (rule_set_id, specialty_code) values ('00000000-0000-4000-8000-000000000900', 'baseball'); insert into public.rule_set_specialties (rule_set_id, specialty_code) values ('00000000-0000-4000-8000-000000000900', 'baseball'); end $block$;$$,
   '23505', null, 'duplicate rule-set specialties are rejected'
 );
 
@@ -419,6 +419,12 @@ select lives_ok(
   'complete rule sets pass publication validation'
 );
 
+-- The initial rule set is active after seed. Retire it inside this rolled-back
+-- test transaction so the lifecycle test can exercise another active version.
+update public.rule_sets
+set status = 'retired'
+where id = '00000000-0000-4000-8000-000000000001';
+
 select lives_ok(
   $$update public.rule_sets set status = 'active', published_at = statement_timestamp() where id = '00000000-0000-4000-8000-000000000902'$$,
   'a complete rule set can be activated'
@@ -515,9 +521,9 @@ select ok(
 );
 
 select is(
-  (select status from public.rule_sets where id = '00000000-0000-4000-8000-000000000001'),
-  'draft',
-  'publication-control tests do not publish the initial rule set'
+  (select status from public.rule_sets where id = '00000000-0000-4000-8000-000000000902'),
+  'retired',
+  'publication-control tests finish with their dedicated rule set retired'
 );
 
 select * from finish();

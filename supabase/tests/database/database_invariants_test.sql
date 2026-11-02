@@ -453,14 +453,18 @@ select throws_ok(
   '23514', null, 'videos reject logically deleted player ideas'
 );
 
-insert into public.system_idea_templates (id, code, channel_type_code, title, description)
-values ('96400000-0000-4000-8000-000000000001', 'be009_video_system', 'mainstream', 'System idea', 'System video fixture.');
-insert into public.rule_set_system_ideas (id, rule_set_id, system_idea_template_id)
-values ('96400000-0000-4000-8000-000000000002', '00000000-0000-4000-8000-000000000001', '96400000-0000-4000-8000-000000000001');
 insert into public.system_idea_cycles (id, run_id, cycle_number, created_week)
 values ('96400000-0000-4000-8000-000000000003', '92000000-0000-4000-8000-000000000001', 1, 1);
 insert into public.system_idea_cycle_entries (id, cycle_id, rule_set_system_idea_id, position)
-values ('96400000-0000-4000-8000-000000000004', '96400000-0000-4000-8000-000000000003', '96400000-0000-4000-8000-000000000002', 1);
+select
+  '96400000-0000-4000-8000-000000000004',
+  '96400000-0000-4000-8000-000000000003',
+  association.id,
+  1
+from public.rule_set_system_ideas as association
+join public.system_idea_templates as template on template.id = association.system_idea_template_id
+where association.rule_set_id = '00000000-0000-4000-8000-000000000001'
+  and template.code = 'mainstream_001';
 
 select throws_ok(
   $$insert into public.videos (week_result_id, sequence_number, system_idea_cycle_entry_id, title_snapshot) values ('96200000-0000-4000-8000-000000000001', 1, '96400000-0000-4000-8000-000000000004', 'Wrong system run')$$,
@@ -619,6 +623,12 @@ select throws_ok(
   $$do $block$ begin delete from public.health_risk_rules where rule_set_id = '90000000-0000-4000-8000-000000000002' and min_energy = 10; perform public.validate_rule_set_for_publication('90000000-0000-4000-8000-000000000002'); end $block$;$$,
   'P0001', null, 'publication rejects a health-risk coverage gap'
 );
+
+-- The seed leaves 1.0.0 active. Retire it only inside this rolled-back test
+-- transaction to exercise publication and immutability on a dedicated fixture.
+update public.rule_sets
+set status = 'retired'
+where id = '00000000-0000-4000-8000-000000000001';
 
 select lives_ok(
   $$update public.rule_sets set status = 'active', published_at = statement_timestamp() where id = '90000000-0000-4000-8000-000000000002'$$,

@@ -128,7 +128,7 @@ function jaccard(left, right) {
   return union === 0 ? 1 : intersection / union;
 }
 
-async function main() {
+export async function validateSystemIdeas() {
   const errors = [];
   const schema = JSON.parse(await readFile(schemaPath, "utf8"));
   const collections = await loadSystemIdeaCollections();
@@ -332,6 +332,12 @@ async function main() {
     errors.push("docs/VIDEO_IDEAS.md is out of date; run npm run system-ideas:docs");
   }
 
+  return { collections, errors };
+}
+
+async function main() {
+  const { errors } = await validateSystemIdeas();
+
   if (errors.length > 0) {
     console.error(`System idea validation failed with ${errors.length} error(s):`);
     errors.forEach((error) => console.error(`- ${error}`));
@@ -351,4 +357,6 @@ async function main() {
   console.log("- schema, specialty master, uniqueness, sequences, lengths, forbidden fields, content guards, and Markdown sync: OK");
 }
 
-await main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  await main();
+}

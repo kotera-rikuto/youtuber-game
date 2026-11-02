@@ -509,7 +509,9 @@ JSONとDBの対応は次のとおり。非特化系の `system_idea_templates.sp
 | `ideas[].description` | `system_idea_templates.description` |
 | `ideas[].enabled` | `system_idea_templates.enabled` |
 
-JSONは企画作成・レビュー時の正本であり、ゲーム実行時は参照しない。後続セッションでJSONを入力とする冪等なseed処理を実装し、`system_idea_templates.code` を自然キーとして安全にupsertしたうえで、`rule_set_system_ideas` により対象ルールセットと関連付ける。特化系は `specialty_categories` と `specialtyCode` の存在を検証してから投入する。ゲーム実行時はRepositoryを通してDBだけを参照する。
+JSONは企画作成・レビュー時の正本であり、ゲーム実行時は参照しない。`npm run system-ideas:seed:generate` は既存の企画検証を通過したJSONだけから、決定的な `supabase/seeds/010_system_ideas.sql` を生成する。このSQLは自動生成物としてGit管理し、`npm run system-ideas:seed:check` でJSONとの同期をファイル更新なしに確認する。
+
+seedは `system_idea_templates.code` を自然キーとしてDB生成UUIDを保持し、`rule_set_system_ideas` により初期ルールセットと650件を関連付ける。実行順は `supabase/seed.sql`（静的マスタ・数値ルール）、`010_system_ideas.sql`（企画・関連）、`020_publish_initial_rule_set.sql`（完全一致検証・公開前検証・active化）である。初期1.0.0がdraftなら投入後にactive化し、既にactiveなら公開済み行を更新せずseedとの完全一致だけを検証する。不一致またはretiredなら自動修正・再公開せずエラーにする。公開済みルールの調整は1.0.0を上書きせず、1.1.0など新しいルールセットを作る。ゲーム実行時はRepositoryを通してDBだけを参照する。
 
 サイクル項目は `rule_set_system_idea_id` とし、`rule_set_system_ideas` へのFKであることが分かる名称に統一する。
 
@@ -635,6 +637,7 @@ game_terminations(run_id) UNIQUE
 
 - スキーマ変更はSupabase Dashboardの手作業ではなく、番号付きSQLマイグレーションだけで行う。
 - ルール初期値は冪等なseed SQLにし、アプリコードへ同じ数値を重複記述しない。
+- 初期seedの冪等性は `npm run db:seed:idempotency` で、同一ローカルDBへの2回目投入前後の件数・UUID・内容・公開日時を比較する。
 - 公開済みルールへのUPDATE・DELETEはDBトリガーで拒否する。
 - ルール・履歴へのFKは原則 `ON DELETE RESTRICT`。ゲーム人生を削除する場合も即時物理削除せず、削除要求日時を記録して専用処理で扱う。
 - 構成要素だけの子行（企画評価、キュー行など）に限り、親の物理削除が許される環境では `ON DELETE CASCADE` を検討する。
