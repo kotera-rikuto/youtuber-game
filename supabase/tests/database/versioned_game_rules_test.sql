@@ -386,6 +386,34 @@ select '00000000-0000-4000-8000-000000000902', min_energy, max_energy, occurrenc
   min_unavailable_weeks, max_unavailable_weeks
 from public.health_risk_rules where rule_set_id = '00000000-0000-4000-8000-000000000001';
 
+insert into public.system_idea_templates (
+  code, channel_type_code, specialty_code, title, description
+)
+select
+  'rules_publication_' || pool.pool_code || '_' || item_number,
+  pool.channel_type_code,
+  pool.specialty_code,
+  'Rules publication fixture ' || pool.pool_code || ' ' || item_number,
+  'Temporary publication-validation fixture.'
+from (
+  select channel_type_code, specialty_code, pool_code
+  from (values
+    ('mainstream'::text, null::text, 'mainstream'::text),
+    ('controversial'::text, null::text, 'controversial'::text),
+    ('idol'::text, null::text, 'idol'::text)
+  ) as fixed_pool(channel_type_code, specialty_code, pool_code)
+  union all
+  select 'specialized', specialty_code, 'specialized_' || specialty_code
+  from public.rule_set_specialties
+  where rule_set_id = '00000000-0000-4000-8000-000000000902'
+) as pool
+cross join pg_catalog.generate_series(1, 50) as item_number;
+
+insert into public.rule_set_system_ideas (rule_set_id, system_idea_template_id)
+select '00000000-0000-4000-8000-000000000902', id
+from public.system_idea_templates
+where code like 'rules_publication_%';
+
 select lives_ok(
   $$select public.validate_rule_set_for_publication('00000000-0000-4000-8000-000000000902')$$,
   'complete rule sets pass publication validation'

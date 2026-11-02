@@ -117,12 +117,25 @@ insert into public.advance_week_executions (
 
 insert into public.weekly_actions (
   id, run_id, week_number, action_rule_id
-) values (
-  '84000000-0000-4000-8000-000000000001',
-  '82000000-0000-4000-8000-000000000001',
-  1,
-  '00000000-0000-4000-8100-000000001601'
-);
+) values
+  (
+    '84000000-0000-4000-8000-000000000001',
+    '82000000-0000-4000-8000-000000000001',
+    1,
+    '00000000-0000-4000-8100-000000001601'
+  ),
+  (
+    '84000000-0000-4000-8000-000000000002',
+    '82000000-0000-4000-8000-000000000002',
+    1,
+    '00000000-0000-4000-8100-000000001601'
+  ),
+  (
+    '84000000-0000-4000-8000-000000000006',
+    '82000000-0000-4000-8000-000000000006',
+    1,
+    '00000000-0000-4000-8100-000000001601'
+  );
 
 select lives_ok(
   $$
@@ -146,16 +159,18 @@ select lives_ok(
 
 select throws_ok(
   $$insert into public.week_results (execution_id, run_id, week_number, views_before_event, final_views, subscribers_before, max_subscribers_during_week, subscribers_after, energy_before, energy_after, cash_before, cash_after, ad_revenue, flame_count_after, run_status_after, state_version_after) values ('83000000-0000-4000-8000-000000000001', '82000000-0000-4000-8000-000000000002', 2, 0, 0, 0, 0, 0, 100, 100, 100000, 100000, 0, 0, 'playing', 1)$$,
-  '23505', null, 'an execution cannot be reused by another week result'
+  '23514', 'Week result run does not match its execution',
+  'an execution cannot be reused by another run result'
 );
 
 select throws_ok(
   $$insert into public.week_results (execution_id, run_id, week_number, views_before_event, final_views, subscribers_before, max_subscribers_during_week, subscribers_after, energy_before, energy_after, cash_before, cash_after, ad_revenue, flame_count_after, run_status_after, state_version_after) values ('83000000-0000-4000-8000-000000000003', '82000000-0000-4000-8000-000000000001', 1, 0, 0, 0, 0, 0, 100, 100, 100000, 100000, 0, 0, 'playing', 2)$$,
-  '23505', null, 'a run cannot have two results for the same week'
+  '23514', 'Week result week does not match its execution',
+  'a result week must match the execution attempted week'
 );
 
 select lives_ok(
-  $$insert into public.week_results (id, execution_id, run_id, week_number, views_before_event, final_views, subscribers_before, max_subscribers_during_week, subscribers_after, energy_before, energy_after, cash_before, cash_after, ad_revenue, flame_count_after, run_status_after, state_version_after) values ('85000000-0000-4000-8000-000000000002', '83000000-0000-4000-8000-000000000004', '82000000-0000-4000-8000-000000000002', 1, 0, 0, 0, 0, 0, 100, 100, 100000, 100000, 0, 0, 'playing', 1)$$,
+  $$insert into public.week_results (id, execution_id, run_id, week_number, weekly_action_id, posting_frequency_rule_id, views_before_event, final_views, subscribers_before, max_subscribers_during_week, subscribers_after, energy_before, energy_after, cash_before, cash_after, ad_revenue, flame_count_after, run_status_after, state_version_after) values ('85000000-0000-4000-8000-000000000002', '83000000-0000-4000-8000-000000000004', '82000000-0000-4000-8000-000000000002', 1, '84000000-0000-4000-8000-000000000002', '00000000-0000-4000-8100-000000001201', 0, 0, 0, 0, 0, 100, 100, 100000, 100000, 0, 0, 'playing', 1)$$,
   'different runs may use the same week number'
 );
 
@@ -187,6 +202,15 @@ select throws_ok(
 select throws_ok(
   $$insert into public.week_results (execution_id, run_id, week_number, views_before_event, final_views, subscribers_before, max_subscribers_during_week, subscribers_after, energy_before, energy_after, cash_before, cash_after, ad_revenue, flame_count_after, run_status_after, state_version_after) values ('83000000-0000-4000-8000-000000000003', '82000000-0000-4000-8000-000000000001', 2, 0, 0, 0, 0, 0, 100, 100, 0, 0, 0, 0, 'paused', 2)$$,
   '23514', null, 'unknown post-week run statuses are rejected'
+);
+
+insert into public.run_conditions (
+  run_id, health_risk_rule_id, started_week, duration_weeks,
+  unavailable_from_week, unavailable_through_week
+) values (
+  '82000000-0000-4000-8000-000000000001',
+  '00000000-0000-4000-8100-000000002102',
+  1, 1, 2, 2
 );
 
 select lives_ok(
@@ -436,7 +460,8 @@ select throws_ok(
 );
 
 insert into public.week_results (
-  id, execution_id, run_id, week_number, views_before_event, final_views,
+  id, execution_id, run_id, week_number, weekly_action_id, posting_frequency_rule_id,
+  views_before_event, final_views,
   subscribers_before, max_subscribers_during_week, subscribers_after,
   energy_before, energy_after, cash_before, cash_after, ad_revenue,
   flame_count_after, run_status_after, state_version_after
@@ -444,7 +469,10 @@ insert into public.week_results (
   '85000000-0000-4000-8000-000000000006',
   '83000000-0000-4000-8000-000000000008',
   '82000000-0000-4000-8000-000000000006',
-  1, 0, 0, 0, 0, 0, 100, 100, 100000, 100000, 0, 0, 'game_over', 1
+  1,
+  '84000000-0000-4000-8000-000000000006',
+  '00000000-0000-4000-8100-000000001201',
+  0, 0, 0, 0, 0, 100, 100, 100000, 100000, 0, 0, 'game_over', 1
 );
 
 select lives_ok(

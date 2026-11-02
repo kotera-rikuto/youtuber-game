@@ -553,6 +553,17 @@ Supabaseで公開するViewは `security_invoker = true` を使用し、基底�
 - `event_category_rules`は良い5%・悪い5%、`event_rules.selection_weight`は各カテゴリ内で正の整数とする。
 - `health_risk_rules`と`sponsorship_reward_rules`の範囲重複を排他制約で禁止する。
 
+BE-009では、上記に加えて次をDBで保証する。
+
+- `run_state`、機材、機能解放、健康状態、目標、週間行動、週結果、購入履歴、イベント履歴が参照するルール行は、必ず所有する`game_runs.rule_set_id`と同じ版に属する。機材参照は版に加えて`equipment_type_code`も一致させる。
+- `run_state.energy`は、そのゲーム人生のルールセットにある`global_rules.energy_max`以下とする。能力ポイント配分は付与行をロックし、利用可能週・状態・配分合計を検証する。
+- 機能解放は更新・削除禁止、健康状態と目標は識別情報・期間を変更禁止とし、回復や目標終了は一方向の状態遷移だけを許可する。終了済みゲーム人生も進行状態へ戻せない。
+- `week_results`はexecution、行動、投稿頻度とのゲーム人生・週・版一致を検証する。活動不能週は行動と投稿頻度をともにNULLとし、該当する`run_conditions`の活動不能期間を必須とする。
+- 動画の企画元、イベントルール、ゲーム終了履歴は、参照する週結果またはexecutionとのゲーム人生・週・版一致を検証する。
+- DEFERRABLE制約トリガーにより、トランザクション終了時に`week_committed` executionへ週結果がちょうど1件、`fatal_game_over` executionへ死亡または炎上BAN終了履歴がちょうど1件存在することを保証する。通常週の動画本数と投稿頻度、全動画の計算スナップショット存在も同じタイミングで検証する。
+- ルールセット公開時は、既存のルール構造・点数帯・範囲・確率・能力重みに加え、有効な`rule_set_system_ideas`と有効なテンプレートだけを数え、非特化系3プールと有効な専門分野10プールが各50件、合計650件であることを保証する。
+- 公開済みルール行と企画関連は追加・更新・削除禁止とし、公開済み企画テンプレートの内容も変更禁止とする。`system_idea_templates.enabled`だけは全ルール版に効く緊急停止スイッチとして変更可能なまま維持する。
+
 ## 10. トランザクション境界
 
 ゲーム計算はNext.jsサーバー上の副作用のないTypeScript関数で行う。保存はServer専用PostgreSQL関数`commit_advance_week`へ集約し、Supabase Edge Functionsは初期版で使用しない。
@@ -567,6 +578,8 @@ Supabaseで公開するViewは `security_invoker = true` を使用し、基底�
 8. すべて成功した場合だけCOMMIT。例外時は実行行を含めてROLLBACK
 
 `UNIQUE (run_id, week_number)`、`advance_week_executions.idempotency_key`、`run_state.state_version`の3層で、同じ週の二重確定と再送を防ぐ。乱数はNext.jsサーバーで生成し、生の乱数値・シード・カーソルは保存しない。DBには基礎再生数、確定企画順、発生イベント、炎上、活動不能期間などの結果だけを保存する。
+
+BE-009の遅延制約は、親executionを先に作る保存順を妨げず、COMMIT時にexecutionと終了種別、動画本数、動画計算行の集合が揃っていることを検査する。BE-029の`commit_advance_week`には、`run_state`の行ロックと版再検証、企画キュー消費・週間行動ロック・現在値更新を含む全副作用の原子化、動画計算式と週間合計の一致、動画sequenceの連続性など、計算結果そのものと保存処理全体の整合性を残す。
 
 OpenAI呼び出しは長時間トランザクションを避けるため、DBトランザクション外で実行する。企画作成は、事前確認→AI評価→短いトランザクション内で週間上限と在庫上限を再確認→企画・評価・キューを確定する。フォールバック60点でも同じ経路を通す。並行リクエストでAI呼び出しが重複しても、最終再確認によってDB上限は破られない。
 

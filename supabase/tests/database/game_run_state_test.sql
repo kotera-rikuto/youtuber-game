@@ -431,7 +431,7 @@ select throws_ok(
   '23514', null, 'negative flame counts are rejected'
 );
 
-select lives_ok(
+select throws_ok(
   $$
     insert into public.run_state (run_id, posting_frequency_rule_id)
     values (
@@ -439,7 +439,9 @@ select lives_ok(
       '20000000-0000-4000-8100-000000000003'
     )
   $$,
-  'posting-frequency rule-set matching is explicitly deferred to BE-009'
+  '23514',
+  'Posting frequency rule set does not match the game run',
+  'posting-frequency rules must match the game run rule set'
 );
 
 select throws_ok(
@@ -545,20 +547,20 @@ select throws_ok(
 
 insert into public.run_conditions (
   id, run_id, health_risk_rule_id, started_week, duration_weeks,
-  unavailable_from_week, unavailable_through_week
+  unavailable_from_week, unavailable_through_week, recovered_at
 )
 values
   (
     '40000000-0000-4000-8000-000000000001',
     '30000000-0000-4000-8000-000000000002',
     '00000000-0000-4000-8100-000000002102',
-    10, 2, 11, 12
+    10, 2, 11, 12, statement_timestamp()
   ),
   (
     '40000000-0000-4000-8000-000000000002',
     '30000000-0000-4000-8000-000000000002',
     '00000000-0000-4000-8100-000000002103',
-    20, 3, 21, 23
+    20, 3, 21, 23, null
   );
 
 select is(
