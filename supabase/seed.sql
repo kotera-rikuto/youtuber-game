@@ -57,7 +57,8 @@ on conflict do nothing;
 insert into public.event_categories (code, name)
 values
   ('good', '良いイベント'),
-  ('bad', '悪いイベント')
+  ('bad', '悪いイベント'),
+  ('system', 'システムイベント')
 on conflict do nothing;
 
 insert into public.event_definitions (code, category_code, name)
@@ -67,7 +68,8 @@ values
   ('temporary_bonus', 'good', '臨時ボーナス'),
   ('poorly_received_video', 'bad', '動画が不評'),
   ('equipment_trouble', 'bad', '機材トラブル'),
-  ('criticized_on_social_media', 'bad', 'SNSで批判される')
+  ('criticized_on_social_media', 'bad', 'SNSで批判される'),
+  ('flame', 'system', '炎上')
 on conflict do nothing;
 
 -- Numeric rules are added by later tickets, so this version must not be

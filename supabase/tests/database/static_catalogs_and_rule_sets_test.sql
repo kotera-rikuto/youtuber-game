@@ -268,6 +268,7 @@ select is(
   (
     select jsonb_agg(jsonb_build_array(code, name) order by code)
     from public.event_categories
+    where code in ('good', 'bad')
   ),
   '[["bad", "悪いイベント"], ["good", "良いイベント"]]'::jsonb,
   'the good and bad event categories match the specification'
@@ -277,6 +278,7 @@ select is(
   (
     select jsonb_agg(jsonb_build_array(code, category_code, name) order by code)
     from public.event_definitions
+    where category_code in ('good', 'bad')
   ),
   '[
     ["criticized_on_social_media", "bad", "SNSで批判される"],
