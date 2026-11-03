@@ -12,7 +12,10 @@ import {
   type UseCaseContext,
   type VerifiedUserLookup,
 } from "@/backend/application/auth/authentication";
-import { createWritableClient } from "@/lib/supabase/server";
+import {
+  createReadOnlyClient,
+  createWritableClient,
+} from "@/lib/supabase/server";
 
 type SupabaseAuthClient = Pick<
   SupabaseClient["auth"],
@@ -61,7 +64,7 @@ export async function establishAnonymousSessionForGameStart(): Promise<UseCaseCo
 }
 
 export async function getAuthenticatedUseCaseContext(): Promise<UseCaseContext> {
-  const client = await createWritableClient();
+  const client = await createReadOnlyClient();
   const authentication = new SupabaseAuthenticationGateway(client.auth);
 
   return requireUseCaseContext(authentication);
