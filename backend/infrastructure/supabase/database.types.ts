@@ -1351,6 +1351,9 @@ isOneToOne: false
 "commit_start_game":
 { Args: { "p_actor_user_id": string,"p_channel_name": string,"p_posting_style": string,"p_specialty_code"?: string }; Returns: string
                            },
+"commit_system_idea_cycle":
+{ Args: { "p_actor_user_id": string,"p_ordered_rule_set_system_idea_ids": (string)[],"p_required_count": number,"p_run_id": string }; Returns: string
+                           },
 "validate_rule_set_for_publication":
 { Args: { "target_rule_set_id": string }; Returns: undefined
                            },
