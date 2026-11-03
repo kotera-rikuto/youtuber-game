@@ -82,6 +82,14 @@ npm run db:test
 
 `tests/db/**/*.test.ts` は将来、VitestとSupabaseクライアントからローカルDBへ接続するTypeScript結合テストを置く場所です。現在の `npm run test:db` はその領域だけを実行します。SQLレベルの制約・RLS・DB関数はpgTAPへ、アプリケーションからの接続経路はTypeScriptへ置き、同じ確認を二重管理しません。
 
+Repositoryの結合テストは、ローカルSupabaseの起動後に次を実行する。コマンドは`supabase status -o env`からローカル専用資格情報を子プロセスへ渡し、リポジトリや`.env`へ保存しない。fixtureの準備には`psql`を使用し、固定IDへ`ON CONFLICT DO NOTHING`を適用するため再実行できる。
+
+```bash
+npm run test:integration
+```
+
+CIなどでSupabase CLIのローカルスタックを使わない場合は、`SUPABASE_INTEGRATION_URL`、`SUPABASE_INTEGRATION_PUBLISHABLE_KEY`、`SUPABASE_INTEGRATION_SECRET_KEY`、`SUPABASE_INTEGRATION_DB_URL`をテスト専用ローカル環境として明示的に渡す。本番・リンク済みリモートDBの値は使用しない。
+
 ## DB型の生成
 
 ローカルDBへ全マイグレーションを適用した後、次のコマンドで`public`スキーマのテーブル、View、関数を含むTypeScript型を再生成します。

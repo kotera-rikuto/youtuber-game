@@ -46,7 +46,7 @@
 		"test:unit": "vitest run tests/unit",
 		"test:application": "vitest run tests/application",
 		"test:db": "vitest run tests/db --passWithNoTests",
-		"test:integration": "vitest run tests/integration --passWithNoTests",
+		"test:integration": "node scripts/run-repository-integration-tests.mjs",
 		"db:start": "supabase start",
 		"db:stop": "supabase stop",
 		"db:status": "supabase status",

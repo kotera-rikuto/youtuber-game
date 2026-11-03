@@ -1,0 +1,201 @@
+import type { UseCaseContext } from "@/backend/application/auth/authentication";
+import type { GameRunRepository } from "@/backend/application/ports/game-run-repository";
+import type {
+  IdeasCreatedInWeekQuery,
+  IdeaStockRepository,
+} from "@/backend/application/ports/idea-stock-repository";
+import type { OwnedRunQuery } from "@/backend/application/ports/owned-run-query";
+import type { RuleRepository } from "@/backend/application/ports/rule-repository";
+import type {
+  CommittedWeekQuery,
+  IdempotentWeekResultQuery,
+  WeekResultRepository,
+} from "@/backend/application/ports/week-result-repository";
+import type { GameRun } from "@/backend/domain/game/game-run";
+import type { IdeaQueue } from "@/backend/domain/game/idea-stock";
+import type {
+  ChannelRule,
+  PostingFrequencyRule,
+  PublishedRuleSet,
+  SpecialtyRule,
+} from "@/backend/domain/game/rules";
+import type { WeekResult } from "@/backend/domain/game/week-result";
+
+export class InMemoryGameRunRepository implements GameRunRepository {
+  readonly findActiveByOwnerCalls: UseCaseContext["actorUserId"][] = [];
+  readonly findCurrentByIdCalls: OwnedRunQuery[] = [];
+
+  constructor(private readonly runs: readonly GameRun[] = []) {}
+
+  async findActiveByOwner(actorUserId: UseCaseContext["actorUserId"]) {
+    this.findActiveByOwnerCalls.push(actorUserId);
+    const run = this.runs.find(
+      (candidate) =>
+        candidate.ownerUserId === actorUserId &&
+        (candidate.status === "playing" || candidate.status === "stage_cleared"),
+    );
+    return clone(run ?? null);
+  }
+
+  async findCurrentById(query: OwnedRunQuery) {
+    this.findCurrentByIdCalls.push(clone(query));
+    const run = this.runs.find(
+      (candidate) =>
+        candidate.id === query.runId &&
+        candidate.ownerUserId === query.actorUserId &&
+        (candidate.status === "playing" || candidate.status === "stage_cleared"),
+    );
+    return clone(run ?? null);
+  }
+}
+
+type IdeaStockFixture = {
+  ownerUserId: string;
+  queue: IdeaQueue;
+  createdCountByWeek?: Readonly<Record<number, number>>;
+};
+
+export class InMemoryIdeaStockRepository implements IdeaStockRepository {
+  readonly pendingQueueCalls: OwnedRunQuery[] = [];
+  readonly countPendingCalls: OwnedRunQuery[] = [];
+  readonly countCreatedInWeekCalls: IdeasCreatedInWeekQuery[] = [];
+
+  constructor(private readonly stocks: readonly IdeaStockFixture[] = []) {}
+
+  async getPendingQueue(query: OwnedRunQuery) {
+    this.pendingQueueCalls.push(clone(query));
+    return clone(this.findOwnedStock(query)?.queue ?? null);
+  }
+
+  async countPending(query: OwnedRunQuery) {
+    this.countPendingCalls.push(clone(query));
+    return this.findOwnedStock(query)?.queue.items.length ?? null;
+  }
+
+  async countCreatedInWeek(query: IdeasCreatedInWeekQuery) {
+    this.countCreatedInWeekCalls.push(clone(query));
+    const stock = this.findOwnedStock(query);
+    return stock ? (stock.createdCountByWeek?.[query.weekNumber] ?? 0) : null;
+  }
+
+  private findOwnedStock(query: OwnedRunQuery) {
+    return this.stocks.find(
+      (stock) =>
+        stock.queue.runId === query.runId &&
+        stock.ownerUserId === query.actorUserId,
+    );
+  }
+}
+
+type RuleFixtures = {
+  ruleSets?: readonly PublishedRuleSet[];
+  channelRules?: readonly ChannelRule[];
+  specialties?: readonly SpecialtyRule[];
+  postingFrequencies?: readonly PostingFrequencyRule[];
+};
+
+export class InMemoryRuleRepository implements RuleRepository {
+  constructor(private readonly fixtures: RuleFixtures = {}) {}
+
+  async findActiveRuleSet() {
+    return clone(
+      this.fixtures.ruleSets?.find((ruleSet) => ruleSet.status === "active") ??
+        null,
+    );
+  }
+
+  async findPublishedRuleSetById(ruleSetId: string) {
+    return clone(
+      this.fixtures.ruleSets?.find((ruleSet) => ruleSet.id === ruleSetId) ??
+        null,
+    );
+  }
+
+  async listChannelRules(ruleSetId: string) {
+    return clone(
+      this.fixtures.channelRules?.filter(
+        (rule) => rule.ruleSetId === ruleSetId,
+      ) ?? [],
+    );
+  }
+
+  async listSpecialties(ruleSetId: string) {
+    return clone(
+      this.fixtures.specialties?.filter(
+        (rule) => rule.ruleSetId === ruleSetId,
+      ) ?? [],
+    );
+  }
+
+  async listPostingFrequencies(ruleSetId: string) {
+    return clone(
+      this.fixtures.postingFrequencies?.filter(
+        (rule) => rule.ruleSetId === ruleSetId,
+      ) ?? [],
+    );
+  }
+}
+
+type WeekResultFixture = {
+  ownerUserId: string;
+  result: WeekResult;
+  idempotencyKey: string;
+};
+
+export class InMemoryWeekResultRepository implements WeekResultRepository {
+  readonly committedWeekCalls: CommittedWeekQuery[] = [];
+  readonly idempotencyCalls: IdempotentWeekResultQuery[] = [];
+  readonly historyCalls: OwnedRunQuery[] = [];
+
+  constructor(private readonly results: readonly WeekResultFixture[] = []) {}
+
+  async findCommittedWeek(query: CommittedWeekQuery) {
+    this.committedWeekCalls.push(clone(query));
+    return clone(
+      this.findOwnedResults(query).find(
+        (fixture) => fixture.result.weekNumber === query.weekNumber,
+      )?.result ?? null,
+    );
+  }
+
+  async findByIdempotencyKey(query: IdempotentWeekResultQuery) {
+    this.idempotencyCalls.push(clone(query));
+    return clone(
+      this.findOwnedResults(query).find(
+        (fixture) => fixture.idempotencyKey === query.idempotencyKey,
+      )?.result ?? null,
+    );
+  }
+
+  async listHistory(query: OwnedRunQuery) {
+    this.historyCalls.push(clone(query));
+    const owned = this.findOwnedResults(query);
+    if (
+      !this.results.some(
+        (fixture) =>
+          fixture.result.runId === query.runId &&
+          fixture.ownerUserId === query.actorUserId,
+      )
+    ) {
+      return null;
+    }
+
+    return clone(
+      owned
+        .map((fixture) => fixture.result)
+        .sort((left, right) => left.weekNumber - right.weekNumber),
+    );
+  }
+
+  private findOwnedResults(query: OwnedRunQuery) {
+    return this.results.filter(
+      (fixture) =>
+        fixture.result.runId === query.runId &&
+        fixture.ownerUserId === query.actorUserId,
+    );
+  }
+}
+
+function clone<T>(value: T): T {
+  return structuredClone(value);
+}

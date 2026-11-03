@@ -187,6 +187,12 @@ importしてはいけないもの：
 - 実OpenAI API、実時刻、実乱数、開発者の `.env.local` へ単体テストを依存させない。
 - `vitest.config.ts` は `envDir: false` とし、アプリ用 `.env*` を自動ロードしない。DB・結合テストの資格情報は、ローカルのテストDBまたはCIからテスト専用値として明示的に渡す。
 
+## トランザクション境界
+
+Supabase/PostgRESTの複数リクエストを、TypeScriptのコールバックで囲んでもPostgreSQLの1トランザクションにはならない。そのため汎用の`withTransaction`や`UnitOfWork`は作らない。
+
+複数テーブルの整合性が必要な更新は、ApplicationからはRepositoryの1つの原子的Commandとして扱い、Infrastructureでは1回のPostgreSQL RPCを呼ぶ。行ロック、所有者、状態バージョン、冪等キー、DB制約の再検証はPostgreSQL関数内で行う。具体的なCommandとRPCは対象ユースケースのチケットで追加し、BE-013の読み取りRepositoryは複数のHTTPリクエストをトランザクションとは表現しない。
+
 既存の `lib/openai/server.ts` と `lib/supabase/server.ts` もServer専用である。後続チケットでAdapterやRepositoryを実装するときに、振る舞いを変えず `backend/infrastructure/` へ段階的に整理する。
 
 ## テストの配置と役割
