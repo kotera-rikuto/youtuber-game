@@ -1357,14 +1357,17 @@ isOneToOne: false
 "commit_start_game":
 { Args: { "p_actor_user_id": string,"p_channel_name": string,"p_posting_style": string,"p_specialty_code"?: string }; Returns: string
                            },
-"select_weekly_main_action":
-{ Args: { "p_action": string,"p_actor_user_id": string,"p_expected_version": number,"p_run_id": string }; Returns: Json
-                           },
 "commit_system_idea_cycle":
 { Args: { "p_actor_user_id": string,"p_ordered_rule_set_system_idea_ids": (string)[],"p_required_count": number,"p_run_id": string }; Returns: string
                            },
 "get_advance_week_receipt":
 { Args: { "p_idempotency_key": string }; Returns: Json
+                           },
+"select_weekly_main_action":
+{ Args: { "p_action": string,"p_actor_user_id": string,"p_expected_version": number,"p_run_id": string }; Returns: Json
+                           },
+"set_posting_frequency":
+{ Args: { "p_actor_user_id": string,"p_expected_version": number,"p_run_id": string,"p_videos_per_week": number }; Returns: Json
                            },
 "validate_rule_set_for_publication":
 { Args: { "target_rule_set_id": string }; Returns: undefined

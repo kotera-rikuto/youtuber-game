@@ -22,6 +22,10 @@ export const SPECIALTY_CODES = [
 
 export type SpecialtyCode = (typeof SPECIALTY_CODES)[number];
 
+export const POSTING_FREQUENCIES = [1, 3, 7] as const;
+
+export type PostingFrequency = (typeof POSTING_FREQUENCIES)[number];
+
 export type PublishedRuleSet = {
   id: string;
   version: string;
