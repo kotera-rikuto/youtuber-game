@@ -1,3 +1,5 @@
+import type { GameRunStatus } from "@/backend/domain/game/game-run";
+
 export type DomainJson =
   | null
   | boolean
@@ -45,7 +47,7 @@ export type WeekResult = {
     unavailableThroughWeek: number;
   } | null;
   wasActivityUnavailable: boolean;
-  runStatusAfter: string;
+  runStatusAfter: GameRunStatus;
   stateVersionAfter: number;
   createdAt: Date;
   events: readonly WeekEvent[];

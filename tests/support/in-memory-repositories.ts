@@ -136,18 +136,36 @@ export class InMemoryRuleRepository implements RuleRepository {
   }
 }
 
-type WeekResultFixture = {
+export type OwnedRunFixture = {
   ownerUserId: string;
+  runId: string;
+};
+
+export type WeekResultFixture = {
   result: WeekResult;
   idempotencyKey: string;
+};
+
+export type WeekResultRepositoryFixtures = {
+  ownedRuns?: readonly OwnedRunFixture[];
+  results?: readonly WeekResultFixture[];
 };
 
 export class InMemoryWeekResultRepository implements WeekResultRepository {
   readonly committedWeekCalls: CommittedWeekQuery[] = [];
   readonly idempotencyCalls: IdempotentWeekResultQuery[] = [];
   readonly historyCalls: OwnedRunQuery[] = [];
+  private readonly fixtures: {
+    ownedRuns: readonly OwnedRunFixture[];
+    results: readonly WeekResultFixture[];
+  };
 
-  constructor(private readonly results: readonly WeekResultFixture[] = []) {}
+  constructor(fixtures: WeekResultRepositoryFixtures = {}) {
+    this.fixtures = clone({
+      ownedRuns: fixtures.ownedRuns ?? [],
+      results: fixtures.results ?? [],
+    });
+  }
 
   async findCommittedWeek(query: CommittedWeekQuery) {
     this.committedWeekCalls.push(clone(query));
@@ -169,29 +187,31 @@ export class InMemoryWeekResultRepository implements WeekResultRepository {
 
   async listHistory(query: OwnedRunQuery) {
     this.historyCalls.push(clone(query));
-    const owned = this.findOwnedResults(query);
-    if (
-      !this.results.some(
-        (fixture) =>
-          fixture.result.runId === query.runId &&
-          fixture.ownerUserId === query.actorUserId,
-      )
-    ) {
+    if (!this.ownsRun(query)) {
       return null;
     }
 
     return clone(
-      owned
+      this.findOwnedResults(query)
         .map((fixture) => fixture.result)
         .sort((left, right) => left.weekNumber - right.weekNumber),
     );
   }
 
+  private ownsRun(query: OwnedRunQuery) {
+    return this.fixtures.ownedRuns.some(
+      (run) =>
+        run.runId === query.runId && run.ownerUserId === query.actorUserId,
+    );
+  }
+
   private findOwnedResults(query: OwnedRunQuery) {
-    return this.results.filter(
-      (fixture) =>
-        fixture.result.runId === query.runId &&
-        fixture.ownerUserId === query.actorUserId,
+    if (!this.ownsRun(query)) {
+      return [];
+    }
+
+    return this.fixtures.results.filter(
+      (fixture) => fixture.result.runId === query.runId,
     );
   }
 }

@@ -1,9 +1,18 @@
-export type GameRunStatus =
-  | "playing"
-  | "stage_cleared"
-  | "cleared"
-  | "game_over"
-  | "abandoned";
+export const GAME_RUN_STATUSES = [
+  "playing",
+  "stage_cleared",
+  "cleared",
+  "game_over",
+  "abandoned",
+] as const;
+
+export type GameRunStatus = (typeof GAME_RUN_STATUSES)[number];
+
+const gameRunStatusValues: ReadonlySet<string> = new Set(GAME_RUN_STATUSES);
+
+export function isGameRunStatus(value: string): value is GameRunStatus {
+  return gameRunStatusValues.has(value);
+}
 
 export type RunAbility = {
   code: string;

@@ -11,6 +11,7 @@ import {
   parseDate,
   requireArray,
   requireBoolean,
+  requireGameRunStatus,
   requireInteger,
   requireNonnegativeInteger,
   requirePositiveInteger,
@@ -95,7 +96,10 @@ export function mapWeekResult(row: WeekHistoryRow): WeekResult {
       row.was_activity_unavailable,
       "was_activity_unavailable",
     ),
-    runStatusAfter: requireString(row.run_status_after, "run_status_after"),
+    runStatusAfter: requireGameRunStatus(
+      row.run_status_after,
+      "run_status_after",
+    ),
     stateVersionAfter: requireNonnegativeInteger(
       row.state_version_after,
       "state_version_after",

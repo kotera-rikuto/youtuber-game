@@ -1,5 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 
+import {
+  GAME_RUN_STATUSES,
+  type GameRunStatus,
+} from "@/backend/domain/game/game-run";
 import { DataIntegrityError } from "@/backend/domain/shared/data-integrity-error";
 import type { Database } from "@/backend/infrastructure/supabase/database.types";
 import { mapCurrentGame } from "@/backend/infrastructure/supabase/mappers/game-run-mapper";
@@ -153,6 +157,21 @@ describe("repository row mappers", () => {
         },
       ],
     });
+  });
+
+  it.each(GAME_RUN_STATUSES)(
+    "accepts the valid game-run status %s in a week result",
+    (status) => {
+      const result = mapWeekResult(weekHistoryRow({ run_status_after: status }));
+      expectGameRunStatus(result.runStatusAfter);
+      expect(result.runStatusAfter).toBe(status);
+    },
+  );
+
+  it("rejects an unknown game-run status in a week result", () => {
+    expect(() =>
+      mapWeekResult(weekHistoryRow({ run_status_after: "unknown" })),
+    ).toThrow("run_status_after contains an unsupported value");
   });
 
   it("accepts the nullable action and posting frequency of an unavailable week", () => {
@@ -314,4 +333,8 @@ function weekHistoryRow(
     ],
     ...overrides,
   };
+}
+
+function expectGameRunStatus(status: GameRunStatus): void {
+  expect(GAME_RUN_STATUSES).toContain(status);
 }

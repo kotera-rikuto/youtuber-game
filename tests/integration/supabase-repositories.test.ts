@@ -11,6 +11,7 @@ import { RepositoryError } from "@/backend/application/ports/repository-error";
 import type { Database } from "@/backend/infrastructure/supabase/database.types";
 import { createSupabaseRepositories } from "@/backend/infrastructure/supabase/repositories/create-repositories";
 import { SupabaseRuleRepository } from "@/backend/infrastructure/supabase/repositories/supabase-rule-repository";
+import { validateLocalIntegrationEnvironment } from "@/scripts/repository-integration-environment.js";
 
 vi.mock("server-only", () => ({}));
 
@@ -252,15 +253,10 @@ function contextFor(userId: string) {
 }
 
 function readIntegrationEnvironment() {
-  const url = process.env.SUPABASE_INTEGRATION_URL;
-  const publishableKey = process.env.SUPABASE_INTEGRATION_PUBLISHABLE_KEY;
-  const secretKey = process.env.SUPABASE_INTEGRATION_SECRET_KEY;
-  const databaseUrl = process.env.SUPABASE_INTEGRATION_DB_URL;
-  if (!url || !publishableKey || !secretKey || !databaseUrl) {
-    throw new Error(
-      "Run integration tests through `npm run test:integration` so local Supabase credentials are provided.",
-    );
-  }
-
-  return { url, publishableKey, secretKey, databaseUrl };
+  return validateLocalIntegrationEnvironment({
+    url: process.env.SUPABASE_INTEGRATION_URL,
+    publishableKey: process.env.SUPABASE_INTEGRATION_PUBLISHABLE_KEY,
+    secretKey: process.env.SUPABASE_INTEGRATION_SECRET_KEY,
+    databaseUrl: process.env.SUPABASE_INTEGRATION_DB_URL,
+  });
 }

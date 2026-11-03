@@ -1,5 +1,9 @@
 import "server-only";
 
+import {
+  isGameRunStatus,
+  type GameRunStatus,
+} from "@/backend/domain/game/game-run";
 import { DataIntegrityError } from "@/backend/domain/shared/data-integrity-error";
 
 export function requireRecord(
@@ -30,6 +34,18 @@ export function requireString(value: unknown, fieldName: string): string {
   }
 
   return value;
+}
+
+export function requireGameRunStatus(
+  value: unknown,
+  fieldName: string,
+): GameRunStatus {
+  const status = requireString(value, fieldName);
+  if (!isGameRunStatus(status)) {
+    throw new DataIntegrityError(`${fieldName} contains an unsupported value.`);
+  }
+
+  return status;
 }
 
 export function requireBoolean(value: unknown, fieldName: string): boolean {

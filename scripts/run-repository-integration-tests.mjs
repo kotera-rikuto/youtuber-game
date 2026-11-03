@@ -1,33 +1,18 @@
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
+import {
+  extractSupabaseStatusEnvironment,
+  startWithLocalIntegrationEnvironment,
+} from "./repository-integration-environment.js";
+
 const projectRoot = fileURLToPath(new URL("..", import.meta.url));
-const suppliedEnvironment = {
-  url: process.env.SUPABASE_INTEGRATION_URL,
-  publishableKey: process.env.SUPABASE_INTEGRATION_PUBLISHABLE_KEY,
-  secretKey: process.env.SUPABASE_INTEGRATION_SECRET_KEY,
-  databaseUrl: process.env.SUPABASE_INTEGRATION_DB_URL,
-};
-
-const integrationEnvironment = hasCompleteEnvironment(suppliedEnvironment)
-  ? suppliedEnvironment
-  : readLocalSupabaseEnvironment();
-
-const vitest = spawnSync(
-  fileURLToPath(new URL("../node_modules/.bin/vitest", import.meta.url)),
-  ["run", "tests/integration"],
-  {
-    cwd: projectRoot,
-    env: {
-      ...process.env,
-      SUPABASE_INTEGRATION_URL: integrationEnvironment.url,
-      SUPABASE_INTEGRATION_PUBLISHABLE_KEY:
-        integrationEnvironment.publishableKey,
-      SUPABASE_INTEGRATION_SECRET_KEY: integrationEnvironment.secretKey,
-      SUPABASE_INTEGRATION_DB_URL: integrationEnvironment.databaseUrl,
-    },
-    stdio: "inherit",
-  },
+const integrationEnvironment = extractSupabaseStatusEnvironment(
+  readLocalSupabaseStatus(),
+);
+const vitest = startWithLocalIntegrationEnvironment(
+  integrationEnvironment,
+  startVitest,
 );
 
 if (vitest.error) {
@@ -37,7 +22,7 @@ if (vitest.error) {
   process.exitCode = vitest.status ?? 1;
 }
 
-function readLocalSupabaseEnvironment() {
+function readLocalSupabaseStatus() {
   const supabase = spawnSync(
     fileURLToPath(new URL("../node_modules/.bin/supabase", import.meta.url)),
     ["status", "-o", "env"],
@@ -45,7 +30,7 @@ function readLocalSupabaseEnvironment() {
       cwd: projectRoot,
       encoding: "utf8",
       env: {
-        ...process.env,
+        ...createSanitizedProcessEnvironment(),
         SUPABASE_TELEMETRY_DISABLED: "true",
       },
     },
@@ -53,35 +38,37 @@ function readLocalSupabaseEnvironment() {
 
   if (supabase.error || supabase.status !== 0) {
     console.error(
-      "Local Supabase is unavailable. Start it with `npm run db:start` or provide SUPABASE_INTEGRATION_* variables.",
+      "Local Supabase is unavailable. Start it with `npm run db:start`.",
     );
     process.exit(1);
   }
 
-  const variables = Object.fromEntries(
-    supabase.stdout
-      .split(/\r?\n/)
-      .map((line) => line.match(/^([A-Z_]+)="(.*)"$/))
-      .filter((match) => match !== null)
-      .map((match) => [match[1], match[2]]),
-  );
-  const environment = {
-    url: variables.API_URL,
-    publishableKey: variables.PUBLISHABLE_KEY,
-    secretKey: variables.SECRET_KEY,
-    databaseUrl: variables.DB_URL,
-  };
-
-  if (!hasCompleteEnvironment(environment)) {
-    console.error("Local Supabase did not return all required test credentials.");
-    process.exit(1);
-  }
-
-  return environment;
+  return supabase.stdout;
 }
 
-function hasCompleteEnvironment(environment) {
-  return Object.values(environment).every(
-    (value) => typeof value === "string" && value.length > 0,
+function startVitest(environment) {
+  return spawnSync(
+    fileURLToPath(new URL("../node_modules/.bin/vitest", import.meta.url)),
+    ["run", "tests/integration"],
+    {
+      cwd: projectRoot,
+      env: {
+        ...createSanitizedProcessEnvironment(),
+        SUPABASE_INTEGRATION_URL: environment.url,
+        SUPABASE_INTEGRATION_PUBLISHABLE_KEY: environment.publishableKey,
+        SUPABASE_INTEGRATION_SECRET_KEY: environment.secretKey,
+        SUPABASE_INTEGRATION_DB_URL: environment.databaseUrl,
+      },
+      stdio: "inherit",
+    },
   );
+}
+
+function createSanitizedProcessEnvironment() {
+  const environment = { ...process.env };
+  delete environment.SUPABASE_INTEGRATION_URL;
+  delete environment.SUPABASE_INTEGRATION_PUBLISHABLE_KEY;
+  delete environment.SUPABASE_INTEGRATION_SECRET_KEY;
+  delete environment.SUPABASE_INTEGRATION_DB_URL;
+  return environment;
 }

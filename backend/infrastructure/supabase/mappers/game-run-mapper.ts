@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { GameRun, GameRunStatus } from "@/backend/domain/game/game-run";
+import type { GameRun } from "@/backend/domain/game/game-run";
 import { DataIntegrityError } from "@/backend/domain/shared/data-integrity-error";
 import type { Database } from "@/backend/infrastructure/supabase/database.types";
 import {
@@ -8,6 +8,7 @@ import {
   requireArray,
   requireBoolean,
   requireFiniteNumber,
+  requireGameRunStatus,
   requireNonnegativeInteger,
   requirePositiveInteger,
   requireRecord,
@@ -21,14 +22,6 @@ export type OwnedGameRunRow = Pick<
   GameRunRow,
   "id" | "user_id" | "rule_set_id" | "status"
 >;
-
-const gameRunStatuses = new Set<GameRunStatus>([
-  "playing",
-  "stage_cleared",
-  "cleared",
-  "game_over",
-  "abandoned",
-]);
 
 export function mapCurrentGame(
   row: CurrentGameRow,
@@ -48,7 +41,7 @@ export function mapCurrentGame(
       name: requireString(row.channel_type_name, "channel_type_name"),
     },
     specialty: mapSpecialty(row.specialty_code, row.specialty_name),
-    status: mapGameRunStatus(row.status),
+    status: requireGameRunStatus(row.status, "status"),
     createdAt: parseDate(row.created_at, "created_at"),
     completedAt:
       row.completed_at === null
@@ -79,14 +72,6 @@ export function mapCurrentGame(
     currentGoal: mapCurrentGoal(row),
     unlockedFeatures: mapFeatureUnlocks(row.feature_unlocks),
   };
-}
-
-function mapGameRunStatus(value: string): GameRunStatus {
-  if (!gameRunStatuses.has(value as GameRunStatus)) {
-    throw new DataIntegrityError("status contains an unsupported value.");
-  }
-
-  return value as GameRunStatus;
 }
 
 function mapSpecialty(
