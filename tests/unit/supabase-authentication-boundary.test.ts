@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
 vi.mock("@/lib/supabase/server", () => ({
+  createReadOnlyClient: vi.fn(),
   createWritableClient: vi.fn(),
 }));
 
@@ -10,18 +11,28 @@ import {
   establishAnonymousSessionForGameStart,
   getAuthenticatedUseCaseContext,
 } from "@/backend/infrastructure/supabase/authentication";
-import { createWritableClient } from "@/lib/supabase/server";
+import {
+  createReadOnlyClient,
+  createWritableClient,
+} from "@/lib/supabase/server";
 import { supabaseAuthCookieOptions } from "@/lib/supabase/server-config";
 
-function useFakeSupabaseAuth(auth: {
+type FakeSupabaseAuth = {
   getUser: ReturnType<typeof vi.fn>;
   signInAnonymously: ReturnType<typeof vi.fn>;
-}) {
+};
+
+function useWritableSupabaseAuth(auth: FakeSupabaseAuth) {
   vi.mocked(createWritableClient).mockResolvedValue({ auth } as never);
+}
+
+function useReadOnlySupabaseAuth(auth: FakeSupabaseAuth) {
+  vi.mocked(createReadOnlyClient).mockResolvedValue({ auth } as never);
 }
 
 describe("Supabase authentication boundary", () => {
   beforeEach(() => {
+    vi.mocked(createReadOnlyClient).mockReset();
     vi.mocked(createWritableClient).mockReset();
   });
 
@@ -55,11 +66,13 @@ describe("Supabase authentication boundary", () => {
       },
       error: null,
     });
-    useFakeSupabaseAuth({ getUser, signInAnonymously });
+    useWritableSupabaseAuth({ getUser, signInAnonymously });
 
     await expect(establishAnonymousSessionForGameStart()).resolves.toEqual({
       actorUserId: "created-user-id",
     });
+    expect(createWritableClient).toHaveBeenCalledOnce();
+    expect(createReadOnlyClient).not.toHaveBeenCalled();
     expect(signInAnonymously).toHaveBeenCalledOnce();
     expect(getUser).toHaveBeenCalledTimes(2);
   });
@@ -70,11 +83,46 @@ describe("Supabase authentication boundary", () => {
       error: null,
     });
     const signInAnonymously = vi.fn();
-    useFakeSupabaseAuth({ getUser, signInAnonymously });
+    useWritableSupabaseAuth({ getUser, signInAnonymously });
 
     await expect(establishAnonymousSessionForGameStart()).resolves.toEqual({
       actorUserId: "existing-user-id",
     });
+    expect(createWritableClient).toHaveBeenCalledOnce();
+    expect(createReadOnlyClient).not.toHaveBeenCalled();
+    expect(signInAnonymously).not.toHaveBeenCalled();
+  });
+
+  it("uses the read-only client to create actorUserId", async () => {
+    const getUser = vi.fn().mockResolvedValue({
+      data: { user: { id: "verified-user-id" } },
+      error: null,
+    });
+    const signInAnonymously = vi.fn();
+    useReadOnlySupabaseAuth({ getUser, signInAnonymously });
+
+    await expect(getAuthenticatedUseCaseContext()).resolves.toEqual({
+      actorUserId: "verified-user-id",
+    });
+    expect(createReadOnlyClient).toHaveBeenCalledOnce();
+    expect(createWritableClient).not.toHaveBeenCalled();
+    expect(signInAnonymously).not.toHaveBeenCalled();
+  });
+
+  it("rejects an unauthenticated read-only request", async () => {
+    const getUser = vi.fn().mockResolvedValue({
+      data: { user: null },
+      error: new AuthSessionMissingError(),
+    });
+    const signInAnonymously = vi.fn();
+    useReadOnlySupabaseAuth({ getUser, signInAnonymously });
+
+    await expect(getAuthenticatedUseCaseContext()).rejects.toMatchObject({
+      name: "AuthenticationError",
+      code: "UNAUTHENTICATED",
+    });
+    expect(createReadOnlyClient).toHaveBeenCalledOnce();
+    expect(createWritableClient).not.toHaveBeenCalled();
     expect(signInAnonymously).not.toHaveBeenCalled();
   });
 
@@ -85,7 +133,7 @@ describe("Supabase authentication boundary", () => {
       error: new Error(providerSecret),
     });
     const signInAnonymously = vi.fn();
-    useFakeSupabaseAuth({ getUser, signInAnonymously });
+    useReadOnlySupabaseAuth({ getUser, signInAnonymously });
 
     let thrownError: unknown;
     try {
@@ -99,6 +147,8 @@ describe("Supabase authentication boundary", () => {
       code: "UNAUTHENTICATED",
     });
     expect((thrownError as Error).message).not.toContain(providerSecret);
+    expect(createReadOnlyClient).toHaveBeenCalledOnce();
+    expect(createWritableClient).not.toHaveBeenCalled();
     expect(signInAnonymously).not.toHaveBeenCalled();
   });
 });
