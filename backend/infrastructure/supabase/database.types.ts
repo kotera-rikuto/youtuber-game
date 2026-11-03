@@ -1360,8 +1360,14 @@ isOneToOne: false
 "commit_system_idea_cycle":
 { Args: { "p_actor_user_id": string,"p_ordered_rule_set_system_idea_ids": (string)[],"p_required_count": number,"p_run_id": string }; Returns: string
                            },
+"delete_idea":
+{ Args: { "p_actor_user_id": string,"p_expected_version": number,"p_idea_id": string,"p_run_id": string }; Returns: number
+                           },
 "get_advance_week_receipt":
 { Args: { "p_idempotency_key": string }; Returns: Json
+                           },
+"reorder_idea_stock":
+{ Args: { "p_actor_user_id": string,"p_expected_version": number,"p_ordered_idea_ids": (string)[],"p_run_id": string }; Returns: number
                            },
 "select_weekly_main_action":
 { Args: { "p_action": string,"p_actor_user_id": string,"p_expected_version": number,"p_run_id": string }; Returns: Json
