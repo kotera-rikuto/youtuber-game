@@ -1351,8 +1351,14 @@ isOneToOne: false
 "commit_create_idea":
 { Args: { "p_actor_user_id": string,"p_description"?: string,"p_evaluation_status"?: string,"p_expected_version"?: number,"p_model"?: string,"p_prompt_version"?: string,"p_run_id": string,"p_score"?: number,"p_title": string }; Returns: string
                            },
+"commit_advance_week":
+{ Args: { "p_command": Json }; Returns: Json
+                           },
 "commit_start_game":
 { Args: { "p_actor_user_id": string,"p_channel_name": string,"p_posting_style": string,"p_specialty_code"?: string }; Returns: string
+                           },
+"get_advance_week_receipt":
+{ Args: { "p_idempotency_key": string }; Returns: Json
                            },
 "validate_rule_set_for_publication":
 { Args: { "target_rule_set_id": string }; Returns: undefined
