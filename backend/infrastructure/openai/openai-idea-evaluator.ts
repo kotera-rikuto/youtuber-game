@@ -11,6 +11,8 @@ import {
 import { createOpenAIClient } from "@/lib/openai/server";
 
 const DEFAULT_MODEL = "gpt-4o-mini";
+// Bump whenever the evaluation instructions or schema changes.
+const DEFAULT_PROMPT_VERSION = "idea-evaluation-v1";
 const DEFAULT_TIMEOUT_MS = 5_000;
 
 const EVALUATION_INSTRUCTIONS = `あなたはゲーム内の動画企画を評価する審査員です。
@@ -41,26 +43,33 @@ type OpenAIRequestOptions = {
 export type CreateOpenAIResponse = (
   parameters: ResponseCreateParamsNonStreaming,
   options: OpenAIRequestOptions,
-) => Promise<{ output_text: string }>;
+) => Promise<{ model: string; output_text: string }>;
 
 export type OpenAIIdeaEvaluatorOptions = {
   createResponse: CreateOpenAIResponse;
   model?: string;
+  promptVersion?: string;
   timeoutMs?: number;
 };
 
 export class OpenAIIdeaEvaluator implements IdeaEvaluator {
   private readonly createResponse: CreateOpenAIResponse;
   private readonly model: string;
+  private readonly promptVersion: string;
   private readonly timeoutMs: number;
 
   constructor({
     createResponse,
     model = DEFAULT_MODEL,
+    promptVersion = DEFAULT_PROMPT_VERSION,
     timeoutMs = DEFAULT_TIMEOUT_MS,
   }: OpenAIIdeaEvaluatorOptions) {
     if (!model.trim()) {
       throw new Error("OpenAI model must not be empty.");
+    }
+
+    if (!promptVersion.trim()) {
+      throw new Error("OpenAI prompt version must not be empty.");
     }
 
     if (!Number.isInteger(timeoutMs) || timeoutMs <= 0) {
@@ -69,6 +78,7 @@ export class OpenAIIdeaEvaluator implements IdeaEvaluator {
 
     this.createResponse = createResponse;
     this.model = model;
+    this.promptVersion = promptVersion;
     this.timeoutMs = timeoutMs;
   }
 
@@ -79,19 +89,28 @@ export class OpenAIIdeaEvaluator implements IdeaEvaluator {
       const response = await this.requestEvaluation(input);
       const score = parseEvaluationScore(response.output_text);
 
-      if (score === null) {
-        return fallbackEvaluation();
+      if (!response.model.trim()) {
+        return this.fallbackEvaluation(this.model);
       }
 
-      return { score, status: "completed" };
+      if (score === null) {
+        return this.fallbackEvaluation(response.model);
+      }
+
+      return {
+        score,
+        status: "completed",
+        model: response.model,
+        promptVersion: this.promptVersion,
+      };
     } catch {
-      return fallbackEvaluation();
+      return this.fallbackEvaluation(this.model);
     }
   }
 
   private async requestEvaluation(
     input: IdeaEvaluationInput,
-  ): Promise<{ output_text: string }> {
+  ): Promise<{ model: string; output_text: string }> {
     const abortController = new AbortController();
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
@@ -116,6 +135,15 @@ export class OpenAIIdeaEvaluator implements IdeaEvaluator {
         clearTimeout(timeoutId);
       }
     }
+  }
+
+  private fallbackEvaluation(model: string): IdeaEvaluationResult {
+    return {
+      score: IDEA_EVALUATION_FALLBACK_SCORE,
+      status: "fallback",
+      model,
+      promptVersion: this.promptVersion,
+    };
   }
 }
 
@@ -217,11 +245,4 @@ function assertValidEvaluationInput(input: IdeaEvaluationInput): void {
   if (input.specialty !== null && !input.specialty.trim()) {
     throw new Error("Specialty must be null or a non-empty string.");
   }
-}
-
-function fallbackEvaluation(): IdeaEvaluationResult {
-  return {
-    score: IDEA_EVALUATION_FALLBACK_SCORE,
-    status: "fallback",
-  };
 }

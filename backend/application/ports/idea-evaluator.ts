@@ -6,15 +6,12 @@ export type IdeaEvaluationInput = {
   specialty: string | null;
 };
 
-export type IdeaEvaluationResult =
-  | {
-      score: number;
-      status: "completed";
-    }
-  | {
-      score: typeof IDEA_EVALUATION_FALLBACK_SCORE;
-      status: "fallback";
-    };
+export type IdeaEvaluationResult = {
+  score: number;
+  status: "completed" | "fallback";
+  model: string;
+  promptVersion: string;
+};
 
 export interface IdeaEvaluator {
   evaluate(input: IdeaEvaluationInput): Promise<IdeaEvaluationResult>;
