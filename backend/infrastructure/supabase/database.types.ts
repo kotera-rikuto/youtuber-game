@@ -1348,14 +1348,17 @@ isOneToOne: false
             "assert_rule_set_matches_run":
 { Args: { "reference_name": string,"referenced_rule_set_id": string,"target_run_id": string }; Returns: undefined
                            },
-"commit_create_idea":
-{ Args: { "p_actor_user_id": string,"p_description"?: string,"p_evaluation_status"?: string,"p_expected_version"?: number,"p_model"?: string,"p_prompt_version"?: string,"p_run_id": string,"p_score"?: number,"p_title": string }; Returns: string
-                           },
 "commit_advance_week":
 { Args: { "p_command": Json }; Returns: Json
                            },
+"commit_create_idea":
+{ Args: { "p_actor_user_id": string,"p_description"?: string,"p_evaluation_status"?: string,"p_expected_version"?: number,"p_model"?: string,"p_prompt_version"?: string,"p_run_id": string,"p_score"?: number,"p_title": string }; Returns: string
+                           },
 "commit_start_game":
 { Args: { "p_actor_user_id": string,"p_channel_name": string,"p_posting_style": string,"p_specialty_code"?: string }; Returns: string
+                           },
+"commit_system_idea_cycle":
+{ Args: { "p_actor_user_id": string,"p_ordered_rule_set_system_idea_ids": (string)[],"p_required_count": number,"p_run_id": string }; Returns: string
                            },
 "get_advance_week_receipt":
 { Args: { "p_idempotency_key": string }; Returns: Json
