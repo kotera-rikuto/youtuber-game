@@ -7,11 +7,13 @@ const projectRoot = fileURLToPath(new URL("../..", import.meta.url));
 
 describe("backend layer boundaries", () => {
   it.each([
+    "backend/application/ports/create-idea-repository.ts",
     "backend/application/ports/game-run-repository.ts",
     "backend/application/ports/idea-stock-repository.ts",
     "backend/application/ports/rule-repository.ts",
     "backend/application/ports/week-result-repository.ts",
     "backend/domain/game/game-run.ts",
+    "backend/domain/game/idea-creation.ts",
     "backend/domain/game/idea-stock.ts",
     "backend/domain/game/rules.ts",
     "backend/domain/game/video-calculation.ts",
