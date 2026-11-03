@@ -44,7 +44,7 @@
 		"test": "vitest run tests/unit tests/application",
 		"test:watch": "vitest tests/unit tests/application",
 		"test:unit": "vitest run tests/unit",
-		"test:application": "vitest run tests/application --passWithNoTests",
+		"test:application": "vitest run tests/application",
 		"test:db": "vitest run tests/db --passWithNoTests",
 		"test:integration": "vitest run tests/integration --passWithNoTests",
 		"db:start": "supabase start",

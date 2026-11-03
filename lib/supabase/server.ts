@@ -1,30 +1,37 @@
 import "server-only";
+
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-export async function createClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+import {
+  getSupabasePublicConfig,
+  supabaseAuthCookieOptions,
+} from "@/lib/supabase/server-config";
 
-  if (!url || !publishableKey) {
-    throw new Error("Supabase の公開接続情報が設定されていません。");
-  }
+export async function createReadOnlyClient() {
+  const { url, publishableKey } = getSupabasePublicConfig();
+  const cookieStore = await cookies();
+
+  return createServerClient(url, publishableKey, {
+    cookieOptions: supabaseAuthCookieOptions,
+    cookies: {
+      getAll: () => cookieStore.getAll(),
+    },
+  });
+}
+
+export async function createWritableClient() {
+  const { url, publishableKey } = getSupabasePublicConfig();
 
   const cookieStore = await cookies();
 
   return createServerClient(url, publishableKey, {
+    cookieOptions: supabaseAuthCookieOptions,
     cookies: {
-      getAll() {
-        return cookieStore.getAll();
-      },
+      getAll: () => cookieStore.getAll(),
       setAll(cookiesToSet) {
-        try {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options);
-          });
-        } catch {
-          // Server Component からの呼び出しでは cookie を書き込めません。
-          // 認証導入時に proxy.ts がセッション更新を担当します。
+        for (const { name, value, options } of cookiesToSet) {
+          cookieStore.set(name, value, options);
         }
       },
     },
