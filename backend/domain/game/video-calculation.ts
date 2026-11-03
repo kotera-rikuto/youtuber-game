@@ -130,6 +130,27 @@ export type WeeklyVideoCalculationResult = {
   videos: readonly VideoCalculationResult[];
 };
 
+export function multiplyNonnegativeIntegerAndFloor(
+  value: number,
+  multiplier: number,
+): number {
+  return floorProductToSafeInteger(
+    value,
+    [multiplier],
+    "multiplied nonnegative integer",
+  );
+}
+
+export function calculateAdjustedWeeklyViews(
+  viewsBeforeEvent: number,
+  eventMultiplier: number,
+): number {
+  return multiplyNonnegativeIntegerAndFloor(
+    viewsBeforeEvent,
+    eventMultiplier,
+  );
+}
+
 export function calculateSubscriberMultiplier(
   currentSubscribers: number,
 ): number {
@@ -357,10 +378,9 @@ export function allocateAdjustedViewsToVideos(
     );
   }
 
-  const finalViews = floorProductToSafeInteger(
+  const finalViews = calculateAdjustedWeeklyViews(
     viewsBeforeEvent,
-    [eventMultiplier],
-    "weekly final views",
+    eventMultiplier,
   );
   if (viewsBeforeEvent === 0) {
     return {
