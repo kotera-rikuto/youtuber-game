@@ -82,6 +82,16 @@ npm run db:test
 
 `tests/db/**/*.test.ts` は将来、VitestとSupabaseクライアントからローカルDBへ接続するTypeScript結合テストを置く場所です。現在の `npm run test:db` はその領域だけを実行します。SQLレベルの制約・RLS・DB関数はpgTAPへ、アプリケーションからの接続経路はTypeScriptへ置き、同じ確認を二重管理しません。
 
+## DB型の生成
+
+ローカルDBへ全マイグレーションを適用した後、次のコマンドで`public`スキーマのテーブル、View、関数を含むTypeScript型を再生成します。
+
+```bash
+npm run db:types
+```
+
+生成先は`backend/infrastructure/supabase/database.types.ts`です。このファイルは生成物としてGit管理し、直接編集しません。DBスキーマを変更した場合は、`npm run db:reset`の後に再生成して差分をコミットします。画面DTOやDomain型はこのDB型と分離して定義します。
+
 ## リモートDBを使わない安全ルール
 
 - 通常の開発では `supabase link`、`supabase db push`、`supabase db reset --linked` を実行しません。

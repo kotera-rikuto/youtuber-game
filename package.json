@@ -53,6 +53,7 @@
 		"db:reset": "supabase db reset --local",
 		"db:lint": "supabase db lint --local --schema public --level warning --fail-on warning",
 		"db:test": "supabase test db --local",
+		"db:types": "node scripts/generate-database-types.mjs",
 		"typecheck": "next typegen --webpack && tsc --noEmit",
 		"system-ideas:docs": "node scripts/generate-system-ideas-doc.mjs",
 		"system-ideas:validate": "node scripts/validate-system-ideas.mjs",
