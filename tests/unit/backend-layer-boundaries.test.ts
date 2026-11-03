@@ -14,6 +14,7 @@ describe("backend layer boundaries", () => {
     "backend/domain/game/game-run.ts",
     "backend/domain/game/idea-stock.ts",
     "backend/domain/game/rules.ts",
+    "backend/domain/game/video-calculation.ts",
     "backend/domain/game/week-result.ts",
   ])("does not require Supabase from %s", (relativePath) => {
     const source = readFileSync(join(projectRoot, relativePath), "utf8");
