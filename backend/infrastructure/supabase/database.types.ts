@@ -1345,6 +1345,9 @@ isOneToOne: false
                 }
           }
           Functions: {
+            "allocate_ability_points":
+{ Args: { "p_actor_user_id": string,"p_allocations": Json,"p_expected_version": number,"p_run_id": string }; Returns: number
+                           },
             "assert_rule_set_matches_run":
 { Args: { "reference_name": string,"referenced_rule_set_id": string,"target_run_id": string }; Returns: undefined
                            },
