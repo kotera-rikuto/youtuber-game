@@ -1,7 +1,12 @@
 import "server-only";
 
 import type { UseCaseContext } from "@/backend/application/auth/authentication";
-import type { GameRunRepository } from "@/backend/application/ports/game-run-repository";
+import {
+  StartGameCommitError,
+  type GameRunRepository,
+  type StartGameCommand,
+  type StartGameCommitResult,
+} from "@/backend/application/ports/game-run-repository";
 import type { OwnedRunQuery } from "@/backend/application/ports/owned-run-query";
 import { RepositoryError } from "@/backend/application/ports/repository-error";
 import type { GameRun } from "@/backend/domain/game/game-run";
@@ -56,6 +61,28 @@ export class SupabaseGameRunRepository implements GameRunRepository {
     return this.getCurrentGame(ownedRun, operation);
   }
 
+  async commitStartGame(
+    command: StartGameCommand,
+  ): Promise<StartGameCommitResult> {
+    const { data, error } = await this.client.rpc("commit_start_game", {
+      p_actor_user_id: command.actorUserId,
+      p_channel_name: command.channelName,
+      p_posting_style: command.postingStyle,
+      ...(command.specialtyCode
+        ? { p_specialty_code: command.specialtyCode }
+        : {}),
+    });
+
+    if (error) {
+      throw mapStartGameRpcError(error.code, error.message);
+    }
+    if (typeof data !== "string" || data.length === 0) {
+      throw new StartGameCommitError("COMMIT_FAILED");
+    }
+
+    return { runId: data };
+  }
+
   private async getCurrentGame(
     ownedRun: OwnedGameRunRow,
     operation: string,
@@ -77,4 +104,21 @@ export class SupabaseGameRunRepository implements GameRunRepository {
 
     return mapRepositoryData(operation, () => mapCurrentGame(data, ownedRun));
   }
+}
+
+const startGameErrorCodes = new Map<string, StartGameCommitError["code"]>([
+  ["START_GAME_ACTIVE_GAME_EXISTS", "ACTIVE_GAME_EXISTS"],
+  ["START_GAME_RULES_UNAVAILABLE", "RULES_UNAVAILABLE"],
+  ["START_GAME_SPECIALTY_REQUIRED", "SPECIALTY_REQUIRED"],
+  ["START_GAME_SPECIALTY_NOT_ALLOWED", "SPECIALTY_NOT_ALLOWED"],
+  ["START_GAME_VALIDATION_ERROR", "VALIDATION_ERROR"],
+]);
+
+function mapStartGameRpcError(code: string, message: string) {
+  if (code === "23505") {
+    return new StartGameCommitError("ACTIVE_GAME_EXISTS");
+  }
+
+  const mappedCode = startGameErrorCodes.get(message);
+  return new StartGameCommitError(mappedCode ?? "COMMIT_FAILED");
 }

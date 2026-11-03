@@ -1,3 +1,27 @@
+export const POSTING_STYLES = [
+  "mainstream",
+  "specialized",
+  "controversial",
+  "idol",
+] as const;
+
+export type PostingStyle = (typeof POSTING_STYLES)[number];
+
+export const SPECIALTY_CODES = [
+  "baseball",
+  "soccer",
+  "gaming",
+  "pc_gadgets",
+  "science",
+  "history_culture",
+  "occult",
+  "nature",
+  "food_culture",
+  "outdoor_survival",
+] as const;
+
+export type SpecialtyCode = (typeof SPECIALTY_CODES)[number];
+
 export type PublishedRuleSet = {
   id: string;
   version: string;

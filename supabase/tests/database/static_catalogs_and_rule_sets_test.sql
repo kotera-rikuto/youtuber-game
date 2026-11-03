@@ -25,35 +25,35 @@ select has_pk('public', 'event_definitions', 'event_definitions has a primary ke
 select has_pk('public', 'rule_sets', 'rule_sets has a primary key');
 
 select throws_ok(
-  $$insert into public.channel_types (code, name) values ('mainstream', '重複コード')$$,
+  $$insert into public.channel_types (code, name, display_order) values ('mainstream', '重複コード', 99)$$,
   '23505',
   null,
   'catalog primary keys reject duplicate codes'
 );
 
 select throws_ok(
-  $$insert into public.channel_types (code, name) values ('test_channel', '王道系')$$,
+  $$insert into public.channel_types (code, name, display_order) values ('test_channel', '王道系', 99)$$,
   '23505',
   null,
   'catalog names are unique'
 );
 
 select throws_ok(
-  $$insert into public.channel_types (code, name) values ('missing_name', null)$$,
+  $$insert into public.channel_types (code, name, display_order) values ('missing_name', null, 99)$$,
   '23502',
   null,
   'required catalog names reject null'
 );
 
 select throws_ok(
-  $$insert into public.channel_types (code, name) values ('Invalid-Code', '不正コード')$$,
+  $$insert into public.channel_types (code, name, display_order) values ('Invalid-Code', '不正コード', 99)$$,
   '23514',
   null,
   'catalog codes reject unstable formats'
 );
 
 select throws_ok(
-  $$insert into public.channel_types (code, name) values ('blank_name', '   ')$$,
+  $$insert into public.channel_types (code, name, display_order) values ('blank_name', '   ', 99)$$,
   '23514',
   null,
   'catalog names reject blank strings'

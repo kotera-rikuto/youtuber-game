@@ -7,10 +7,12 @@ import {
   requireUseCaseContext,
   type UseCaseContext,
 } from "@/backend/application/auth/authentication";
+import { StartGameCommitError } from "@/backend/application/ports/game-run-repository";
 import { RepositoryError } from "@/backend/application/ports/repository-error";
 import type { Database } from "@/backend/infrastructure/supabase/database.types";
 import { createSupabaseRepositories } from "@/backend/infrastructure/supabase/repositories/create-repositories";
 import { SupabaseRuleRepository } from "@/backend/infrastructure/supabase/repositories/supabase-rule-repository";
+import { getGameStartOptionsDTO } from "@/backend/queries/get-game-start-options";
 import { validateLocalIntegrationEnvironment } from "@/scripts/repository-integration-environment.js";
 
 vi.mock("server-only", () => ({}));
@@ -27,11 +29,21 @@ const otherCredentials = {
   email: "be013-other@example.test",
   password: "BE-013-local-password",
 };
+const startGameCredentials = {
+  email: `be015-start-${crypto.randomUUID()}@example.test`,
+  password: "BE-015-local-password",
+};
+const concurrentStartCredentials = {
+  email: `be015-concurrent-${crypto.randomUUID()}@example.test`,
+  password: "BE-015-local-password",
+};
 const ownerRunId = "00000000-0000-4000-8000-00000000b013";
 const draftRuleSetId = "00000000-0000-4000-8000-00000000f013";
 
 let ownerContext: UseCaseContext;
 let otherContext: UseCaseContext;
+let startGameContext: UseCaseContext;
+let concurrentStartContext: UseCaseContext;
 let ownerClient: SupabaseClient<Database>;
 let otherClient: SupabaseClient<Database>;
 let serviceClient: SupabaseClient<Database>;
@@ -44,6 +56,11 @@ beforeAll(async () => {
   );
   const owner = await ensureTestUser(serviceClient, ownerCredentials);
   const other = await ensureTestUser(serviceClient, otherCredentials);
+  const startGameUser = await ensureTestUser(serviceClient, startGameCredentials);
+  const concurrentStartUser = await ensureTestUser(
+    serviceClient,
+    concurrentStartCredentials,
+  );
 
   execFileSync(
     "psql",
@@ -73,6 +90,11 @@ beforeAll(async () => {
   otherClient = await signIn(otherCredentials);
   ownerContext = await contextFor(owner.id);
   otherContext = await contextFor(other.id);
+  startGameContext = await contextFor(startGameUser.id);
+  concurrentStartContext = await contextFor(concurrentStartUser.id);
+
+  process.env.NEXT_PUBLIC_SUPABASE_URL = localEnvironment.url;
+  process.env.SUPABASE_SECRET_KEY = localEnvironment.secretKey;
 });
 
 describe("Supabase repository integration", () => {
@@ -147,6 +169,87 @@ describe("Supabase repository integration", () => {
     await expect(
       repositories.rules.listPostingFrequencies(active.id),
     ).resolves.toHaveLength(3);
+  });
+
+  it("returns active game-start options without internal ids", async () => {
+    const options = await getGameStartOptionsDTO();
+
+    expect(options.postingStyles.map((option) => option.code)).toEqual([
+      "mainstream",
+      "specialized",
+      "controversial",
+      "idol",
+    ]);
+    expect(options.specialties).toHaveLength(10);
+    expect(JSON.stringify(options)).not.toMatch(/rule_set_id|ruleSetId/);
+  });
+
+  it("commits game start through one repository command and maps duplicate errors", async () => {
+    const repositories = createSupabaseRepositories(serviceClient);
+    const command = {
+      actorUserId: startGameContext.actorUserId,
+      channelName: "Integration Start",
+      postingStyle: "specialized" as const,
+      specialtyCode: "gaming" as const,
+    };
+
+    const started = await repositories.gameRuns.commitStartGame(command);
+
+    expect(started.runId).toMatch(/^[0-9a-f-]{36}$/);
+    const { data: state, error } = await serviceClient
+      .from("run_state")
+      .select("current_week,cash,energy,state_version")
+      .eq("run_id", started.runId)
+      .single();
+    expect(error).toBeNull();
+    expect(state).toEqual({
+      current_week: 1,
+      cash: 100_000,
+      energy: 100,
+      state_version: 0,
+    });
+
+    await expect(
+      repositories.gameRuns.commitStartGame(command),
+    ).rejects.toMatchObject({
+      name: "StartGameCommitError",
+      code: "ACTIVE_GAME_EXISTS",
+    } satisfies Partial<StartGameCommitError>);
+  });
+
+  it("allows only one winner when the same user starts concurrently", async () => {
+    const repositories = createSupabaseRepositories(serviceClient);
+    const command = {
+      actorUserId: concurrentStartContext.actorUserId,
+      channelName: "Concurrent Start",
+      postingStyle: "mainstream" as const,
+      specialtyCode: null,
+    };
+
+    const attempts = await Promise.allSettled([
+      repositories.gameRuns.commitStartGame(command),
+      repositories.gameRuns.commitStartGame(command),
+    ]);
+
+    expect(attempts.filter((attempt) => attempt.status === "fulfilled")).toHaveLength(
+      1,
+    );
+    const rejected = attempts.find(
+      (attempt): attempt is PromiseRejectedResult =>
+        attempt.status === "rejected",
+    );
+    expect(rejected?.reason).toMatchObject({
+      name: "StartGameCommitError",
+      code: "ACTIVE_GAME_EXISTS",
+    });
+
+    const { count, error } = await serviceClient
+      .from("game_runs")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", concurrentStartContext.actorUserId)
+      .in("status", ["playing", "stage_cleared"]);
+    expect(error).toBeNull();
+    expect(count).toBe(1);
   });
 
   it("returns committed week results in week-number order and by idempotency key", async () => {
