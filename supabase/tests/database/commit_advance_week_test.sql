@@ -2,7 +2,7 @@ begin;
 
 set local search_path = extensions, public, pg_catalog;
 
-select plan(61);
+select plan(75);
 
 create function pg_temp.create_advance_week_run(
   target_user_id uuid,
@@ -15,7 +15,8 @@ create function pg_temp.create_advance_week_run(
   target_flame_count integer default 0,
   videos_per_week integer default 1,
   goal_deadline integer default 156,
-  include_action boolean default true
+  include_action boolean default true,
+  action_code text default 'part_time_job'
 )
 returns void
 language plpgsql
@@ -23,6 +24,7 @@ set search_path = ''
 as $$
 declare
   frequency_rule_id uuid;
+  selected_action_rule_id uuid;
 begin
   insert into auth.users (id) values (target_user_id);
 
@@ -63,11 +65,16 @@ begin
   );
 
   if include_action then
+    select id into selected_action_rule_id
+    from public.action_rules
+    where rule_set_id = '00000000-0000-4000-8000-000000000001'
+      and action_rules.action_code = create_advance_week_run.action_code;
+
     insert into public.weekly_actions (run_id, week_number, action_rule_id)
     values (
       target_run_id,
       target_week,
-      '00000000-0000-4000-8100-000000001601'
+      selected_action_rule_id
     );
   end if;
 end;
@@ -158,6 +165,8 @@ declare
   final_energy integer;
   final_flame_count integer;
   max_subscribers bigint;
+  sponsorship_reward bigint := 0;
+  expected_ad_revenue bigint;
   event_multiplier numeric := 1;
   goal_result text;
 begin
@@ -284,7 +293,33 @@ begin
 
   subscriber_after_videos := state.subscribers + subscriber_gain;
   subscriber_after_event := subscriber_after_videos;
-  cash_before_event := state.cash + action_rule.fixed_cash_delta;
+  if action_rule.action_code = 'sponsorship' then
+    select reward_amount into sponsorship_reward
+    from public.sponsorship_reward_rules as reward_rule
+    where reward_rule.rule_set_id = '00000000-0000-4000-8000-000000000001'
+      and state.subscribers >= reward_rule.min_subscribers
+      and (
+        reward_rule.max_subscribers is null
+        or state.subscribers <= reward_rule.max_subscribers
+      );
+  end if;
+
+  expected_ad_revenue := case
+    when exists (
+      select 1
+      from public.run_feature_unlocks as unlock
+      join public.feature_rules as feature on feature.id = unlock.feature_rule_id
+      where unlock.run_id = target_run_id
+        and feature.feature_code = 'ad_revenue'
+        and unlock.active_from_week <= state.current_week
+    ) then floor(total_final * global_rule.ad_revenue_per_view)::bigint
+    else 0
+  end;
+
+  cash_before_event := greatest(
+    0,
+    state.cash + action_rule.fixed_cash_delta + sponsorship_reward
+  ) + expected_ad_revenue;
   final_cash := cash_before_event;
 
   if random_event_code is not null then
@@ -304,7 +339,13 @@ begin
     ));
   end if;
 
-  energy_before_flame := state.energy + action_rule.energy_delta - frequency.energy_cost;
+  energy_before_flame := case
+    when action_rule.energy_delta > 0 then least(
+      global_rule.energy_max,
+      state.energy + action_rule.energy_delta
+    )
+    else state.energy + action_rule.energy_delta
+  end - frequency.energy_cost;
   final_energy := energy_before_flame;
   final_subscribers := subscriber_after_event;
   final_flame_count := state.flame_count;
@@ -380,7 +421,7 @@ begin
       'energyAfter', final_energy,
       'cashBefore', state.cash,
       'cashAfter', final_cash,
-      'adRevenue', 0,
+      'adRevenue', expected_ad_revenue,
       'flameCountAfter', final_flame_count
     ),
     'stateAfter', jsonb_build_object(
@@ -451,6 +492,28 @@ as $$
   join public.run_goals as goal on goal.run_id = state.run_id and goal.status = 'active'
   join public.goal_rules as goal_rule on goal_rule.id = goal.goal_rule_id
   where state.run_id = target_run_id;
+$$;
+
+create function pg_temp.set_week_and_state_value(
+  command jsonb,
+  week_result_field text,
+  state_field text,
+  replacement bigint
+)
+returns jsonb
+language sql
+immutable
+set search_path = ''
+as $$
+  select pg_catalog.jsonb_set(
+    pg_catalog.jsonb_set(
+      command,
+      array['weekResult', week_result_field],
+      pg_catalog.to_jsonb(replacement)
+    ),
+    array['stateAfter', state_field],
+    pg_catalog.to_jsonb(replacement)
+  );
 $$;
 
 select has_function(
@@ -937,6 +1000,216 @@ select throws_ok(
   ))$$,
   'P0001', 'ADVANCE_WEEK_WEEK_ALREADY_COMMITTED',
   'a different key cannot commit the same week twice'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000101', 'b2900000-0000-4000-8000-000000000101');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000101', 1);
+select throws_ok(
+  $$select public.commit_advance_week(jsonb_set(
+    pg_temp.set_week_and_state_value(
+      pg_temp.make_normal_command('a2900000-0000-4000-8000-000000000101','b2900000-0000-4000-8000-000000000101','c2900000-0000-4000-8000-000000000101'),
+      'subscribersAfter', 'subscribers', 4
+    ),
+    '{weekResult,maxSubscribersDuringWeek}', '4'
+  ))$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'subscribersAfter must equal the sum of validated video subscriber gains'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000102', 'b2900000-0000-4000-8000-000000000102');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000102', 1);
+select throws_ok(
+  $$select public.commit_advance_week(jsonb_set(
+    pg_temp.make_normal_command('a2900000-0000-4000-8000-000000000102','b2900000-0000-4000-8000-000000000102','c2900000-0000-4000-8000-000000000102'),
+    '{weekResult,maxSubscribersDuringWeek}', '1000'
+  ))$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'maxSubscribersDuringWeek cannot exceed the actual weekly checkpoints'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000103', 'b2900000-0000-4000-8000-000000000103');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000103', 1);
+select throws_ok(
+  $$select public.commit_advance_week(jsonb_set(
+    jsonb_set(
+      pg_temp.make_normal_command('a2900000-0000-4000-8000-000000000103','b2900000-0000-4000-8000-000000000103','c2900000-0000-4000-8000-000000000103'),
+      '{weekResult,maxSubscribersDuringWeek}', '3000'
+    ),
+    '{featureUnlockRuleIds}',
+    to_jsonb(array['00000000-0000-4000-8100-000000001501'::uuid])
+  ))$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'a fabricated weekly maximum cannot unlock a feature early'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000104', 'b2900000-0000-4000-8000-000000000104');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000104', 1);
+select throws_ok(
+  $$select public.commit_advance_week(pg_temp.set_week_and_state_value(
+    pg_temp.make_normal_command('a2900000-0000-4000-8000-000000000104','b2900000-0000-4000-8000-000000000104','c2900000-0000-4000-8000-000000000104'),
+    'cashAfter', 'cash', 100000
+  ))$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'cashAfter must include the main action cash delta'
+);
+
+select pg_temp.create_advance_week_run(
+  'a2900000-0000-4000-8000-000000000105',
+  'b2900000-0000-4000-8000-000000000105',
+  target_subscribers => 100000,
+  action_code => 'sponsorship'
+);
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000105', 1);
+select throws_ok(
+  $$select public.commit_advance_week(pg_temp.set_week_and_state_value(
+    pg_temp.make_normal_command('a2900000-0000-4000-8000-000000000105','b2900000-0000-4000-8000-000000000105','c2900000-0000-4000-8000-000000000105'),
+    'cashAfter', 'cash', 100000
+  ))$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'cashAfter must include the sponsorship reward resolved from week-start subscribers'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000106', 'b2900000-0000-4000-8000-000000000106');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000106', 1);
+insert into public.run_feature_unlocks (run_id, feature_rule_id, unlocked_week, active_from_week)
+values ('b2900000-0000-4000-8000-000000000106', '00000000-0000-4000-8100-000000001501', 1, 1);
+select throws_ok(
+  $$select public.commit_advance_week(pg_temp.set_week_and_state_value(
+    pg_temp.make_normal_command('a2900000-0000-4000-8000-000000000106','b2900000-0000-4000-8000-000000000106','c2900000-0000-4000-8000-000000000106'),
+    'cashAfter', 'cash', 110000
+  ))$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'cashAfter must include validated advertising revenue'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000107', 'b2900000-0000-4000-8000-000000000107');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000107', 1);
+select throws_ok(
+  $$select public.commit_advance_week(pg_temp.set_week_and_state_value(
+    jsonb_set(
+      jsonb_set(command, '{events,0,cashBefore}', '110001'),
+      '{events,0,cashAfter}', '160001'
+    ),
+    'cashAfter', 'cash', 160001
+  )) from (select pg_temp.make_normal_command(
+    'a2900000-0000-4000-8000-000000000107',
+    'b2900000-0000-4000-8000-000000000107',
+    'c2900000-0000-4000-8000-000000000107',
+    'temporary_bonus'
+  ) as command) as prepared$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'random-event cashBefore must connect to action cash and advertising revenue'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000108', 'b2900000-0000-4000-8000-000000000108');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000108', 1);
+select throws_ok(
+  $$select public.commit_advance_week(jsonb_set(
+    pg_temp.set_week_and_state_value(
+      jsonb_set(
+        jsonb_set(command, '{events,0,subscribersBefore}', '4'),
+        '{events,0,subscribersAfter}', '5004'
+      ),
+      'subscribersAfter', 'subscribers', 5004
+    ),
+    '{weekResult,maxSubscribersDuringWeek}', '5004'
+  )) from (select pg_temp.make_normal_command(
+    'a2900000-0000-4000-8000-000000000108',
+    'b2900000-0000-4000-8000-000000000108',
+    'c2900000-0000-4000-8000-000000000108',
+    'introduced_by_celebrity'
+  ) as command) as prepared$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'random-event subscribersBefore must equal subscribers after videos'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000109', 'b2900000-0000-4000-8000-000000000109');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000109', 1);
+select throws_ok(
+  $$select public.commit_advance_week(pg_temp.set_week_and_state_value(
+    pg_temp.make_normal_command('a2900000-0000-4000-8000-000000000109','b2900000-0000-4000-8000-000000000109','c2900000-0000-4000-8000-000000000109'),
+    'energyAfter', 'energy', 97
+  ))$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'energyAfter must include the main action energy delta'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000110', 'b2900000-0000-4000-8000-000000000110');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000110', 1);
+select throws_ok(
+  $$select public.commit_advance_week(pg_temp.set_week_and_state_value(
+    pg_temp.make_normal_command('a2900000-0000-4000-8000-000000000110','b2900000-0000-4000-8000-000000000110','c2900000-0000-4000-8000-000000000110'),
+    'energyAfter', 'energy', 90
+  ))$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'energyAfter must include posting-frequency energy cost'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000111', 'b2900000-0000-4000-8000-000000000111');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000111', 1);
+select throws_ok(
+  $$select public.commit_advance_week(pg_temp.set_week_and_state_value(
+    jsonb_set(
+      jsonb_set(command, '{events,0,energyBefore}', '88'),
+      '{events,0,energyAfter}', '68'
+    ),
+    'energyAfter', 'energy', 68
+  )) from (select pg_temp.make_normal_command(
+    'a2900000-0000-4000-8000-000000000111',
+    'b2900000-0000-4000-8000-000000000111',
+    'c2900000-0000-4000-8000-000000000111',
+    null, true
+  ) as command) as prepared$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'flame energyBefore must connect to action and posting energy changes'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000112', 'b2900000-0000-4000-8000-000000000112');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000112', 1);
+select throws_ok(
+  $$select public.commit_advance_week(jsonb_set(
+    pg_temp.set_week_and_state_value(
+      jsonb_set(
+        jsonb_set(command, '{events,0,subscribersBefore}', '4'),
+        '{events,0,subscribersAfter}', '3'
+      ),
+      'subscribersAfter', 'subscribers', 3
+    ),
+    '{weekResult,maxSubscribersDuringWeek}', '4'
+  )) from (select pg_temp.make_normal_command(
+    'a2900000-0000-4000-8000-000000000112',
+    'b2900000-0000-4000-8000-000000000112',
+    'c2900000-0000-4000-8000-000000000112',
+    null, true
+  ) as command) as prepared$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'flame subscribersBefore must connect to subscribers after prior effects'
+);
+
+select pg_temp.create_advance_week_run('a2900000-0000-4000-8000-000000000113', 'b2900000-0000-4000-8000-000000000113');
+select pg_temp.add_player_ideas('b2900000-0000-4000-8000-000000000113', 1);
+select throws_ok(
+  $$select public.commit_advance_week(pg_temp.set_week_and_state_value(
+    pg_temp.make_normal_command('a2900000-0000-4000-8000-000000000113','b2900000-0000-4000-8000-000000000113','c2900000-0000-4000-8000-000000000113'),
+    'cashAfter', 'cash', 100000
+  ))$$,
+  'P0001', 'ADVANCE_WEEK_VALIDATION_ERROR',
+  'a tampered weekly aggregate rejects the complete command'
+);
+select is(
+  (select jsonb_build_array(
+    (select count(*) from public.advance_week_executions where run_id = 'b2900000-0000-4000-8000-000000000113'),
+    (select count(*) from public.week_results where run_id = 'b2900000-0000-4000-8000-000000000113'),
+    (select count(*) from public.videos join public.week_results on week_results.id = videos.week_result_id where week_results.run_id = 'b2900000-0000-4000-8000-000000000113'),
+    (select count(*) from public.occurred_events join public.week_results on week_results.id = occurred_events.week_result_id where week_results.run_id = 'b2900000-0000-4000-8000-000000000113'),
+    (select count(*) from public.idea_queue_entries where run_id = 'b2900000-0000-4000-8000-000000000113'),
+    (select jsonb_build_array(current_week, cash, energy, subscribers, state_version) from public.run_state where run_id = 'b2900000-0000-4000-8000-000000000113'),
+    (select locked_at is null from public.weekly_actions where run_id = 'b2900000-0000-4000-8000-000000000113'),
+    (select count(*) from public.run_feature_unlocks where run_id = 'b2900000-0000-4000-8000-000000000113'),
+    (select count(*) from public.ability_point_grants where run_id = 'b2900000-0000-4000-8000-000000000113')
+  )),
+  '[0,0,0,0,1,[1,100000,100,0,0],true,0,0]'::jsonb,
+  'tamper rejection rolls back every BE-029 side effect'
 );
 
 select * from finish();

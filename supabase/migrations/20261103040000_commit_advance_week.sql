@@ -190,6 +190,20 @@ declare
   expected_views_before_event bigint;
   summed_views_before_event bigint := 0;
   summed_final_views bigint := 0;
+  summed_subscribers_gained bigint := 0;
+
+  subscribers_after_videos bigint;
+  subscribers_after_random_event bigint;
+  expected_subscribers_after bigint;
+  expected_max_subscribers_during_week bigint;
+  sponsorship_reward bigint := 0;
+  expected_ad_revenue bigint;
+  cash_after_action bigint;
+  cash_before_random_event bigint;
+  expected_cash_after bigint;
+  energy_after_action integer;
+  energy_before_flame_event integer;
+  expected_energy_after integer;
 
   event_rule public.event_rules%rowtype;
   random_event_definition text;
@@ -726,16 +740,6 @@ begin
 
       if random_cash_before < 0
         or random_subscribers_before < 0
-        or random_cash_after is distinct from greatest(
-          0::bigint,
-          random_cash_before + event_rule.fixed_cash_delta
-        )
-        or random_subscribers_after is distinct from greatest(
-          0::bigint,
-          pg_catalog.floor(random_subscribers_before::numeric * event_rule.subscriber_multiplier)::bigint
-            + event_rule.fixed_subscriber_delta
-        )
-        or random_cash_after is distinct from cash_after
       then
         raise exception using errcode = 'P0001', message = 'ADVANCE_WEEK_VALIDATION_ERROR';
       end if;
@@ -749,27 +753,13 @@ begin
       flame_count_before := (flame_event ->> 'flameCountBefore')::integer;
       event_flame_count_after := (flame_event ->> 'flameCountAfter')::integer;
 
-      if flame_subscribers_after is distinct from pg_catalog.floor(
-          flame_subscribers_before::numeric
-            * (1 - selected_global_rule.flame_subscriber_loss_rate)
-        )::bigint
-        or flame_energy_after is distinct from flame_energy_before - selected_global_rule.flame_energy_loss
-        or flame_count_before is distinct from locked_state.flame_count
+      if flame_count_before is distinct from locked_state.flame_count
         or event_flame_count_after is distinct from flame_count_before + 1
-        or flame_subscribers_after is distinct from subscribers_after
-        or flame_energy_after is distinct from energy_after
         or event_flame_count_after is distinct from flame_count_after
-        or (random_event is not null and flame_subscribers_before is distinct from random_subscribers_after)
       then
         raise exception using errcode = 'P0001', message = 'ADVANCE_WEEK_VALIDATION_ERROR';
       end if;
     elsif flame_count_after is distinct from locked_state.flame_count then
-      raise exception using errcode = 'P0001', message = 'ADVANCE_WEEK_VALIDATION_ERROR';
-    end if;
-
-    if random_event is not null and flame_event is null
-      and random_subscribers_after is distinct from subscribers_after
-    then
       raise exception using errcode = 'P0001', message = 'ADVANCE_WEEK_VALIDATION_ERROR';
     end if;
 
@@ -914,24 +904,109 @@ begin
 
       summed_views_before_event := summed_views_before_event + video_views_before_event;
       summed_final_views := summed_final_views + video_final_views;
+      summed_subscribers_gained := summed_subscribers_gained + subscribers_gained;
     end loop;
+
+    expected_ad_revenue := case
+      when exists (
+        select 1
+        from public.run_feature_unlocks as unlock
+        join public.feature_rules as feature on feature.id = unlock.feature_rule_id
+        where unlock.run_id = target_run_id
+          and feature.rule_set_id = locked_run.rule_set_id
+          and feature.feature_code = 'ad_revenue'
+          and unlock.active_from_week <= attempted_week
+      ) then pg_catalog.floor(
+        final_views::numeric * selected_global_rule.ad_revenue_per_view
+      )::bigint
+      else 0
+    end;
+
+    if selected_action_rule.action_code = 'sponsorship' then
+      select reward_amount
+      into sponsorship_reward
+      from public.sponsorship_reward_rules as reward_rule
+      where reward_rule.rule_set_id = locked_run.rule_set_id
+        and locked_state.subscribers >= reward_rule.min_subscribers
+        and (
+          reward_rule.max_subscribers is null
+          or locked_state.subscribers <= reward_rule.max_subscribers
+        );
+
+      if sponsorship_reward is null then
+        raise exception using errcode = 'P0001', message = 'ADVANCE_WEEK_VALIDATION_ERROR';
+      end if;
+    end if;
+
+    subscribers_after_videos := locked_state.subscribers + summed_subscribers_gained;
+    subscribers_after_random_event := case
+      when random_event is null then subscribers_after_videos
+      else greatest(
+        0::bigint,
+        pg_catalog.floor(
+          subscribers_after_videos::numeric * event_rule.subscriber_multiplier
+        )::bigint + event_rule.fixed_subscriber_delta
+      )
+    end;
+    expected_subscribers_after := case
+      when flame_event is null then subscribers_after_random_event
+      else pg_catalog.floor(
+        subscribers_after_random_event::numeric
+          * (1 - selected_global_rule.flame_subscriber_loss_rate)
+      )::bigint
+    end;
+    expected_max_subscribers_during_week := greatest(
+      locked_state.subscribers,
+      subscribers_after_videos,
+      subscribers_after_random_event,
+      expected_subscribers_after
+    );
+
+    cash_after_action := greatest(
+      0::bigint,
+      locked_state.cash + selected_action_rule.fixed_cash_delta + sponsorship_reward
+    );
+    cash_before_random_event := cash_after_action + expected_ad_revenue;
+    expected_cash_after := case
+      when random_event is null then cash_before_random_event
+      else greatest(
+        0::bigint,
+        cash_before_random_event + event_rule.fixed_cash_delta
+      )
+    end;
+
+    energy_after_action := locked_state.energy + selected_action_rule.energy_delta;
+    if selected_action_rule.energy_delta > 0 then
+      energy_after_action := least(energy_after_action, selected_global_rule.energy_max);
+    end if;
+    energy_before_flame_event := energy_after_action - selected_frequency_rule.energy_cost;
+    expected_energy_after := case
+      when flame_event is null then energy_before_flame_event
+      else energy_before_flame_event - selected_global_rule.flame_energy_loss
+    end;
 
     if summed_views_before_event is distinct from views_before_event
       or summed_final_views is distinct from final_views
       or final_views is distinct from pg_catalog.floor(
         views_before_event::numeric * expected_event_multiplier
       )::bigint
-      or ad_revenue is distinct from (case
-        when exists (
-          select 1
-          from public.run_feature_unlocks as unlock
-          join public.feature_rules as feature on feature.id = unlock.feature_rule_id
-          where unlock.run_id = target_run_id
-            and feature.feature_code = 'ad_revenue'
-            and unlock.active_from_week <= attempted_week
-        ) then pg_catalog.floor(final_views::numeric * selected_global_rule.ad_revenue_per_view)::bigint
-        else 0
-      end)
+      or ad_revenue is distinct from expected_ad_revenue
+      or subscribers_after is distinct from expected_subscribers_after
+      or max_subscribers_during_week is distinct from expected_max_subscribers_during_week
+      or cash_after is distinct from expected_cash_after
+      or energy_after is distinct from expected_energy_after
+      or (random_event is not null and (
+        random_subscribers_before is distinct from subscribers_after_videos
+        or random_subscribers_after is distinct from subscribers_after_random_event
+        or random_cash_before is distinct from cash_before_random_event
+        or random_cash_after is distinct from expected_cash_after
+      ))
+      or (flame_event is not null and (
+        flame_subscribers_before is distinct from subscribers_after_random_event
+        or flame_subscribers_after is distinct from expected_subscribers_after
+        or flame_energy_before is distinct from energy_before_flame_event
+        or flame_energy_after is distinct from expected_energy_after
+      ))
     then
       raise exception using errcode = 'P0001', message = 'ADVANCE_WEEK_VALIDATION_ERROR';
     end if;
