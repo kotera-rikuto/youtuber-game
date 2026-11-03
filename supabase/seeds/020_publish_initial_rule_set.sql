@@ -24,14 +24,16 @@ begin
   if exists (
     select 1
     from (values
-      ('mainstream', '王道系'),
-      ('specialized', '特化系'),
-      ('controversial', '炎上系'),
-      ('idol', 'アイドル系')
-    ) as expected(code, name)
+      ('mainstream', '王道系', 1),
+      ('specialized', '特化系', 2),
+      ('controversial', '炎上系', 3),
+      ('idol', 'アイドル系', 4)
+    ) as expected(code, name, display_order)
     where not exists (
       select 1 from public.channel_types as actual
-      where actual.code = expected.code and actual.name = expected.name
+      where actual.code = expected.code
+        and actual.name = expected.name
+        and actual.display_order = expected.display_order
     )
   ) then raise exception 'Channel type catalog does not match the initial seed'; end if;
 

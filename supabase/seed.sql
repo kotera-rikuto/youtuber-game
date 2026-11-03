@@ -1,11 +1,11 @@
 begin;
 
-insert into public.channel_types (code, name)
+insert into public.channel_types (code, name, display_order)
 values
-  ('mainstream', '王道系'),
-  ('specialized', '特化系'),
-  ('controversial', '炎上系'),
-  ('idol', 'アイドル系')
+  ('mainstream', '王道系', 1),
+  ('specialized', '特化系', 2),
+  ('controversial', '炎上系', 3),
+  ('idol', 'アイドル系', 4)
 on conflict do nothing;
 
 insert into public.specialty_categories (code, name, display_order)

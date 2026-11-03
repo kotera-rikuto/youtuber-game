@@ -387,7 +387,7 @@ PKは `(run_id, feature_rule_id)`。登録者が減っても行を削除しな�
 
 名称や識別コードだけを持ち、バランス値を持たない。
 
-- `channel_types(code, name)`
+- `channel_types(code, name, display_order)`
 - `specialty_categories(code, name, display_order)`
 - `ability_definitions(code, name, display_order)`
 - `equipment_types(code, name, display_order)`

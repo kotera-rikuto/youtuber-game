@@ -209,14 +209,14 @@ isOneToOne: false
                   ]
                 },"channel_types": {
                   Row: {
-                    "code": string,"name": string
+                    "code": string,"display_order": number,"name": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "code": string,"name": string
+                    "code": string,"display_order": number,"name": string
                   }
                   Update: {
-                    "code"?: string,"name"?: string
+                    "code"?: string,"display_order"?: number,"name"?: string
                   }
                   Relationships: [
 
@@ -1347,6 +1347,9 @@ isOneToOne: false
           Functions: {
             "assert_rule_set_matches_run":
 { Args: { "reference_name": string,"referenced_rule_set_id": string,"target_run_id": string }; Returns: undefined
+                           },
+"commit_start_game":
+{ Args: { "p_actor_user_id": string,"p_channel_name": string,"p_posting_style": string,"p_specialty_code"?: string }; Returns: string
                            },
 "validate_rule_set_for_publication":
 { Args: { "target_rule_set_id": string }; Returns: undefined

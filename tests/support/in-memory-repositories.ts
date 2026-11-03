@@ -1,5 +1,9 @@
 import type { UseCaseContext } from "@/backend/application/auth/authentication";
-import type { GameRunRepository } from "@/backend/application/ports/game-run-repository";
+import type {
+  GameRunRepository,
+  StartGameCommand,
+  StartGameCommitResult,
+} from "@/backend/application/ports/game-run-repository";
 import type {
   IdeasCreatedInWeekQuery,
   IdeaStockRepository,
@@ -24,8 +28,14 @@ import type { WeekResult } from "@/backend/domain/game/week-result";
 export class InMemoryGameRunRepository implements GameRunRepository {
   readonly findActiveByOwnerCalls: UseCaseContext["actorUserId"][] = [];
   readonly findCurrentByIdCalls: OwnedRunQuery[] = [];
+  readonly commitStartGameCalls: StartGameCommand[] = [];
 
-  constructor(private readonly runs: readonly GameRun[] = []) {}
+  constructor(
+    private readonly runs: readonly GameRun[] = [],
+    private readonly startGameResult: StartGameCommitResult = {
+      runId: "created-run-id",
+    },
+  ) {}
 
   async findActiveByOwner(actorUserId: UseCaseContext["actorUserId"]) {
     this.findActiveByOwnerCalls.push(actorUserId);
@@ -46,6 +56,11 @@ export class InMemoryGameRunRepository implements GameRunRepository {
         (candidate.status === "playing" || candidate.status === "stage_cleared"),
     );
     return clone(run ?? null);
+  }
+
+  async commitStartGame(command: StartGameCommand) {
+    this.commitStartGameCalls.push(clone(command));
+    return clone(this.startGameResult);
   }
 }
 
