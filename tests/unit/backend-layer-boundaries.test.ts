@@ -9,6 +9,7 @@ describe("backend layer boundaries", () => {
   it.each([
     "backend/application/ports/create-idea-repository.ts",
     "backend/application/ports/game-run-repository.ts",
+    "backend/application/ports/idea-stock-management-repository.ts",
     "backend/application/ports/idea-stock-repository.ts",
     "backend/application/ports/posting-frequency-repository.ts",
     "backend/application/ports/rule-repository.ts",
