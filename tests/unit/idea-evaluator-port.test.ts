@@ -6,7 +6,12 @@ describe("IdeaEvaluator port", () => {
   it("can be replaced with a fake without importing OpenAI", async () => {
     const fakeEvaluator: IdeaEvaluator = {
       async evaluate() {
-        return { score: 73, status: "completed" };
+        return {
+          score: 73,
+          status: "completed",
+          model: "fake-model",
+          promptVersion: "fake-prompt-v1",
+        };
       },
     };
 
@@ -16,6 +21,11 @@ describe("IdeaEvaluator port", () => {
         channelType: "エンタメ系",
         specialty: null,
       }),
-    ).resolves.toEqual({ score: 73, status: "completed" });
+    ).resolves.toEqual({
+      score: 73,
+      status: "completed",
+      model: "fake-model",
+      promptVersion: "fake-prompt-v1",
+    });
   });
 });

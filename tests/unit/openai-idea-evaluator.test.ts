@@ -14,6 +14,9 @@ const evaluationInput = {
   channelType: "エンタメ系",
   specialty: null,
 };
+const configuredModel = "test-model";
+const promptVersion = "idea-evaluation-test-v1";
+const responseModel = "test-model-2026-11-03";
 
 afterEach(() => {
   vi.useRealTimers();
@@ -23,12 +26,15 @@ afterEach(() => {
 describe("OpenAIIdeaEvaluator", () => {
   it.each([0, 57, 100])("accepts a valid integer score: %i", async (score) => {
     const evaluator = createEvaluator(async () => ({
+      model: responseModel,
       output_text: JSON.stringify({ score }),
     }));
 
     await expect(evaluator.evaluate(evaluationInput)).resolves.toEqual({
       score,
       status: "completed",
+      model: responseModel,
+      promptVersion,
     });
   });
 
@@ -49,6 +55,8 @@ describe("OpenAIIdeaEvaluator", () => {
     await expect(evaluation).resolves.toEqual({
       score: 60,
       status: "fallback",
+      model: configuredModel,
+      promptVersion,
     });
     expect(requestSignal?.aborted).toBe(true);
   });
@@ -61,6 +69,8 @@ describe("OpenAIIdeaEvaluator", () => {
     await expect(evaluator.evaluate(evaluationInput)).resolves.toEqual({
       score: 60,
       status: "fallback",
+      model: configuredModel,
+      promptVersion,
     });
   });
 
@@ -68,9 +78,11 @@ describe("OpenAIIdeaEvaluator", () => {
     vi.stubEnv("OPENAI_API_KEY", "");
     const evaluator = createOpenAIIdeaEvaluator();
 
-    await expect(evaluator.evaluate(evaluationInput)).resolves.toEqual({
+    await expect(evaluator.evaluate(evaluationInput)).resolves.toMatchObject({
       score: 60,
       status: "fallback",
+      model: expect.stringMatching(/\S/),
+      promptVersion: expect.stringMatching(/\S/),
     });
   });
 
@@ -84,11 +96,30 @@ describe("OpenAIIdeaEvaluator", () => {
     ["a null score", '{"score":null}'],
     ["an extra field", '{"score":60,"views":1000000}'],
   ])("falls back for %s", async (_caseName, outputText) => {
-    const evaluator = createEvaluator(async () => ({ output_text: outputText }));
+    const evaluator = createEvaluator(async () => ({
+      model: responseModel,
+      output_text: outputText,
+    }));
 
     await expect(evaluator.evaluate(evaluationInput)).resolves.toEqual({
       score: 60,
       status: "fallback",
+      model: responseModel,
+      promptVersion,
+    });
+  });
+
+  it("uses the configured model when the response model is invalid", async () => {
+    const evaluator = createEvaluator(async () => ({
+      model: " ",
+      output_text: '{"score":80}',
+    }));
+
+    await expect(evaluator.evaluate(evaluationInput)).resolves.toEqual({
+      score: 60,
+      status: "fallback",
+      model: configuredModel,
+      promptVersion,
     });
   });
 
@@ -121,22 +152,23 @@ describe("OpenAIIdeaEvaluator", () => {
     ) => {
       request = parameters;
       requestOptions = options;
-      return { output_text: '{"score":82}' };
+      return { model: responseModel, output_text: '{"score":82}' };
     };
     const evaluator = new OpenAIIdeaEvaluator({
       createResponse,
-      model: "test-model",
+      model: configuredModel,
+      promptVersion,
       timeoutMs: 250,
     });
 
-    await evaluator.evaluate({
+    const evaluation = await evaluator.evaluate({
       title: "専門家が解説する発酵食品",
       channelType: "特化系",
       specialty: "発酵食品",
     });
 
     expect(request).toMatchObject({
-      model: "test-model",
+      model: configuredModel,
       store: false,
       input: [
         {
@@ -174,6 +206,12 @@ describe("OpenAIIdeaEvaluator", () => {
       /userId|runId|subscribers|money|views|revenue|multiplier|event/i,
     );
     expect(requestOptions).toMatchObject({ maxRetries: 0, timeout: 250 });
+    expect(evaluation).toEqual({
+      score: 82,
+      status: "completed",
+      model: responseModel,
+      promptVersion,
+    });
   });
 
   it("keeps prompt-injection text out of the evaluator instructions", async () => {
@@ -182,7 +220,7 @@ describe("OpenAIIdeaEvaluator", () => {
     let request: ResponseCreateParamsNonStreaming | undefined;
     const evaluator = createEvaluator(async (parameters) => {
       request = parameters;
-      return { output_text: '{"score":45}' };
+      return { model: responseModel, output_text: '{"score":45}' };
     });
 
     await evaluator.evaluate({ ...evaluationInput, title: injectionTitle });
@@ -203,6 +241,18 @@ describe("OpenAIIdeaEvaluator", () => {
     ).rejects.toThrow("Idea title must not be empty.");
     expect(createResponse).not.toHaveBeenCalled();
   });
+
+  it("rejects a blank prompt version before evaluation", () => {
+    const createResponse = vi.fn<CreateOpenAIResponse>();
+
+    expect(
+      () =>
+        new OpenAIIdeaEvaluator({
+          createResponse,
+          promptVersion: " ",
+        }),
+    ).toThrow("OpenAI prompt version must not be empty.");
+  });
 });
 
 function createEvaluator(
@@ -211,7 +261,8 @@ function createEvaluator(
 ): OpenAIIdeaEvaluator {
   return new OpenAIIdeaEvaluator({
     createResponse,
-    model: "test-model",
+    model: configuredModel,
+    promptVersion,
     timeoutMs,
   });
 }
