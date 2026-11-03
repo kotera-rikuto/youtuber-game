@@ -12,6 +12,7 @@ describe("backend layer boundaries", () => {
     "backend/application/ports/idea-stock-repository.ts",
     "backend/application/ports/rule-repository.ts",
     "backend/application/ports/week-result-repository.ts",
+    "backend/application/ports/weekly-main-action-repository.ts",
     "backend/domain/game/game-run.ts",
     "backend/domain/game/idea-creation.ts",
     "backend/domain/game/idea-stock.ts",
