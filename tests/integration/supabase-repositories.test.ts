@@ -127,6 +127,24 @@ describe("Supabase repository integration", () => {
     ).resolves.toBeNull();
   });
 
+  it("loads the final-result source only for the owning actor", async () => {
+    const ownerRepositories = createSupabaseRepositories(ownerClient);
+    const otherRepositories = createSupabaseRepositories(otherClient);
+
+    await expect(
+      ownerRepositories.gameRuns.findFinalById({
+        actorUserId: ownerContext.actorUserId,
+        runId: ownerRunId,
+      }),
+    ).resolves.toMatchObject({ status: "playing" });
+    await expect(
+      otherRepositories.gameRuns.findFinalById({
+        actorUserId: otherContext.actorUserId,
+        runId: ownerRunId,
+      }),
+    ).resolves.toBeNull();
+  });
+
   it("returns pending ideas in contiguous queue order", async () => {
     const repositories = createSupabaseRepositories(ownerClient);
     const query = {

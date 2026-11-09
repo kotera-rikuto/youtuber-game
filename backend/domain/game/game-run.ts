@@ -76,3 +76,25 @@ export type GameRun = {
   currentGoal: RunGoal | null;
   unlockedFeatures: readonly UnlockedFeature[];
 };
+
+export type FinalGameRun = Pick<
+  GameRun,
+  "id" | "ownerUserId" | "channelName" | "channelType" | "specialty" | "status" | "completedAt"
+> & {
+  currentState: Pick<
+    GameRun["currentState"],
+    "currentWeek" | "cash" | "energy" | "subscribers" | "cumulativeViews" | "flameCount"
+  >;
+  termination: {
+    reason: "death" | "flame_ban" | "deadline" | "abandoned";
+    occurredWeek: number;
+  } | null;
+  finalStage: {
+    stageNumber: number;
+    targetSubscribers: number;
+    startedWeek: number;
+    deadlineWeek: number;
+    achievedWeek: number | null;
+    isFinal: boolean;
+  } | null;
+};
