@@ -39,12 +39,15 @@ describe("replaceAbilityPointsForNextWeek", () => {
   ])("uses the fetched award for %s videos", (videosPerWeek, award) => {
     const result = replaceAbilityPointsForNextWeek({
       weekKind: "normal",
+      healthConditionStarted: false,
       currentWeek: 10,
       abilityPointsAwarded: award,
       newPointsAvailableFromWeek: 11,
       existingGrants: [],
     });
-    expect(result).toMatchObject({ newGrant: { amount: award } });
+    expect(result).toMatchObject({
+      newGrant: { amount: award, status: "available" },
+    });
     expect(videosPerWeek).toBeGreaterThan(0);
   });
 
@@ -59,6 +62,7 @@ describe("replaceAbilityPointsForNextWeek", () => {
     expect(
       replaceAbilityPointsForNextWeek({
         weekKind: "normal",
+        healthConditionStarted: false,
         currentWeek: 10,
         abilityPointsAwarded: 7,
         newPointsAvailableFromWeek: 11,
@@ -71,7 +75,7 @@ describe("replaceAbilityPointsForNextWeek", () => {
         earnedWeek: 10,
         availableFromWeek: 11,
         amount: 7,
-        status: "held",
+        status: "available",
       },
     });
     expect(existingGrants).toEqual(before);
@@ -81,6 +85,7 @@ describe("replaceAbilityPointsForNextWeek", () => {
     expect(
       replaceAbilityPointsForNextWeek({
         weekKind: "activity_unavailable",
+        healthConditionStarted: false,
         currentWeek: 10,
         abilityPointsAwarded: 0,
         newPointsAvailableFromWeek: 11,
@@ -96,10 +101,45 @@ describe("replaceAbilityPointsForNextWeek", () => {
     });
   });
 
+  it("holds a new grant when a health condition starts", () => {
+    expect(
+      replaceAbilityPointsForNextWeek({
+        weekKind: "normal",
+        healthConditionStarted: true,
+        currentWeek: 10,
+        abilityPointsAwarded: 7,
+        newPointsAvailableFromWeek: 11,
+        existingGrants: [],
+      }),
+    ).toMatchObject({
+      outcome: "replaced",
+      newGrant: { status: "held" },
+    });
+  });
+
+  it("accepts zero as the minimum award without creating an unavailable-week grant", () => {
+    expect(
+      replaceAbilityPointsForNextWeek({
+        weekKind: "activity_unavailable",
+        healthConditionStarted: false,
+        currentWeek: 1,
+        abilityPointsAwarded: 0,
+        newPointsAvailableFromWeek: 2,
+        existingGrants: [],
+      }),
+    ).toEqual({
+      outcome: "held",
+      expiredGrantIds: [],
+      newGrant: null,
+      retainedGrantIds: [],
+    });
+  });
+
   it("rejects invalid award and week values", () => {
     expect(() =>
       replaceAbilityPointsForNextWeek({
         weekKind: "normal",
+        healthConditionStarted: false,
         currentWeek: 0,
         abilityPointsAwarded: -1,
         newPointsAvailableFromWeek: 1,

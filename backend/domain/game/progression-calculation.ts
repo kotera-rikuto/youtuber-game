@@ -12,6 +12,7 @@ export type AbilityPointGrantSnapshot = {
 
 export type ReplaceAbilityPointsInput = {
   weekKind: "normal" | "activity_unavailable";
+  healthConditionStarted: boolean;
   currentWeek: number;
   abilityPointsAwarded: number;
   newPointsAvailableFromWeek: number;
@@ -25,7 +26,7 @@ export type ReplacedAbilityPoints = {
     earnedWeek: number;
     availableFromWeek: number;
     amount: number;
-    status: "held";
+    status: "available" | "held";
   };
 };
 
@@ -127,7 +128,7 @@ export function replaceAbilityPointsForNextWeek(
       earnedWeek: input.currentWeek,
       availableFromWeek: input.newPointsAvailableFromWeek,
       amount: input.abilityPointsAwarded,
-      status: "held",
+      status: input.healthConditionStarted ? "held" : "available",
     },
   };
 }

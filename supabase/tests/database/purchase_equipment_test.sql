@@ -109,12 +109,19 @@ select pg_temp.create_equipment_run(
   'e2300000-0000-4000-8000-000000000002',
   'e2300000-0000-4000-8100-000000000002'
 );
+update public.run_state set cash = 500000
+where run_id = 'e2300000-0000-4000-8100-000000000002';
 select is(
-  (select (public.purchase_equipment(
+  public.purchase_equipment(
     'e2300000-0000-4000-8000-000000000002',
     'e2300000-0000-4000-8100-000000000002', 'camera', 'advanced', 0
-  )->>'pricePaid')::bigint),
-  500000::bigint, 'none can buy advanced directly at the advanced rule price'
+  ),
+  jsonb_build_object(
+    'equipmentType', 'camera', 'previousLevel', 'none',
+    'purchasedLevel', 'advanced', 'pricePaid', 500000,
+    'cashAfter', 0, 'purchasedWeek', 1, 'nextStateVersion', 1
+  ),
+  'none can buy advanced directly at the advanced rule price'
 );
 select throws_ok(
   $$select public.purchase_equipment(
@@ -146,7 +153,7 @@ where run_id = 'e2300000-0000-4000-8100-000000000003';
 select throws_ok(
   $$select public.purchase_equipment(
     'e2300000-0000-4000-8000-000000000003',
-    'e23000000-0000-4000-8100-000000000003', 'camera', 'beginner', 0)$$,
+    'e2300000-0000-4000-8100-000000000099', 'camera', 'beginner', 0)$$,
   'P0001', 'PURCHASE_EQUIPMENT_RUN_NOT_FOUND', 'unknown run is rejected'
 );
 select throws_ok(

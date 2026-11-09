@@ -1,11 +1,15 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 
 import { requireUseCaseContext, type UseCaseContext } from "@/backend/application/auth/authentication";
 import { purchaseEquipment } from "@/backend/application/use-cases/purchase-equipment";
 import type { Database } from "@/backend/infrastructure/supabase/database.types";
 import { SupabaseEquipmentPurchaseRepository } from "@/backend/infrastructure/supabase/repositories/supabase-equipment-purchase-repository";
 import { validateLocalIntegrationEnvironment } from "@/scripts/repository-integration-environment.js";
+
+vi.mock("server-only", () => ({}));
+
+const INITIAL_CASH = 100_000;
 
 const environment = validateLocalIntegrationEnvironment({
   url: process.env.SUPABASE_INTEGRATION_URL,
@@ -24,37 +28,40 @@ beforeAll(() => {
 
 describe("purchaseEquipment integration", () => {
   it.each([
-    ["beginner", 30_000],
-    ["intermediate", 150_000],
-    ["advanced", 500_000],
-  ] as const)("purchases camera from none directly to %s using the DB price", async (level, price) => {
+    ["beginner", 30_000, INITIAL_CASH],
+    ["intermediate", 150_000, 500_000],
+    ["advanced", 500_000, 1_000_000],
+  ] as const)("purchases camera from none directly to %s using the DB price", async (level, price, cashBefore) => {
     const fixture = await startGameFixture(`none-${level}`);
     const repository = new SupabaseEquipmentPurchaseRepository(serviceClient);
+    await setRunCash(fixture.runId, cashBefore);
 
     await expect(purchaseEquipment(fixture.context, {
       runId: fixture.runId, equipmentType: "camera", level, expectedVersion: 0,
     }, { equipmentPurchases: repository })).resolves.toMatchObject({
       equipmentType: "camera", previousLevel: "none", purchasedLevel: level,
-      pricePaid: price, cashAfter: 100_000 - price, purchasedWeek: 1, nextStateVersion: 1,
+      pricePaid: price, cashAfter: cashBefore - price, purchasedWeek: 1, nextStateVersion: 1,
     });
   });
 
   it("supports every upward transition and never charges a difference", async () => {
     const fixture = await startGameFixture("upgrades");
     const repository = new SupabaseEquipmentPurchaseRepository(serviceClient);
+    await setRunCash(fixture.runId, 135_000);
     const purchase = async (level: "beginner" | "intermediate" | "advanced", expectedVersion: number) =>
       purchaseEquipment(fixture.context, {
         runId: fixture.runId, equipmentType: "microphone", level, expectedVersion,
       }, { equipmentPurchases: repository });
 
-    await expect(purchase("beginner", 0)).resolves.toMatchObject({ pricePaid: 5_000, cashAfter: 95_000 });
-    await expect(purchase("intermediate", 1)).resolves.toMatchObject({ pricePaid: 30_000, cashAfter: 65_000 });
+    await expect(purchase("beginner", 0)).resolves.toMatchObject({ pricePaid: 5_000, cashAfter: 130_000 });
+    await expect(purchase("intermediate", 1)).resolves.toMatchObject({ pricePaid: 30_000, cashAfter: 100_000 });
     await expect(purchase("advanced", 2)).resolves.toMatchObject({ pricePaid: 100_000, cashAfter: 0 });
   });
 
   it.each(["beginner", "intermediate"] as const)("rejects same or lower tier from advanced: %s", async (level) => {
     const fixture = await startGameFixture(`reject-${level}`);
     const repository = new SupabaseEquipmentPurchaseRepository(serviceClient);
+    await setRunCash(fixture.runId, 500_000);
     await purchaseEquipment(fixture.context, {
       runId: fixture.runId, equipmentType: "editing_pc", level: "advanced", expectedVersion: 0,
     }, { equipmentPurchases: repository });
@@ -87,7 +94,7 @@ describe("purchaseEquipment integration", () => {
 
   it("changes only cash, equipment, purchase history, and state version", async () => {
     const fixture = await startGameFixture("atomic");
-    await serviceClient.from("weekly_actions").insert({ run_id: fixture.runId, week_number: 1, action_rule_id: "00000000-0000-4000-8100-000000001301" }).throwOnError();
+    await serviceClient.from("weekly_actions").insert({ run_id: fixture.runId, week_number: 1, action_rule_id: "00000000-0000-4000-8100-000000001601" }).throwOnError();
     const repository = new SupabaseEquipmentPurchaseRepository(serviceClient);
     await purchaseEquipment(fixture.context, { runId: fixture.runId, equipmentType: "camera", level: "beginner", expectedVersion: 0 }, { equipmentPurchases: repository });
 
@@ -136,4 +143,12 @@ async function startGameFixture(label: string): Promise<{ context: UseCaseContex
   });
   if (error || !runId) throw new Error(`Unable to start a BE-023 fixture: ${error?.message ?? "no run"}`);
   return { context, runId };
+}
+
+async function setRunCash(runId: string, cash: number): Promise<void> {
+  await serviceClient
+    .from("run_state")
+    .update({ cash })
+    .eq("run_id", runId)
+    .throwOnError();
 }

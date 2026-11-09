@@ -2,7 +2,7 @@ begin;
 
 set local search_path = extensions, public, pg_catalog;
 
-select plan(27);
+select plan(28);
 
 select has_function(
   'public',
@@ -191,10 +191,16 @@ select throws_ok(
 );
 
 select throws_ok(
-  $$select public.abandon_game('f1600000-0000-4000-8000-000000000002', (select id from public.game_runs where user_id = 'f1600000-0000-4000-8000-000000000002'), 0)$$,
+  $$select public.abandon_game('f1600000-0000-4000-8000-000000000001', (select id from public.game_runs where user_id = 'f1600000-0000-4000-8000-000000000002'), 0)$$,
   'P0001',
   'ABANDON_GAME_FORBIDDEN',
   'another user cannot abandon a run'
+);
+
+select is(
+  (select status from public.game_runs where user_id = 'f1600000-0000-4000-8000-000000000002'),
+  'stage_cleared',
+  'forbidden abandon leaves the target run unchanged'
 );
 
 select is(
