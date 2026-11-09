@@ -5,6 +5,7 @@ import {
   type StartGameCommand,
 } from "@/backend/application/ports/game-run-repository";
 import type { RuleRepository } from "@/backend/application/ports/rule-repository";
+import { normalizeChannelName } from "@/backend/domain/game/channel-name";
 import {
   POSTING_STYLES,
   SPECIALTY_CODES,
@@ -106,8 +107,8 @@ function validateInput(
   context: UseCaseContext,
   input: StartGameInput,
 ): StartGameCommand {
-  const channelName = input.channelName.trim();
-  if (channelName.length === 0 || !postingStyleValues.has(input.postingStyle)) {
+  const channelName = normalizeChannelName(input.channelName);
+  if (channelName === null || !postingStyleValues.has(input.postingStyle)) {
     throw new StartGameError("VALIDATION_ERROR");
   }
 
