@@ -11,7 +11,9 @@ import type { OwnedRunQuery } from "@/backend/application/ports/owned-run-query"
 import { RepositoryError } from "@/backend/application/ports/repository-error";
 import type { GameRun } from "@/backend/domain/game/game-run";
 import {
+  mapFinalGame,
   mapCurrentGame,
+  type FinalGameRows,
   type OwnedGameRunRow,
 } from "@/backend/infrastructure/supabase/mappers/game-run-mapper";
 import {
@@ -59,6 +61,118 @@ export class SupabaseGameRunRepository implements GameRunRepository {
     }
 
     return this.getCurrentGame(ownedRun, operation);
+  }
+
+  async findFinalById(query: OwnedRunQuery) {
+    const operation = "gameRun.findFinalById";
+    const [gameRunResponse, stateResponse, terminationResponse, goalsResponse] =
+      await Promise.all([
+        this.client
+          .from("game_runs")
+          .select("id,user_id,rule_set_id,channel_rule_id,channel_name,status,completed_at,specialty_code")
+          .eq("id", query.runId)
+          .eq("user_id", query.actorUserId)
+          .maybeSingle(),
+        this.client
+          .from("run_state")
+          .select("run_id,current_week,posting_frequency_rule_id,cash,energy,subscribers,cumulative_views,flame_count,state_version,updated_at")
+          .eq("run_id", query.runId)
+          .maybeSingle(),
+        this.client
+          .from("game_terminations")
+          .select("id,run_id,execution_id,week_result_id,reason,occurred_week,calculated_energy,calculated_flame_count,created_at")
+          .eq("run_id", query.runId),
+        this.client
+          .from("run_goals")
+          .select("id,run_id,goal_rule_id,started_week,deadline_week,achieved_week,status")
+          .eq("run_id", query.runId),
+      ]);
+
+    if (
+      gameRunResponse.error ||
+      stateResponse.error ||
+      terminationResponse.error ||
+      goalsResponse.error
+    ) {
+      throw new RepositoryError("QUERY_FAILED", operation);
+    }
+    if (!gameRunResponse.data) {
+      return null;
+    }
+    if (!stateResponse.data) {
+      throw new RepositoryError("INVALID_DATA", operation);
+    }
+
+    const gameRun = gameRunResponse.data;
+    const [channelRuleResponse, specialtyResponse, goalRulesResponse] =
+      await Promise.all([
+        this.client
+          .from("channel_rules")
+          .select("channel_type_code")
+          .eq("id", gameRun.channel_rule_id)
+          .eq("rule_set_id", gameRun.rule_set_id)
+          .maybeSingle(),
+        gameRun.specialty_code === null
+          ? Promise.resolve({ data: null, error: null })
+          : this.client
+              .from("specialty_categories")
+              .select("code,name")
+              .eq("code", gameRun.specialty_code)
+              .maybeSingle(),
+        this.client
+          .from("goal_rules")
+          .select("id,stage_number,target_subscribers,is_final")
+          .eq("rule_set_id", gameRun.rule_set_id),
+      ]);
+
+    if (
+      channelRuleResponse.error ||
+      specialtyResponse.error ||
+      goalRulesResponse.error
+    ) {
+      throw new RepositoryError("QUERY_FAILED", operation);
+    }
+    if (!channelRuleResponse.data || goalRulesResponse.data === null) {
+      throw new RepositoryError("INVALID_DATA", operation);
+    }
+    if (gameRun.specialty_code !== null && !specialtyResponse.data) {
+      throw new RepositoryError("INVALID_DATA", operation);
+    }
+
+    const channelTypeResponseWithCode = await this.client
+      .from("channel_types")
+      .select("code,name")
+      .eq("code", channelRuleResponse.data.channel_type_code)
+      .maybeSingle();
+    if (channelTypeResponseWithCode.error || !channelTypeResponseWithCode.data) {
+      throw new RepositoryError(
+        channelTypeResponseWithCode.error ? "QUERY_FAILED" : "INVALID_DATA",
+        operation,
+      );
+    }
+
+    const goalRules = new Map(
+      goalRulesResponse.data.map((rule) => [rule.id, rule]),
+    );
+    if (goalsResponse.data.some((goal) => !goalRules.has(goal.goal_rule_id))) {
+      throw new RepositoryError("INVALID_DATA", operation);
+    }
+    const rows: FinalGameRows = {
+      gameRun: {
+        ...gameRun,
+        channel_type_code: channelRuleResponse.data.channel_type_code,
+      },
+      state: stateResponse.data,
+      channelType: channelTypeResponseWithCode.data,
+      specialty: specialtyResponse.data,
+      terminations: terminationResponse.data,
+      goals: goalsResponse.data.map((goal) => ({
+        ...goal,
+        ...goalRules.get(goal.goal_rule_id)!,
+      })),
+    };
+
+    return mapRepositoryData(operation, () => mapFinalGame(rows));
   }
 
   async commitStartGame(

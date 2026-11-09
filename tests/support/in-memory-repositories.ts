@@ -15,7 +15,7 @@ import type {
   IdempotentWeekResultQuery,
   WeekResultRepository,
 } from "@/backend/application/ports/week-result-repository";
-import type { GameRun } from "@/backend/domain/game/game-run";
+import type { FinalGameRun, GameRun } from "@/backend/domain/game/game-run";
 import type { IdeaQueue } from "@/backend/domain/game/idea-stock";
 import type {
   ChannelRule,
@@ -56,6 +56,42 @@ export class InMemoryGameRunRepository implements GameRunRepository {
         (candidate.status === "playing" || candidate.status === "stage_cleared"),
     );
     return clone(run ?? null);
+  }
+
+  async findFinalById(query: OwnedRunQuery): Promise<FinalGameRun | null> {
+    const run = this.runs.find(
+      (candidate) =>
+        candidate.id === query.runId && candidate.ownerUserId === query.actorUserId,
+    );
+    if (!run) return null;
+    return {
+      id: run.id,
+      ownerUserId: run.ownerUserId,
+      channelName: run.channelName,
+      channelType: run.channelType,
+      specialty: run.specialty,
+      status: run.status,
+      completedAt: run.completedAt,
+      currentState: {
+        currentWeek: run.currentState.currentWeek,
+        cash: run.currentState.cash,
+        energy: run.currentState.energy,
+        subscribers: run.currentState.subscribers,
+        cumulativeViews: run.currentState.cumulativeViews,
+        flameCount: run.currentState.flameCount,
+      },
+      termination: null,
+      finalStage: run.currentGoal
+        ? {
+            stageNumber: run.currentGoal.stageNumber,
+            targetSubscribers: run.currentGoal.targetSubscribers,
+            startedWeek: run.currentGoal.startedWeek,
+            deadlineWeek: run.currentGoal.deadlineWeek,
+            achievedWeek: null,
+            isFinal: run.currentGoal.isFinal,
+          }
+        : null,
+    };
   }
 
   async commitStartGame(command: StartGameCommand) {
