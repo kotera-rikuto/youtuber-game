@@ -1351,6 +1351,9 @@ isOneToOne: false
             "abandon_game":
 { Args: { "p_actor_user_id": string,"p_expected_version": number,"p_run_id": string }; Returns: Json
                            },
+            "purchase_equipment":
+{ Args: { "p_actor_user_id": string,"p_equipment_type": string,"p_expected_version": number,"p_level": string,"p_run_id": string }; Returns: Json
+                           },
             "assert_rule_set_matches_run":
 { Args: { "reference_name": string,"referenced_rule_set_id": string,"target_run_id": string }; Returns: undefined
                            },
